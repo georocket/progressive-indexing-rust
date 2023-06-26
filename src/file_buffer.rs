@@ -46,5 +46,16 @@ impl FileBuffer {
         Some(self.buffer[(i - self.pos) as usize])
     }
 
+    #[allow(dead_code)]
+    pub fn print_buffer_content(&mut self) {
+        let cont = String::from_utf8_lossy(&self.buffer);
+        println!("{}", cont);
+    }
+
+    #[allow(dead_code)]
+    pub fn get_size(&mut self) -> u64{
+        self.file.metadata().unwrap().len()
+    }
+
 
 }
