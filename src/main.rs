@@ -1,61 +1,91 @@
 mod file_buffer;
-use std::fs::File;
-use std::io::{Read};
-use grep::matcher::Matcher;
+use std::fs::{File, self};
+use std::io::{Read, Write, Seek};
+use std::os::unix::prelude::FileExt;
+use std::time::Instant;
+use std::vec;
 use grep::printer::{StandardSink, StandardBuilder};
 use grep::regex::RegexMatcher;
-use grep::searcher::{SearcherBuilder, SinkMatch};
+use grep::searcher::{SearcherBuilder, SinkMatch, SinkFinish};
 use grep::searcher::Sink;
+use grep::searcher::Searcher;
+use std::{mem, slice};
 
 fn main() {
     const TESTFILE_1: &str = "/home/derpadi/Documents/Work/Fraunhofer_IGD/ProgressiveIndexingRust/src/DA12_3D_Buildings_Merged.gml";
     let mut f = file_buffer::FileBuffer::new(TESTFILE_1, 1024*1024).expect("Error!");
-    //let r = f.get(0).expect("Fehler!");
-    let pattern = "<gen:value>";
-    let _pattern_size = pattern.chars().count();
-
-    let counter = 0;
-    let file_size = f.get_size();
-
-    //for i in 2000000..2000500 {
-    //    let val: u8 = f.get(i).expect("Read error!");
-    //    let _c = char::from_u32(val as u32).unwrap();
-    //    print!("{}", _c)
+    //for i in 0..5{
+    //    let s = Instant::now();
+    //    create_offset_list(TESTFILE_1, "offsetList.txt");
+    //    let d = s.elapsed();
+    //    println!("Runtime: {:?}", d);
     //}
-    //f.print_buffer_content();
+    let mut load_data = vec![0u64];
+    read_into_vec64("offset.bin", &mut load_data);
+    println!("{:?}", load_data);
+}
 
+
+fn create_offset_list(filename: &str, output: &str) {
     let pattern = "cityObjectMember>";
     let matcher = RegexMatcher::new_line_matcher(pattern).unwrap();
-    let file = File::open(TESTFILE_1).expect("Error opening file!");
-    let mut sink = CustomSink{counter: 0};
+    let file = File::open(filename).expect("Error opening file!");
+    let mut sink = CustomSink{output_filename: "OffsetList.txt".to_string(), counter: 0, data: vec![0u64, 0]};
 
     let mut searcher = SearcherBuilder::new().line_number(true).build();
 
     searcher.search_file(&matcher, &file, &mut sink).expect("Something went wrong!");
-    
-    sink.print_num_results();
+    sink.write_data_to_file("offset.bin");
 }
-
 
 struct CustomSink{
-    counter: u64
+    output_filename: String,
+    counter: u64,
+    data: Vec<u64>
 }
 
-impl CustomSink {
+fn read_into_vec64(filename: &str, vec: &mut Vec<u64>) {
+    let f = File::open(filename).expect("Error opening file!");
+    let size = fs::metadata(filename).expect("Error").len();
+    for i in (0..size).step_by(8){
+        let mut buff = [0u8; 8];
+        f.read_exact_at(&mut buff, i).expect("Error reading!");
+        vec.push(u64::from_be_bytes(buff));
+    }
+}
+
+impl CustomSink{
     fn print_num_results(&mut self){
-        println!("{}", self.counter);
+        println!("{}", self.counter/2);
+    }
+
+    fn write_data_to_file(&mut self, file_name: &str) -> &Vec<u64>{
+        let mut f = File::create("offset.bin").expect("Error creating file!");
+        for &d in &self.data{
+            f.write_all(&d.to_be_bytes());
+        }
+        return &self.data;
     }
 }
 
 impl Sink for CustomSink {
     type Error = std::io::Error;
 
-    fn matched(&mut self, _: &grep::searcher::Searcher, line: &SinkMatch) -> Result<bool, Self::Error> {
-        //line.line_number();
+    fn matched(&mut self, _: &Searcher, line: &SinkMatch) -> Result<bool, Self::Error> {
         self.counter += 1;
-        //println!("Found results: {}", self.counter);
-        //println!("{}: {}", line.line_number().unwrap(), std::str::from_utf8(line.bytes()).unwrap());
+        self.data.push(line.absolute_byte_offset());
         Ok(true)
+    }
+
+    fn finish(&mut self, _searcher: &Searcher, _: &SinkFinish) -> Result<(), Self::Error> {
+        let mut f = File::create(&mut self.output_filename).expect("Error creating file!");
+        
+        for i in (1..self.data.len()-1).step_by(2){
+            write!(f, "{},{}\n", self.data[i], self.data[i+1]).expect("Error writing to file!");
+        }
+        println!("Wrote data to file!");
+        self.print_num_results();
+        Ok(())
     }
 
 }

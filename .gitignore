@@ -22,3 +22,7 @@ Cargo.lock
 *.gml
 
 # End of https://www.toptal.com/developers/gitignore/api/rust
+
+*.txt
+*.bin
+
