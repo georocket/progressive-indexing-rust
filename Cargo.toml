@@ -7,3 +7,4 @@ edition = "2021"
 
 [dependencies]
 grep = "0.2.12"
+termcolor = "1.2.0"
