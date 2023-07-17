@@ -1,5 +1,5 @@
 mod file_buffer;
-mod QueryEngine;
+mod query_engine;
 use std::fs::{File, self};
 use std::io::{Read, Write, BufWriter, BufRead, BufReader};
 use std::os::unix::prelude::FileExt;
@@ -19,8 +19,8 @@ fn main() {
     const TESTFILE_1: &str = "/home/derpadi/Documents/Work/Fraunhofer_IGD/ProgressiveIndexingRust/src/DA12_3D_Buildings_Merged.gml";
 
     //tmp();
+    let x = query_engine::QueryEngine::new(TESTFILE_1.to_string());
     println!("Program ran!");
-
 }
 
 fn search(pattern: &str, filename: &str) {

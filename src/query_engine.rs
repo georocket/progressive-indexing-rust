@@ -6,7 +6,7 @@ use std::io::Write;
 
 
 
-struct QueryEngine {
+pub struct QueryEngine {
     filename: String,
     file: File,
     file_format: FileFormat,
@@ -15,24 +15,26 @@ struct QueryEngine {
 }
 
 impl QueryEngine {
-    fn new(&mut self, filename: String) -> QueryEngine {
+    pub fn new(filename: String) -> QueryEngine {
         let file = File::open(&filename).expect("Error opening file!");
         let file_format = FileFormat::CityGML; // At the moment hard coded
         let mut offset_list:Vec<(u64, u64)> = Vec::new();
-        let num_rows = 0;
+        let mut num_rows = 0;
 
         // Initialize Offset List
         let offset_list_filename = filename.clone() + ".qry";
         if !Path::new(&offset_list_filename).exists() {
             // TODO: Create offset-list and store it to file
             let matcher = RegexMatcher::new_line_matcher("cityObjectMember>").unwrap();
-            let mut sink = OffsetSink{output_filename: offset_list_filename, counter: 0, first: 0, data: &mut offset_list};
+            let mut sink = OffsetSink::new(offset_list_filename, &mut offset_list, &mut num_rows);
             let mut searcher = SearcherBuilder::new()
                                             .line_number(true)
                                             .build();
             searcher.search_file(&matcher, &file, &mut sink).expect("Error creating Offset-List!");
+            println!("OffsetList created! ({})", num_rows);
         } else {
-            self.read_offset_list();
+            num_rows = QueryEngine::read_offset_list(&mut offset_list, &filename);
+            println!("OffsetList read!");
         }
 
         QueryEngine {
@@ -42,13 +44,13 @@ impl QueryEngine {
             offset_list: offset_list,
             num_rows: num_rows
         }
-
     }
 
-    fn read_offset_list(&mut self) {
-        let offset_list_filename = self.filename.clone() + ".qry";
+    fn read_offset_list(offset_list: &mut Vec<(u64, u64)>, filename: &String) -> usize {
+        let offset_list_filename = filename.clone() + ".qry";
         let file = File::open(offset_list_filename).expect("Error opening offset-list file!");
         let r = BufReader::new(file);
+        let mut counter: usize = 0;
 
         for l in r.lines() {
             let line = l.expect("Error reading line!");
@@ -63,34 +65,44 @@ impl QueryEngine {
             let first = values[0];
             let second = values[1];
             
-            self.offset_list.push((first, second));
+            offset_list.push((first, second));
+            counter += 1;
         }
+        counter
+    }
+
+    fn searchAttributeByKey(key: String, from: usize, to: usize) -> Vec<String> {
+        Vec::new()
+        // TODO: Probably easy implementation for this!
+    }
+
+    fn getSearchAttributeByKeyGenerator(key: String, from: u64) {
+        // TODO: Implement this by using an iterator?
+        // https://stackoverflow.com/questions/45882329/read-large-files-line-by-line-in-rust
     }
 }
 
 struct OffsetSink<'a>{
     output_filename: String,
-    counter: u64,
+    counter: &'a mut usize,
     first: u64,
     data: &'a mut Vec<(u64,u64)>
 }
 
 impl OffsetSink<'_>{
-    fn print_num_results(&self){
-        println!("{}", self.counter/2);
+
+    pub fn new<'a>(filename: String, data: &'a mut Vec<(u64, u64)>, counter: &'a mut usize) -> OffsetSink<'a> {
+        OffsetSink { 
+            output_filename: filename, 
+            counter: counter, 
+            first: 0, 
+            data
+        }
     }
 
-    //fn write_data_to_file(&self, file_name: &str) -> &Vec<(u64,u64)>{
-    //    let f = File::create("offset.bin").expect("Error creating file!");
-    //    let mut w = BufWriter::new(f);
-    //    let mut buffer:Vec<u8> = vec![];
-    //    for d in self.data{
-    //        buffer.extend_from_slice(&d.0.to_be_bytes());
-    //        buffer.extend_from_slice(&d.1.to_be_bytes());
-    //    }
-    //    w.write_all(&buffer).expect("Error writing!");
-    //    return &self.data;
-    //}
+    fn print_num_results(&self){
+        println!("{}", *self.counter/2);
+    }
 }
 
 impl Sink for OffsetSink<'_> {
@@ -98,12 +110,12 @@ impl Sink for OffsetSink<'_> {
 
     fn matched(&mut self, _: &Searcher, line: &SinkMatch) -> Result<bool, Self::Error> {
         // Case: 
-        if self.counter % 2 == 0 {
+        if *self.counter % 2 == 0 {
             self.first = line.absolute_byte_offset();
         } else {
             self.data.push((self.first,line.absolute_byte_offset()));
         }
-        self.counter += 1;
+        *self.counter += 1;
         Ok(true)
     }
 
@@ -115,6 +127,7 @@ impl Sink for OffsetSink<'_> {
         }
         println!("Wrote data to file!");
         self.print_num_results();
+        *self.counter /= 2;
         Ok(())
     }
 

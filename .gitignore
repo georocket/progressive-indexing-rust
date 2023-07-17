@@ -25,4 +25,5 @@ Cargo.lock
 
 *.txt
 *.bin
+*.qry
 
