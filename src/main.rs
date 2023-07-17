@@ -19,6 +19,7 @@ fn main() {
     const TESTFILE_1: &str = "/home/derpadi/Documents/Work/Fraunhofer_IGD/ProgressiveIndexingRust/src/DA12_3D_Buildings_Merged.gml";
 
     //tmp();
+    println!("Program ran!");
 
 }
 

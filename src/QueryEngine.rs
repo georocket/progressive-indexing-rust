@@ -1,6 +1,6 @@
 use std::{fs::File, path::Path, io::{BufWriter, BufRead, BufReader}};
 
-use grep::{regex::RegexMatcher, searcher::{Sink, Searcher, SinkMatch, SinkFinish}};
+use grep::{regex::RegexMatcher, searcher::{Sink, Searcher, SinkMatch, SinkFinish, SearcherBuilder}};
 use std::io::Write;
 
 
@@ -25,11 +25,14 @@ impl QueryEngine {
         let offset_list_filename = filename.clone() + ".qry";
         if !Path::new(&offset_list_filename).exists() {
             // TODO: Create offset-list and store it to file
-            let matcher = RegexMatcher::new_line_matcher("cityObjectMember>");
-            let sink = OffsetSink{output_filename: offset_list_filename, counter: 0, first: 0, data: &mut offset_list};
-            
+            let matcher = RegexMatcher::new_line_matcher("cityObjectMember>").unwrap();
+            let mut sink = OffsetSink{output_filename: offset_list_filename, counter: 0, first: 0, data: &mut offset_list};
+            let mut searcher = SearcherBuilder::new()
+                                            .line_number(true)
+                                            .build();
+            searcher.search_file(&matcher, &file, &mut sink).expect("Error creating Offset-List!");
         } else {
-            // TODO: Load Offset-List from file
+            self.read_offset_list();
         }
 
         QueryEngine {
@@ -42,7 +45,7 @@ impl QueryEngine {
 
     }
 
-    fn read_offset_list(&self, offset_list: &mut Vec<(u64, u64)>) {
+    fn read_offset_list(&mut self) {
         let offset_list_filename = self.filename.clone() + ".qry";
         let file = File::open(offset_list_filename).expect("Error opening offset-list file!");
         let r = BufReader::new(file);
@@ -60,7 +63,7 @@ impl QueryEngine {
             let first = values[0];
             let second = values[1];
             
-            offset_list.push((first, second));
+            self.offset_list.push((first, second));
         }
     }
 }
