@@ -1,7 +1,9 @@
 mod file_buffer;
 mod query_engine;
+mod boyer_moore;
+use std::collections::HashMap;
 use std::fs::{File, self};
-use std::io::{Read, Write, BufWriter, BufRead, BufReader};
+use std::io::{Read, Write, BufWriter, BufRead, BufReader, Seek, self};
 use std::os::unix::prelude::FileExt;
 use std::time::Instant;
 use std::vec;
@@ -15,11 +17,29 @@ use grep::searcher::Searcher;
 use grep::cli;
 use termcolor::ColorChoice;
 
+use crate::boyer_moore::BoyerMoore;
+use crate::file_buffer::FileBuffer;
+
 fn main() {
     const TESTFILE_1: &str = "/home/derpadi/Documents/Work/Fraunhofer_IGD/ProgressiveIndexingRust/src/DA12_3D_Buildings_Merged.gml";
 
     //tmp();
-    let x = query_engine::QueryEngine::new(TESTFILE_1.to_string());
+    //let x = query_engine::QueryEngine::new(TESTFILE_1.to_string());
+    //let mut fb = file_buffer::FileBuffer::new(TESTFILE_1, 1024*1024).unwrap();
+    //for i in 0..100{
+    //    println!("Extracted: {}", fb.get(i).unwrap() as char);
+    //}
+    let mut fb = FileBuffer::new(
+        "/home/derpadi/Documents/Work/Fraunhofer_IGD/ProgressiveIndexingRust/src/DA12_3D_Buildings_Merged.gml", 
+        1024*1024*1024
+    ).unwrap();
+    let bm = BoyerMoore::new("<core:cityObjectMember").unwrap();
+    let r = bm.boyer_moore_bad_char_only(&mut fb).unwrap();
+    let found = r.front().unwrap();
+    //for i in *found..*found+10 {
+    //    println!("Extracted: {}", fb.get(i as u64).unwrap() as char);
+    //}
+    //println!("Result: {:?}", r);
     println!("Program ran!");
 }
 
@@ -53,6 +73,14 @@ fn search(pattern: &str, filename: &str) {
     let res = searcher.search_file(&matcher, &file, printer.sink(&matcher));
     let end = start.elapsed();
     println!("Time elapsed: {:?}", end);
+}
+
+fn search_alternative(filename: &str, pattern: &str, offset: usize) {
+    let mut file = File::open(filename).unwrap();
+    let mut buffer = String::new();
+
+    //file.seek(io::SeekFrom::Start(offset as u64))?;
+    file.read_to_string(&mut buffer);
 }
 
 fn tmp(){
