@@ -1,4 +1,4 @@
-use std::{fs::File, path::Path, io::{BufWriter, BufRead, BufReader}};
+use std::{fs::File, path::Path, io::{BufRead, BufReader}};
 
 use grep::{regex::RegexMatcher, searcher::{Sink, Searcher, SinkMatch, SinkFinish, SearcherBuilder}};
 use std::io::Write;
@@ -6,6 +6,7 @@ use std::io::Write;
 
 
 
+#[allow(dead_code)]
 pub struct QueryEngine {
     filename: String,
     file: File,
@@ -14,6 +15,7 @@ pub struct QueryEngine {
     num_rows: usize
 }
 
+#[allow(dead_code)]
 impl QueryEngine {
     pub fn new(filename: String) -> QueryEngine {
         let file = File::open(&filename).expect("Error opening file!");
@@ -71,12 +73,12 @@ impl QueryEngine {
         counter
     }
 
-    fn searchAttributeByKey(key: String, from: usize, to: usize) -> Vec<String> {
+    fn search_attribute_by_key(key: String, from: usize, to: usize) -> Vec<String> {
         Vec::new()
         // TODO: Probably easy implementation for this!
     }
 
-    fn getSearchAttributeByKeyGenerator(key: String, from: u64) {
+    fn get_search_attribute_by_key_generator(key: String, from: u64) {
         // TODO: Implement this by using an iterator?
         // https://stackoverflow.com/questions/45882329/read-large-files-line-by-line-in-rust
     }
@@ -133,6 +135,7 @@ impl Sink for OffsetSink<'_> {
 
 }
 
+#[allow(dead_code)]
 enum FileFormat {
     CityGML, CityJSON
 }

@@ -1,14 +1,15 @@
 // Module to try out pointer (and box) arithmetic in rust
-use std::fmt::{self, Display, Formatter};
 use std::marker::PhantomData;
 use std::ptr::NonNull;
 
+#[allow(dead_code)]
 struct Node<T> {
     val: T,
     next: Option<NonNull<Node<T>>>,
     prev: Option<NonNull<Node<T>>>
 }
 
+#[allow(dead_code)]
 impl<T> Node<T> {
     fn new(t: T) -> Node<T> {
         Node { 
@@ -26,6 +27,7 @@ pub struct LinkedList<T> {
     marker: PhantomData<Box<Node<T>>>
 }
 
+#[allow(dead_code)]
 impl<T> LinkedList<T> {
     pub fn new() -> Self {
         Self { 

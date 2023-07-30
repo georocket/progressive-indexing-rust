@@ -1,7 +1,6 @@
-use core::num;
 use std::collections::{HashMap, LinkedList};
 
-use crate::file_buffer::FileBuffer;
+use crate::{file_buffer::FileBuffer, matcher};
 
 pub struct BoyerMoore<'a> {
     bad_char_lookup_table: Vec<HashMap<char, isize>>,
@@ -75,14 +74,15 @@ impl<'a> BoyerMoore<'a> {
     pub fn scan_attribute_by_key(&self, file: &mut FileBuffer, offset_list: &Vec<(u64, u64)>, from: usize, to: usize) -> Vec<String> {
         let file_size = file.get_size();                                
         let pattern_size = self.pattern.len();
-        let result = vec![String::from(""); to - from];
+        //let result = vec![String::from(""); to - from];
+        let mut result = vec![];
     
-        let range = offset_list[from].0..offset_list[to].0;
+        //let range = offset_list[from].0..offset_list[to].0;
 
-        let mut i = range.start;
-        while i < file_size && range.contains(&i) {
+        let mut i = 0;
+        while i < file_size {
             if pattern_size < (file_size - 1) as usize {
-                let mut j = (pattern_size - 1);
+                let mut j = (pattern_size - 1) as isize;
                 while j >= 0 {
                     let t = file.get(i+j as u64).unwrap() as char;
                     let p = self.pattern.as_bytes()[j as usize] as char;
@@ -90,22 +90,33 @@ impl<'a> BoyerMoore<'a> {
                     if t != p {
                         let contains = &self.bad_char_lookup_table[j as usize].contains_key(&t);
                         let skips = if !contains {
-                            j+1
+                            (j+1) as usize
                         } else {
-                            self.bad_char_lookup_table[j][&t] as usize
+                            self.bad_char_lookup_table[j as usize][&t] as usize
                         };
                         i += (skips-1) as u64;
                         j -= 1;
                         break;
                     }
                     if j == 0 {
-                        // TODO: Implement "Matcher"!
-                    }
+                        let mut matcher = matcher::SimpleMatcher::new("<gen:value>");
+                        let mut result_value = String::from("");
+                        i += pattern_size as u64;
 
+                        while !matcher.step(&(file.get(i).unwrap() as char)){ i += 1 }
+                        
+                        let index = 0;
+                        let mut act_char = file.get(i).unwrap() as char;
+                        while(act_char != '<') {
+                            result_value.push(act_char);
+                            i += 1;
+                            act_char = file.get(i).unwrap() as char;
+                        }
+                        result.push(result_value);
+                    }
                     j -= 1;
                 }
             }
-            println!("HEY");
             i += 1;
         }
         result

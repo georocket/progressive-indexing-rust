@@ -1,8 +1,1488 @@
-test1
-test2
-test3
-test4
-test5
-test6
-test7
-test8
+<core:cityObjectMember>
+<bldg:Building gml:id="gml_ZAWOQ5RHROA5Y2UDFRWNZV2E8QOZQ43HKINV">
+<gml:name>Bldg_12210000161</gml:name>
+<gen:stringAttribute name="BIN">
+<gen:value>1026885</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="DOITT_ID">
+<gen:value>110442</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="SOURCE_ID">
+<gen:value>12210000161</gen:value>
+</gen:stringAttribute>
+<bldg:boundedBy>
+<bldg:GroundSurface gml:id="gml_IJQD6YIUDVQD2SF5Y3PEHRP9R20WU3UQP845">
+<gen:stringAttribute name="BIN">
+<gen:value>1026885</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="DOITT_ID">
+<gen:value>110442</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="SOURCE_ID">
+<gen:value>12210000161</gen:value>
+</gen:stringAttribute>
+<bldg:lod2MultiSurface>
+<gml:MultiSurface srsName="EPSG:2263" srsDimension="3">
+<gml:surfaceMember>
+<gml:Polygon>
+<gml:exterior>
+<gml:LinearRing>
+<gml:posList>988032.725034252 219302.343269229 73.5329999999958 988020.843168244 219280.990293562 73.5329999999958 988020.706357494 219280.744559154 73.5329999999958 988014.766080663 219284.04999873 73.5329999999958 988004.007243916 219264.715719819 73.5329999999958 988009.947848827 219261.410280228 73.5329999999958 987990.850446075 219227.090466976 73.5329999999958 987963.868544668 219242.104872644 73.5329999999958 987947.209457248 219251.374867231 73.5329999999958 987955.99454467 219267.162237227 73.5329999999958 987966.30686 219285.694352403 73.5329999999958 987971.394776329 219282.863321319 73.5329999999958 987982.153284997 219302.197600231 73.5329999999958 987977.065696746 219305.028631315 73.5329999999958 987985.796978489 219320.719216734 73.5329999999958 987989.084373489 219326.62734139 73.5329999999958 988013.740492165 219312.907224476 73.5329999999958 988032.725034252 219302.343269229 73.5329999999958</gml:posList>
+</gml:LinearRing>
+</gml:exterior>
+</gml:Polygon>
+</gml:surfaceMember>
+</gml:MultiSurface>
+</bldg:lod2MultiSurface>
+</bldg:GroundSurface>
+</bldg:boundedBy>
+<bldg:boundedBy>
+<bldg:RoofSurface gml:id="gml_ASRAMHAMAK68Z7TQ2JO14RWE7WAKB9Y3XJ5F">
+<gen:stringAttribute name="BIN">
+<gen:value>1026885</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="DOITT_ID">
+<gen:value>110442</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="SOURCE_ID">
+<gen:value>12210000161</gen:value>
+</gen:stringAttribute>
+<bldg:lod2MultiSurface>
+<gml:MultiSurface srsName="EPSG:2263" srsDimension="3">
+<gml:surfaceMember>
+<gml:Polygon>
+<gml:exterior>
+<gml:LinearRing>
+<gml:posList>987997.388490751 219279.394168153 161.455799999996 987986.973813415 219285.189432144 161.455799999996 987983.830447003 219279.540165231 161.455799999996 987987.853732914 219277.301324561 161.455799999996 987980.097186744 219263.361719891 161.455799999996 987985.406231239 219260.407329485 161.455799999996 987993.302212834 219274.597261727 161.455799999996 987994.384231657 219273.995228812 161.455799999996 987997.388490751 219279.394168153 161.455799999996</gml:posList>
+</gml:LinearRing>
+</gml:exterior>
+</gml:Polygon>
+</gml:surfaceMember>
+</gml:MultiSurface>
+</bldg:lod2MultiSurface>
+</bldg:RoofSurface>
+</bldg:boundedBy>
+<bldg:boundedBy>
+<bldg:RoofSurface gml:id="gml_MO19QD8G527XKDYGUDBT5NC0H0KBWDLQCNDN">
+<gen:stringAttribute name="BIN">
+<gen:value>1026885</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="DOITT_ID">
+<gen:value>110442</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="SOURCE_ID">
+<gen:value>12210000161</gen:value>
+</gen:stringAttribute>
+<bldg:lod2MultiSurface>
+<gml:MultiSurface srsName="EPSG:2263" srsDimension="3">
+<gml:surfaceMember>
+<gml:Polygon>
+<gml:exterior>
+<gml:LinearRing>
+<gml:posList>988013.740492165 219312.907224476 150.173699999999 987989.084373489 219326.62734139 150.173699999999 987985.796978489 219320.719216734 150.173699999999 987977.065696746 219305.028631315 150.173699999999 987982.153284997 219302.197600231 150.173699999999 987971.394776329 219282.863321319 150.173699999999 987966.30686 219285.694352403 150.173699999999 987955.99454467 219267.162237227 150.173699999999 987947.209457248 219251.374867231 150.173699999999 987963.868544668 219242.104872644 150.173699999999 987990.850446075 219227.090466976 150.173699999999 988009.947848827 219261.410280228 150.173699999999 988004.007243916 219264.715719819 150.173699999999 988014.766080663 219284.04999873 150.173699999999 988020.706357494 219280.744559154 150.173699999999 988020.843168244 219280.990293562 150.173699999999 988032.725034252 219302.343269229 150.173699999999 988013.740492165 219312.907224476 150.173699999999</gml:posList>
+</gml:LinearRing>
+</gml:exterior>
+</gml:Polygon>
+</gml:surfaceMember>
+</gml:MultiSurface>
+</bldg:lod2MultiSurface>
+</bldg:RoofSurface>
+</bldg:boundedBy>
+<bldg:boundedBy>
+<bldg:RoofSurface gml:id="gml_SOL0SQIFYNA8LRJUHLK9LA2027T2QRU69KXG">
+<gen:stringAttribute name="BIN">
+<gen:value>1026885</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="DOITT_ID">
+<gen:value>110442</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="SOURCE_ID">
+<gen:value>12210000161</gen:value>
+</gen:stringAttribute>
+<bldg:lod2MultiSurface>
+<gml:MultiSurface srsName="EPSG:2263" srsDimension="3">
+<gml:surfaceMember>
+<gml:Polygon>
+<gml:exterior>
+<gml:LinearRing>
+<gml:posList>987983.830447003 219279.540165231 150.173699999999 987987.853732914 219277.301324561 150.173699999999 987980.097186744 219263.361719891 150.173699999999 987985.406231239 219260.407329485 150.173699999999 987993.302212834 219274.597261727 150.173699999999 987994.384231657 219273.995228812 150.173699999999 987997.388490751 219279.394168153 150.173699999999 987986.973813415 219285.189432144 150.173699999999 987983.830447003 219279.540165231 150.173699999999</gml:posList>
+</gml:LinearRing>
+</gml:exterior>
+</gml:Polygon>
+</gml:surfaceMember>
+</gml:MultiSurface>
+</bldg:lod2MultiSurface>
+</bldg:RoofSurface>
+</bldg:boundedBy>
+<bldg:boundedBy>
+<bldg:WallSurface gml:id="gml_1KAPE7C4ZMZE41I0DEBRVV8V7QZH2D8A3C27">
+<gen:stringAttribute name="BIN">
+<gen:value>1026885</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="DOITT_ID">
+<gen:value>110442</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="SOURCE_ID">
+<gen:value>12210000161</gen:value>
+</gen:stringAttribute>
+<bldg:lod2MultiSurface>
+<gml:MultiSurface srsName="EPSG:2263" srsDimension="3">
+<gml:surfaceMember>
+<gml:Polygon>
+<gml:exterior>
+<gml:LinearRing>
+<gml:posList>987986.973813415 219285.189432144 150.173699999999 987983.830447003 219279.540165231 150.173699999999 987983.830447003 219279.540165231 161.455799999996 987986.973813415 219285.189432144 161.455799999996 987986.973813415 219285.189432144 150.173699999999</gml:posList>
+</gml:LinearRing>
+</gml:exterior>
+</gml:Polygon>
+</gml:surfaceMember>
+</gml:MultiSurface>
+</bldg:lod2MultiSurface>
+</bldg:WallSurface>
+</bldg:boundedBy>
+<bldg:boundedBy>
+<bldg:WallSurface gml:id="gml_L45O88APHO8YI435IGUGMPRXI4BWOZL19KPI">
+<gen:stringAttribute name="BIN">
+<gen:value>1026885</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="DOITT_ID">
+<gen:value>110442</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="SOURCE_ID">
+<gen:value>12210000161</gen:value>
+</gen:stringAttribute>
+<bldg:lod2MultiSurface>
+<gml:MultiSurface srsName="EPSG:2263" srsDimension="3">
+<gml:surfaceMember>
+<gml:Polygon>
+<gml:exterior>
+<gml:LinearRing>
+<gml:posList>987997.388490751 219279.394168153 150.173699999999 987986.973813415 219285.189432144 150.173699999999 987986.973813415 219285.189432144 161.455799999996 987997.388490751 219279.394168153 161.455799999996 987997.388490751 219279.394168153 150.173699999999</gml:posList>
+</gml:LinearRing>
+</gml:exterior>
+</gml:Polygon>
+</gml:surfaceMember>
+</gml:MultiSurface>
+</bldg:lod2MultiSurface>
+</bldg:WallSurface>
+</bldg:boundedBy>
+<bldg:boundedBy>
+<bldg:WallSurface gml:id="gml_IXTXVTNSSA88KC2XSVV6NHGD6NASDGZ8OVWV">
+<gen:stringAttribute name="BIN">
+<gen:value>1026885</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="DOITT_ID">
+<gen:value>110442</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="SOURCE_ID">
+<gen:value>12210000161</gen:value>
+</gen:stringAttribute>
+<bldg:lod2MultiSurface>
+<gml:MultiSurface srsName="EPSG:2263" srsDimension="3">
+<gml:surfaceMember>
+<gml:Polygon>
+<gml:exterior>
+<gml:LinearRing>
+<gml:posList>987994.384231657 219273.995228812 150.173699999999 987997.388490751 219279.394168153 150.173699999999 987997.388490751 219279.394168153 161.455799999996 987994.384231657 219273.995228812 161.455799999996 987994.384231657 219273.995228812 150.173699999999</gml:posList>
+</gml:LinearRing>
+</gml:exterior>
+</gml:Polygon>
+</gml:surfaceMember>
+</gml:MultiSurface>
+</bldg:lod2MultiSurface>
+</bldg:WallSurface>
+</bldg:boundedBy>
+<bldg:boundedBy>
+<bldg:WallSurface gml:id="gml_W6V3B9FH5DLL7XINZS5AQP1HS4PLKATZPGBW">
+<gen:stringAttribute name="BIN">
+<gen:value>1026885</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="DOITT_ID">
+<gen:value>110442</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="SOURCE_ID">
+<gen:value>12210000161</gen:value>
+</gen:stringAttribute>
+<bldg:lod2MultiSurface>
+<gml:MultiSurface srsName="EPSG:2263" srsDimension="3">
+<gml:surfaceMember>
+<gml:Polygon>
+<gml:exterior>
+<gml:LinearRing>
+<gml:posList>987993.302212834 219274.597261727 150.173699999999 987994.384231657 219273.995228812 150.173699999999 987994.384231657 219273.995228812 161.455799999996 987993.302212834 219274.597261727 161.455799999996 987993.302212834 219274.597261727 150.173699999999</gml:posList>
+</gml:LinearRing>
+</gml:exterior>
+</gml:Polygon>
+</gml:surfaceMember>
+</gml:MultiSurface>
+</bldg:lod2MultiSurface>
+</bldg:WallSurface>
+</bldg:boundedBy>
+<bldg:boundedBy>
+<bldg:WallSurface gml:id="gml_A14NC8H3BZVQ8LI6ZWEGFNLGT375TW50VWN7">
+<gen:stringAttribute name="BIN">
+<gen:value>1026885</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="DOITT_ID">
+<gen:value>110442</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="SOURCE_ID">
+<gen:value>12210000161</gen:value>
+</gen:stringAttribute>
+<bldg:lod2MultiSurface>
+<gml:MultiSurface srsName="EPSG:2263" srsDimension="3">
+<gml:surfaceMember>
+<gml:Polygon>
+<gml:exterior>
+<gml:LinearRing>
+<gml:posList>987985.406231239 219260.407329485 150.173699999999 987993.302212834 219274.597261727 150.173699999999 987993.302212834 219274.597261727 161.455799999996 987985.406231239 219260.407329485 161.455799999996 987985.406231239 219260.407329485 150.173699999999</gml:posList>
+</gml:LinearRing>
+</gml:exterior>
+</gml:Polygon>
+</gml:surfaceMember>
+</gml:MultiSurface>
+</bldg:lod2MultiSurface>
+</bldg:WallSurface>
+</bldg:boundedBy>
+<bldg:boundedBy>
+<bldg:WallSurface gml:id="gml_XR8RH7F2J9N92X93B4QWQY3IBMJP354M7KII">
+<gen:stringAttribute name="BIN">
+<gen:value>1026885</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="DOITT_ID">
+<gen:value>110442</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="SOURCE_ID">
+<gen:value>12210000161</gen:value>
+</gen:stringAttribute>
+<bldg:lod2MultiSurface>
+<gml:MultiSurface srsName="EPSG:2263" srsDimension="3">
+<gml:surfaceMember>
+<gml:Polygon>
+<gml:exterior>
+<gml:LinearRing>
+<gml:posList>987980.097186744 219263.361719891 150.173699999999 987985.406231239 219260.407329485 150.173699999999 987985.406231239 219260.407329485 161.455799999996 987980.097186744 219263.361719891 161.455799999996 987980.097186744 219263.361719891 150.173699999999</gml:posList>
+</gml:LinearRing>
+</gml:exterior>
+</gml:Polygon>
+</gml:surfaceMember>
+</gml:MultiSurface>
+</bldg:lod2MultiSurface>
+</bldg:WallSurface>
+</bldg:boundedBy>
+<bldg:boundedBy>
+<bldg:WallSurface gml:id="gml_XW8HIS7UQ7C6WCY0F1R9X0Q5Y09OEBBSP1GO">
+<gen:stringAttribute name="BIN">
+<gen:value>1026885</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="DOITT_ID">
+<gen:value>110442</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="SOURCE_ID">
+<gen:value>12210000161</gen:value>
+</gen:stringAttribute>
+<bldg:lod2MultiSurface>
+<gml:MultiSurface srsName="EPSG:2263" srsDimension="3">
+<gml:surfaceMember>
+<gml:Polygon>
+<gml:exterior>
+<gml:LinearRing>
+<gml:posList>987987.853732914 219277.301324561 150.173699999999 987980.097186744 219263.361719891 150.173699999999 987980.097186744 219263.361719891 161.455799999996 987987.853732914 219277.301324561 161.455799999996 987987.853732914 219277.301324561 150.173699999999</gml:posList>
+</gml:LinearRing>
+</gml:exterior>
+</gml:Polygon>
+</gml:surfaceMember>
+</gml:MultiSurface>
+</bldg:lod2MultiSurface>
+</bldg:WallSurface>
+</bldg:boundedBy>
+<bldg:boundedBy>
+<bldg:WallSurface gml:id="gml_6JO80J1DKN21GDGG3IU7GDSSSTQP6UQ55J46">
+<gen:stringAttribute name="BIN">
+<gen:value>1026885</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="DOITT_ID">
+<gen:value>110442</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="SOURCE_ID">
+<gen:value>12210000161</gen:value>
+</gen:stringAttribute>
+<bldg:lod2MultiSurface>
+<gml:MultiSurface srsName="EPSG:2263" srsDimension="3">
+<gml:surfaceMember>
+<gml:Polygon>
+<gml:exterior>
+<gml:LinearRing>
+<gml:posList>987983.830447003 219279.540165231 150.173699999999 987987.853732914 219277.301324561 150.173699999999 987987.853732914 219277.301324561 161.455799999996 987983.830447003 219279.540165231 161.455799999996 987983.830447003 219279.540165231 150.173699999999</gml:posList>
+</gml:LinearRing>
+</gml:exterior>
+</gml:Polygon>
+</gml:surfaceMember>
+</gml:MultiSurface>
+</bldg:lod2MultiSurface>
+</bldg:WallSurface>
+</bldg:boundedBy>
+<bldg:boundedBy>
+<bldg:WallSurface gml:id="gml_NSIO8MUL7HHB44ZGGJI205PH2MHZ6756IK3K">
+<gen:stringAttribute name="BIN">
+<gen:value>1026885</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="DOITT_ID">
+<gen:value>110442</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="SOURCE_ID">
+<gen:value>12210000161</gen:value>
+</gen:stringAttribute>
+<bldg:lod2MultiSurface>
+<gml:MultiSurface srsName="EPSG:2263" srsDimension="3">
+<gml:surfaceMember>
+<gml:Polygon>
+<gml:exterior>
+<gml:LinearRing>
+<gml:posList>988013.740492165 219312.907224476 73.5329999999958 988013.740492165 219312.907224476 150.173699999999 988032.725034252 219302.343269229 150.173699999999 988032.725034252 219302.343269229 73.5329999999958 988013.740492165 219312.907224476 73.5329999999958</gml:posList>
+</gml:LinearRing>
+</gml:exterior>
+</gml:Polygon>
+</gml:surfaceMember>
+</gml:MultiSurface>
+</bldg:lod2MultiSurface>
+</bldg:WallSurface>
+</bldg:boundedBy>
+<bldg:boundedBy>
+<bldg:WallSurface gml:id="gml_9G84SHULLOVB4KZWBBFRCBVWE4OALL2TBOG9">
+<gen:stringAttribute name="BIN">
+<gen:value>1026885</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="DOITT_ID">
+<gen:value>110442</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="SOURCE_ID">
+<gen:value>12210000161</gen:value>
+</gen:stringAttribute>
+<bldg:lod2MultiSurface>
+<gml:MultiSurface srsName="EPSG:2263" srsDimension="3">
+<gml:surfaceMember>
+<gml:Polygon>
+<gml:exterior>
+<gml:LinearRing>
+<gml:posList>987989.084373489 219326.62734139 73.5329999999958 987989.084373489 219326.62734139 150.173699999999 988013.740492165 219312.907224476 150.173699999999 988013.740492165 219312.907224476 73.5329999999958 987989.084373489 219326.62734139 73.5329999999958</gml:posList>
+</gml:LinearRing>
+</gml:exterior>
+</gml:Polygon>
+</gml:surfaceMember>
+</gml:MultiSurface>
+</bldg:lod2MultiSurface>
+</bldg:WallSurface>
+</bldg:boundedBy>
+<bldg:boundedBy>
+<bldg:WallSurface gml:id="gml_KNKSKE6O1F4WHJ4GELI8VMZX2U9AWBAQDZLY">
+<gen:stringAttribute name="BIN">
+<gen:value>1026885</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="DOITT_ID">
+<gen:value>110442</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="SOURCE_ID">
+<gen:value>12210000161</gen:value>
+</gen:stringAttribute>
+<bldg:lod2MultiSurface>
+<gml:MultiSurface srsName="EPSG:2263" srsDimension="3">
+<gml:surfaceMember>
+<gml:Polygon>
+<gml:exterior>
+<gml:LinearRing>
+<gml:posList>987985.796978489 219320.719216734 73.5329999999958 987985.796978489 219320.719216734 150.173699999999 987989.084373489 219326.62734139 150.173699999999 987989.084373489 219326.62734139 73.5329999999958 987985.796978489 219320.719216734 73.5329999999958</gml:posList>
+</gml:LinearRing>
+</gml:exterior>
+</gml:Polygon>
+</gml:surfaceMember>
+</gml:MultiSurface>
+</bldg:lod2MultiSurface>
+</bldg:WallSurface>
+</bldg:boundedBy>
+<bldg:boundedBy>
+<bldg:WallSurface gml:id="gml_1WG7FH59922CQVPZGIO8XWZ0F51ZFOSS7GPS">
+<gen:stringAttribute name="BIN">
+<gen:value>1026885</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="DOITT_ID">
+<gen:value>110442</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="SOURCE_ID">
+<gen:value>12210000161</gen:value>
+</gen:stringAttribute>
+<bldg:lod2MultiSurface>
+<gml:MultiSurface srsName="EPSG:2263" srsDimension="3">
+<gml:surfaceMember>
+<gml:Polygon>
+<gml:exterior>
+<gml:LinearRing>
+<gml:posList>987977.065696746 219305.028631315 73.5329999999958 987977.065696746 219305.028631315 150.173699999999 987985.796978489 219320.719216734 150.173699999999 987985.796978489 219320.719216734 73.5329999999958 987977.065696746 219305.028631315 73.5329999999958</gml:posList>
+</gml:LinearRing>
+</gml:exterior>
+</gml:Polygon>
+</gml:surfaceMember>
+</gml:MultiSurface>
+</bldg:lod2MultiSurface>
+</bldg:WallSurface>
+</bldg:boundedBy>
+<bldg:boundedBy>
+<bldg:WallSurface gml:id="gml_FK3NR0XA26TAWKK5KNAE6Q1JPF3VKJEJG6U5">
+<gen:stringAttribute name="BIN">
+<gen:value>1026885</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="DOITT_ID">
+<gen:value>110442</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="SOURCE_ID">
+<gen:value>12210000161</gen:value>
+</gen:stringAttribute>
+<bldg:lod2MultiSurface>
+<gml:MultiSurface srsName="EPSG:2263" srsDimension="3">
+<gml:surfaceMember>
+<gml:Polygon>
+<gml:exterior>
+<gml:LinearRing>
+<gml:posList>987982.153284997 219302.197600231 73.5329999999958 987982.153284997 219302.197600231 150.173699999999 987977.065696746 219305.028631315 150.173699999999 987977.065696746 219305.028631315 73.5329999999958 987982.153284997 219302.197600231 73.5329999999958</gml:posList>
+</gml:LinearRing>
+</gml:exterior>
+</gml:Polygon>
+</gml:surfaceMember>
+</gml:MultiSurface>
+</bldg:lod2MultiSurface>
+</bldg:WallSurface>
+</bldg:boundedBy>
+<bldg:boundedBy>
+<bldg:WallSurface gml:id="gml_OAQ68Z7JL1D4EXIUFKVYST8L7C0S2J4Z0OQJ">
+<gen:stringAttribute name="BIN">
+<gen:value>1026885</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="DOITT_ID">
+<gen:value>110442</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="SOURCE_ID">
+<gen:value>12210000161</gen:value>
+</gen:stringAttribute>
+<bldg:lod2MultiSurface>
+<gml:MultiSurface srsName="EPSG:2263" srsDimension="3">
+<gml:surfaceMember>
+<gml:Polygon>
+<gml:exterior>
+<gml:LinearRing>
+<gml:posList>987971.394776329 219282.863321319 73.5329999999958 987971.394776329 219282.863321319 150.173699999999 987982.153284997 219302.197600231 150.173699999999 987982.153284997 219302.197600231 73.5329999999958 987971.394776329 219282.863321319 73.5329999999958</gml:posList>
+</gml:LinearRing>
+</gml:exterior>
+</gml:Polygon>
+</gml:surfaceMember>
+</gml:MultiSurface>
+</bldg:lod2MultiSurface>
+</bldg:WallSurface>
+</bldg:boundedBy>
+<bldg:boundedBy>
+<bldg:WallSurface gml:id="gml_6EFHSS7XB9QWBUE5L6N5CE969PQB7OE0G8XB">
+<gen:stringAttribute name="BIN">
+<gen:value>1026885</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="DOITT_ID">
+<gen:value>110442</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="SOURCE_ID">
+<gen:value>12210000161</gen:value>
+</gen:stringAttribute>
+<bldg:lod2MultiSurface>
+<gml:MultiSurface srsName="EPSG:2263" srsDimension="3">
+<gml:surfaceMember>
+<gml:Polygon>
+<gml:exterior>
+<gml:LinearRing>
+<gml:posList>987966.30686 219285.694352403 73.5329999999958 987966.30686 219285.694352403 150.173699999999 987971.394776329 219282.863321319 150.173699999999 987971.394776329 219282.863321319 73.5329999999958 987966.30686 219285.694352403 73.5329999999958</gml:posList>
+</gml:LinearRing>
+</gml:exterior>
+</gml:Polygon>
+</gml:surfaceMember>
+</gml:MultiSurface>
+</bldg:lod2MultiSurface>
+</bldg:WallSurface>
+</bldg:boundedBy>
+<bldg:boundedBy>
+<bldg:WallSurface gml:id="gml_FOF9WKK8VDQIF9N4BVH1EJHDC50W40PD6C07">
+<gen:stringAttribute name="BIN">
+<gen:value>1026885</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="DOITT_ID">
+<gen:value>110442</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="SOURCE_ID">
+<gen:value>12210000161</gen:value>
+</gen:stringAttribute>
+<bldg:lod2MultiSurface>
+<gml:MultiSurface srsName="EPSG:2263" srsDimension="3">
+<gml:surfaceMember>
+<gml:Polygon>
+<gml:exterior>
+<gml:LinearRing>
+<gml:posList>987955.99454467 219267.162237227 73.5329999999958 987955.99454467 219267.162237227 150.173699999999 987966.30686 219285.694352403 150.173699999999 987966.30686 219285.694352403 73.5329999999958 987955.99454467 219267.162237227 73.5329999999958</gml:posList>
+</gml:LinearRing>
+</gml:exterior>
+</gml:Polygon>
+</gml:surfaceMember>
+</gml:MultiSurface>
+</bldg:lod2MultiSurface>
+</bldg:WallSurface>
+</bldg:boundedBy>
+<bldg:boundedBy>
+<bldg:WallSurface gml:id="gml_0NI14BL68I68AKZV0675GB70TXD4XNMDIQDX">
+<gen:stringAttribute name="BIN">
+<gen:value>1026885</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="DOITT_ID">
+<gen:value>110442</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="SOURCE_ID">
+<gen:value>12210000161</gen:value>
+</gen:stringAttribute>
+<bldg:lod2MultiSurface>
+<gml:MultiSurface srsName="EPSG:2263" srsDimension="3">
+<gml:surfaceMember>
+<gml:Polygon>
+<gml:exterior>
+<gml:LinearRing>
+<gml:posList>987947.209457248 219251.374867231 73.5329999999958 987947.209457248 219251.374867231 150.173699999999 987955.99454467 219267.162237227 150.173699999999 987955.99454467 219267.162237227 73.5329999999958 987947.209457248 219251.374867231 73.5329999999958</gml:posList>
+</gml:LinearRing>
+</gml:exterior>
+</gml:Polygon>
+</gml:surfaceMember>
+</gml:MultiSurface>
+</bldg:lod2MultiSurface>
+</bldg:WallSurface>
+</bldg:boundedBy>
+<bldg:boundedBy>
+<bldg:WallSurface gml:id="gml_MP7C8LF392WUB4M9F41ZPSHG8QIU62ZUGBJK">
+<gen:stringAttribute name="BIN">
+<gen:value>1026885</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="DOITT_ID">
+<gen:value>110442</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="SOURCE_ID">
+<gen:value>12210000161</gen:value>
+</gen:stringAttribute>
+<bldg:lod2MultiSurface>
+<gml:MultiSurface srsName="EPSG:2263" srsDimension="3">
+<gml:surfaceMember>
+<gml:Polygon>
+<gml:exterior>
+<gml:LinearRing>
+<gml:posList>987963.868544668 219242.104872644 73.5329999999958 987963.868544668 219242.104872644 150.173699999999 987947.209457248 219251.374867231 150.173699999999 987947.209457248 219251.374867231 73.5329999999958 987963.868544668 219242.104872644 73.5329999999958</gml:posList>
+</gml:LinearRing>
+</gml:exterior>
+</gml:Polygon>
+</gml:surfaceMember>
+</gml:MultiSurface>
+</bldg:lod2MultiSurface>
+</bldg:WallSurface>
+</bldg:boundedBy>
+<bldg:boundedBy>
+<bldg:WallSurface gml:id="gml_94746E01BS33AM7OZOI3I0ERCV7GDBNAVBAK">
+<gen:stringAttribute name="BIN">
+<gen:value>1026885</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="DOITT_ID">
+<gen:value>110442</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="SOURCE_ID">
+<gen:value>12210000161</gen:value>
+</gen:stringAttribute>
+<bldg:lod2MultiSurface>
+<gml:MultiSurface srsName="EPSG:2263" srsDimension="3">
+<gml:surfaceMember>
+<gml:Polygon>
+<gml:exterior>
+<gml:LinearRing>
+<gml:posList>987990.850446075 219227.090466976 73.5329999999958 987990.850446075 219227.090466976 150.173699999999 987963.868544668 219242.104872644 150.173699999999 987963.868544668 219242.104872644 73.5329999999958 987990.850446075 219227.090466976 73.5329999999958</gml:posList>
+</gml:LinearRing>
+</gml:exterior>
+</gml:Polygon>
+</gml:surfaceMember>
+</gml:MultiSurface>
+</bldg:lod2MultiSurface>
+</bldg:WallSurface>
+</bldg:boundedBy>
+<bldg:boundedBy>
+<bldg:WallSurface gml:id="gml_662L2QFPWPTU5L523PCIZP1LHTY9F3H9LWR3">
+<gen:stringAttribute name="BIN">
+<gen:value>1026885</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="DOITT_ID">
+<gen:value>110442</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="SOURCE_ID">
+<gen:value>12210000161</gen:value>
+</gen:stringAttribute>
+<bldg:lod2MultiSurface>
+<gml:MultiSurface srsName="EPSG:2263" srsDimension="3">
+<gml:surfaceMember>
+<gml:Polygon>
+<gml:exterior>
+<gml:LinearRing>
+<gml:posList>988009.947848827 219261.410280228 73.5329999999958 988009.947848827 219261.410280228 150.173699999999 987990.850446075 219227.090466976 150.173699999999 987990.850446075 219227.090466976 73.5329999999958 988009.947848827 219261.410280228 73.5329999999958</gml:posList>
+</gml:LinearRing>
+</gml:exterior>
+</gml:Polygon>
+</gml:surfaceMember>
+</gml:MultiSurface>
+</bldg:lod2MultiSurface>
+</bldg:WallSurface>
+</bldg:boundedBy>
+<bldg:boundedBy>
+<bldg:WallSurface gml:id="gml_V6B2UZ5XBML2GUGG91UQEREI2FK3HUJI3BH6">
+<gen:stringAttribute name="BIN">
+<gen:value>1026885</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="DOITT_ID">
+<gen:value>110442</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="SOURCE_ID">
+<gen:value>12210000161</gen:value>
+</gen:stringAttribute>
+<bldg:lod2MultiSurface>
+<gml:MultiSurface srsName="EPSG:2263" srsDimension="3">
+<gml:surfaceMember>
+<gml:Polygon>
+<gml:exterior>
+<gml:LinearRing>
+<gml:posList>988004.007243916 219264.715719819 73.5329999999958 988004.007243916 219264.715719819 150.173699999999 988009.947848827 219261.410280228 150.173699999999 988009.947848827 219261.410280228 73.5329999999958 988004.007243916 219264.715719819 73.5329999999958</gml:posList>
+</gml:LinearRing>
+</gml:exterior>
+</gml:Polygon>
+</gml:surfaceMember>
+</gml:MultiSurface>
+</bldg:lod2MultiSurface>
+</bldg:WallSurface>
+</bldg:boundedBy>
+<bldg:boundedBy>
+<bldg:WallSurface gml:id="gml_NKYAUEJ4H53UWB9TBBYD229POBPQDD8ENK2Z">
+<gen:stringAttribute name="BIN">
+<gen:value>1026885</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="DOITT_ID">
+<gen:value>110442</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="SOURCE_ID">
+<gen:value>12210000161</gen:value>
+</gen:stringAttribute>
+<bldg:lod2MultiSurface>
+<gml:MultiSurface srsName="EPSG:2263" srsDimension="3">
+<gml:surfaceMember>
+<gml:Polygon>
+<gml:exterior>
+<gml:LinearRing>
+<gml:posList>988014.766080663 219284.04999873 73.5329999999958 988014.766080663 219284.04999873 150.173699999999 988004.007243916 219264.715719819 150.173699999999 988004.007243916 219264.715719819 73.5329999999958 988014.766080663 219284.04999873 73.5329999999958</gml:posList>
+</gml:LinearRing>
+</gml:exterior>
+</gml:Polygon>
+</gml:surfaceMember>
+</gml:MultiSurface>
+</bldg:lod2MultiSurface>
+</bldg:WallSurface>
+</bldg:boundedBy>
+<bldg:boundedBy>
+<bldg:WallSurface gml:id="gml_DU59IJB6MZHGVZG2NDDUKIVTZ30D6YGLIKPR">
+<gen:stringAttribute name="BIN">
+<gen:value>1026885</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="DOITT_ID">
+<gen:value>110442</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="SOURCE_ID">
+<gen:value>12210000161</gen:value>
+</gen:stringAttribute>
+<bldg:lod2MultiSurface>
+<gml:MultiSurface srsName="EPSG:2263" srsDimension="3">
+<gml:surfaceMember>
+<gml:Polygon>
+<gml:exterior>
+<gml:LinearRing>
+<gml:posList>988020.706357494 219280.744559154 73.5329999999958 988020.706357494 219280.744559154 150.173699999999 988014.766080663 219284.04999873 150.173699999999 988014.766080663 219284.04999873 73.5329999999958 988020.706357494 219280.744559154 73.5329999999958</gml:posList>
+</gml:LinearRing>
+</gml:exterior>
+</gml:Polygon>
+</gml:surfaceMember>
+</gml:MultiSurface>
+</bldg:lod2MultiSurface>
+</bldg:WallSurface>
+</bldg:boundedBy>
+<bldg:boundedBy>
+<bldg:WallSurface gml:id="gml_FZ5S1DDZ3J5N7G1JGHO58MKPS79XS57LKYXX">
+<gen:stringAttribute name="BIN">
+<gen:value>1026885</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="DOITT_ID">
+<gen:value>110442</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="SOURCE_ID">
+<gen:value>12210000161</gen:value>
+</gen:stringAttribute>
+<bldg:lod2MultiSurface>
+<gml:MultiSurface srsName="EPSG:2263" srsDimension="3">
+<gml:surfaceMember>
+<gml:Polygon>
+<gml:exterior>
+<gml:LinearRing>
+<gml:posList>988020.843168244 219280.990293562 73.5329999999958 988020.843168244 219280.990293562 150.173699999999 988020.706357494 219280.744559154 150.173699999999 988020.706357494 219280.744559154 73.5329999999958 988020.843168244 219280.990293562 73.5329999999958</gml:posList>
+</gml:LinearRing>
+</gml:exterior>
+</gml:Polygon>
+</gml:surfaceMember>
+</gml:MultiSurface>
+</bldg:lod2MultiSurface>
+</bldg:WallSurface>
+</bldg:boundedBy>
+<bldg:boundedBy>
+<bldg:WallSurface gml:id="gml_IV3GF60Q7NG067FB5TT3PQ94DPG7LUCITDBV">
+<gen:stringAttribute name="BIN">
+<gen:value>1026885</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="DOITT_ID">
+<gen:value>110442</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="SOURCE_ID">
+<gen:value>12210000161</gen:value>
+</gen:stringAttribute>
+<bldg:lod2MultiSurface>
+<gml:MultiSurface srsName="EPSG:2263" srsDimension="3">
+<gml:surfaceMember>
+<gml:Polygon>
+<gml:exterior>
+<gml:LinearRing>
+<gml:posList>988032.725034252 219302.343269229 73.5329999999958 988032.725034252 219302.343269229 150.173699999999 988020.843168244 219280.990293562 150.173699999999 988020.843168244 219280.990293562 73.5329999999958 988032.725034252 219302.343269229 73.5329999999958</gml:posList>
+</gml:LinearRing>
+</gml:exterior>
+</gml:Polygon>
+</gml:surfaceMember>
+</gml:MultiSurface>
+</bldg:lod2MultiSurface>
+</bldg:WallSurface>
+</bldg:boundedBy>
+  <gen:stringAttribute name="borough">
+        <gen:value>MN</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="block">
+        <gen:value>1067</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="lot">
+        <gen:value>22</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="cd">
+        <gen:value>104</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="ct2010">
+        <gen:value>139</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="cb2010">
+        <gen:value>1000</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="schooldist">
+        <gen:value>02</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="council">
+        <gen:value>3</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="zipcode">
+        <gen:value>10019</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="firecomp">
+        <gen:value>E040</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="policeprct">
+        <gen:value>18</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="healthcenterdistrict">
+        <gen:value>15</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="healtharea">
+        <gen:value>4600</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="sanitboro">
+        <gen:value>1</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="sanitdistrict">
+        <gen:value>04</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="sanitsub">
+        <gen:value>3B</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="address">
+        <gen:value>421 West 57 Street</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="zonedist1">
+        <gen:value>R8</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="spdist1">
+        <gen:value>CL</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="splitzone">
+        <gen:value>N</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="bldgclass">
+        <gen:value>D4</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="landuse">
+        <gen:value>03</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="easements">
+        <gen:value>0</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="ownername">
+        <gen:value>421 W 57 St Owners Co</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="lotarea">
+        <gen:value>5021</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="bldgarea">
+        <gen:value>24426</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="comarea">
+        <gen:value>2000</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="resarea">
+        <gen:value>22426</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="officearea">
+        <gen:value>2000</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="retailarea">
+        <gen:value>0</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="garagearea">
+        <gen:value>0</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="strgearea">
+        <gen:value>0</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="factryarea">
+        <gen:value>0</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="otherarea">
+        <gen:value>0</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="areasource">
+        <gen:value>2</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="numbldgs">
+        <gen:value>1</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="numfloors">
+        <gen:value>6.0000000</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="unitsres">
+        <gen:value>40</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="unitstotal">
+        <gen:value>42</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="lotfront">
+        <gen:value>50.0000000</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="lotdepth">
+        <gen:value>100.4200000</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="bldgfront">
+        <gen:value>50.0000000</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="bldgdepth">
+        <gen:value>85.0000000</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="ext">
+        <gen:value>N</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="proxcode">
+        <gen:value>2</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="irrlotcode">
+        <gen:value>N</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="lottype">
+        <gen:value>5</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="bsmtcode">
+        <gen:value>2</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="assessland">
+        <gen:value>450000.00000</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="assesstot">
+        <gen:value>2553750.00000</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="exempttot">
+        <gen:value>9560.00000</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="yearbuilt">
+        <gen:value>1940</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="yearalter1">
+        <gen:value>1989</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="yearalter2">
+        <gen:value>0</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="builtfar">
+        <gen:value>4.86000000000</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="residfar">
+        <gen:value>6.02000000000</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="commfar">
+        <gen:value>0.00000000000</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="facilfar">
+        <gen:value>6.50000000000</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="borocode">
+        <gen:value>1</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="bbl">
+        <gen:value>1010670022.00000000</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="tract2010">
+        <gen:value>0139</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="xcoord">
+        <gen:value>987991</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="ycoord">
+        <gen:value>219280</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="zonemap">
+        <gen:value>8c</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="sanborn">
+        <gen:value>106W016</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="taxmap">
+        <gen:value>10404</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="plutomapid">
+        <gen:value>1</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="version">
+        <gen:value>20v5</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="latitude">
+        <gen:value>40.7685485</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="longitude">
+        <gen:value>-73.9864944</gen:value>
+      </gen:stringAttribute>
+    </bldg:Building>
+</core:cityObjectMember>
+<core:cityObjectMember>
+<bldg:Building gml:id="gml_OI0BV3RF0J0V06P0E3I2V8DZ02ENK7G35UWX">
+<gml:name>Bldg_12210000475</gml:name>
+<gen:stringAttribute name="BIN">
+<gen:value>1026049</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="DOITT_ID">
+<gen:value>671438</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="SOURCE_ID">
+<gen:value>12210000475</gen:value>
+</gen:stringAttribute>
+<bldg:boundedBy>
+<bldg:GroundSurface gml:id="gml_3SHV84D4ZUGPELEZ5I9PEAL3ZE53C7ZGK27W">
+<gen:stringAttribute name="BIN">
+<gen:value>1026049</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="DOITT_ID">
+<gen:value>671438</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="SOURCE_ID">
+<gen:value>12210000475</gen:value>
+</gen:stringAttribute>
+<bldg:lod2MultiSurface>
+<gml:MultiSurface srsName="EPSG:2263" srsDimension="3">
+<gml:surfaceMember>
+<gml:Polygon>
+<gml:exterior>
+<gml:LinearRing>
+<gml:posList>988719.867032662 218892.888379484 79.6160999999993 988693.14858216 218844.63552323 79.6160999999993 988671.000004411 218856.899606317 79.6160999999993 988697.598704502 218904.936583728 79.6160999999993 988707.099341661 218922.094685897 79.6160999999993 988717.798467249 218916.17015706 79.6160999999993 988708.4175805 218899.228261814 79.6160999999993 988719.867032662 218892.888379484 79.6160999999993</gml:posList>
+</gml:LinearRing>
+</gml:exterior>
+</gml:Polygon>
+</gml:surfaceMember>
+</gml:MultiSurface>
+</bldg:lod2MultiSurface>
+</bldg:GroundSurface>
+</bldg:boundedBy>
+<bldg:boundedBy>
+<bldg:RoofSurface gml:id="gml_WX315IAFVZI83Q7WUGS3HN549K114AFLOSCH">
+<gen:stringAttribute name="BIN">
+<gen:value>1026049</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="DOITT_ID">
+<gen:value>671438</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="SOURCE_ID">
+<gen:value>12210000475</gen:value>
+</gen:stringAttribute>
+<bldg:lod2MultiSurface>
+<gml:MultiSurface srsName="EPSG:2263" srsDimension="3">
+<gml:surfaceMember>
+<gml:Polygon>
+<gml:exterior>
+<gml:LinearRing>
+<gml:posList>988708.4175805 218899.228261814 142.539999999994 988697.598704502 218904.936583728 142.539999999994 988671.000004411 218856.899606317 142.539999999994 988693.14858216 218844.63552323 142.539999999994 988719.867032662 218892.888379484 142.539999999994 988708.4175805 218899.228261814 142.539999999994</gml:posList>
+</gml:LinearRing>
+</gml:exterior>
+</gml:Polygon>
+</gml:surfaceMember>
+</gml:MultiSurface>
+</bldg:lod2MultiSurface>
+</bldg:RoofSurface>
+</bldg:boundedBy>
+<bldg:boundedBy>
+<bldg:RoofSurface gml:id="gml_PIU69FHA569W9CWDKDOI282URJKVT6TLN0HM">
+<gen:stringAttribute name="BIN">
+<gen:value>1026049</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="DOITT_ID">
+<gen:value>671438</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="SOURCE_ID">
+<gen:value>12210000475</gen:value>
+</gen:stringAttribute>
+<bldg:lod2MultiSurface>
+<gml:MultiSurface srsName="EPSG:2263" srsDimension="3">
+<gml:surfaceMember>
+<gml:Polygon>
+<gml:exterior>
+<gml:LinearRing>
+<gml:posList>988717.798467249 218916.17015706 94.7636999999959 988707.099341661 218922.094685897 94.7636999999959 988697.598704502 218904.936583728 94.7636999999959 988708.4175805 218899.228261814 94.7636999999959 988717.798467249 218916.17015706 94.7636999999959</gml:posList>
+</gml:LinearRing>
+</gml:exterior>
+</gml:Polygon>
+</gml:surfaceMember>
+</gml:MultiSurface>
+</bldg:lod2MultiSurface>
+</bldg:RoofSurface>
+</bldg:boundedBy>
+<bldg:boundedBy>
+<bldg:WallSurface gml:id="gml_VW3CG59CKF12OBBLD4PRQ9O04VQ8MYIJ5KSY">
+<gen:stringAttribute name="BIN">
+<gen:value>1026049</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="DOITT_ID">
+<gen:value>671438</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="SOURCE_ID">
+<gen:value>12210000475</gen:value>
+</gen:stringAttribute>
+<bldg:lod2MultiSurface>
+<gml:MultiSurface srsName="EPSG:2263" srsDimension="3">
+<gml:surfaceMember>
+<gml:Polygon>
+<gml:exterior>
+<gml:LinearRing>
+<gml:posList>988708.4175805 218899.228261814 94.7636999999959 988697.598704502 218904.936583728 94.7636999999959 988697.598704502 218904.936583728 142.539999999994 988708.4175805 218899.228261814 142.539999999994 988708.4175805 218899.228261814 94.7636999999959</gml:posList>
+</gml:LinearRing>
+</gml:exterior>
+</gml:Polygon>
+</gml:surfaceMember>
+</gml:MultiSurface>
+</bldg:lod2MultiSurface>
+</bldg:WallSurface>
+</bldg:boundedBy>
+<bldg:boundedBy>
+<bldg:WallSurface gml:id="gml_KMC78ZKMRSHR5IITL05WHCHUOAZW6S6DTNA0">
+<gen:stringAttribute name="BIN">
+<gen:value>1026049</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="DOITT_ID">
+<gen:value>671438</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="SOURCE_ID">
+<gen:value>12210000475</gen:value>
+</gen:stringAttribute>
+<bldg:lod2MultiSurface>
+<gml:MultiSurface srsName="EPSG:2263" srsDimension="3">
+<gml:surfaceMember>
+<gml:Polygon>
+<gml:exterior>
+<gml:LinearRing>
+<gml:posList>988708.4175805 218899.228261814 79.6160999999993 988708.4175805 218899.228261814 142.539999999994 988719.867032662 218892.888379484 142.539999999994 988719.867032662 218892.888379484 79.6160999999993 988708.4175805 218899.228261814 79.6160999999993</gml:posList>
+</gml:LinearRing>
+</gml:exterior>
+</gml:Polygon>
+</gml:surfaceMember>
+</gml:MultiSurface>
+</bldg:lod2MultiSurface>
+</bldg:WallSurface>
+</bldg:boundedBy>
+<bldg:boundedBy>
+<bldg:WallSurface gml:id="gml_1SS0ZCJMN8DEQY7FO6RHFRT79YP8WD8RHR23">
+<gen:stringAttribute name="BIN">
+<gen:value>1026049</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="DOITT_ID">
+<gen:value>671438</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="SOURCE_ID">
+<gen:value>12210000475</gen:value>
+</gen:stringAttribute>
+<bldg:lod2MultiSurface>
+<gml:MultiSurface srsName="EPSG:2263" srsDimension="3">
+<gml:surfaceMember>
+<gml:Polygon>
+<gml:exterior>
+<gml:LinearRing>
+<gml:posList>988717.798467249 218916.17015706 79.6160999999993 988717.798467249 218916.17015706 94.7636999999959 988708.4175805 218899.228261814 94.7636999999959 988708.4175805 218899.228261814 79.6160999999993 988717.798467249 218916.17015706 79.6160999999993</gml:posList>
+</gml:LinearRing>
+</gml:exterior>
+</gml:Polygon>
+</gml:surfaceMember>
+</gml:MultiSurface>
+</bldg:lod2MultiSurface>
+</bldg:WallSurface>
+</bldg:boundedBy>
+<bldg:boundedBy>
+<bldg:WallSurface gml:id="gml_HE6E35GP7VFIU1ZX63VK8U1BXK0KAV686E7J">
+<gen:stringAttribute name="BIN">
+<gen:value>1026049</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="DOITT_ID">
+<gen:value>671438</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="SOURCE_ID">
+<gen:value>12210000475</gen:value>
+</gen:stringAttribute>
+<bldg:lod2MultiSurface>
+<gml:MultiSurface srsName="EPSG:2263" srsDimension="3">
+<gml:surfaceMember>
+<gml:Polygon>
+<gml:exterior>
+<gml:LinearRing>
+<gml:posList>988707.099341661 218922.094685897 79.6160999999993 988707.099341661 218922.094685897 94.7636999999959 988717.798467249 218916.17015706 94.7636999999959 988717.798467249 218916.17015706 79.6160999999993 988707.099341661 218922.094685897 79.6160999999993</gml:posList>
+</gml:LinearRing>
+</gml:exterior>
+</gml:Polygon>
+</gml:surfaceMember>
+</gml:MultiSurface>
+</bldg:lod2MultiSurface>
+</bldg:WallSurface>
+</bldg:boundedBy>
+<bldg:boundedBy>
+<bldg:WallSurface gml:id="gml_9MOKKDAOSHO4OKVO6S4XN5RSF6OLYGMP3PYT">
+<gen:stringAttribute name="BIN">
+<gen:value>1026049</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="DOITT_ID">
+<gen:value>671438</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="SOURCE_ID">
+<gen:value>12210000475</gen:value>
+</gen:stringAttribute>
+<bldg:lod2MultiSurface>
+<gml:MultiSurface srsName="EPSG:2263" srsDimension="3">
+<gml:surfaceMember>
+<gml:Polygon>
+<gml:exterior>
+<gml:LinearRing>
+<gml:posList>988697.598704502 218904.936583728 79.6160999999993 988697.598704502 218904.936583728 94.7636999999959 988707.099341661 218922.094685897 94.7636999999959 988707.099341661 218922.094685897 79.6160999999993 988697.598704502 218904.936583728 79.6160999999993</gml:posList>
+</gml:LinearRing>
+</gml:exterior>
+</gml:Polygon>
+</gml:surfaceMember>
+</gml:MultiSurface>
+</bldg:lod2MultiSurface>
+</bldg:WallSurface>
+</bldg:boundedBy>
+<bldg:boundedBy>
+<bldg:WallSurface gml:id="gml_OK95TNSP555Z9SCOKK6D45FNZYZL58B8WBAV">
+<gen:stringAttribute name="BIN">
+<gen:value>1026049</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="DOITT_ID">
+<gen:value>671438</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="SOURCE_ID">
+<gen:value>12210000475</gen:value>
+</gen:stringAttribute>
+<bldg:lod2MultiSurface>
+<gml:MultiSurface srsName="EPSG:2263" srsDimension="3">
+<gml:surfaceMember>
+<gml:Polygon>
+<gml:exterior>
+<gml:LinearRing>
+<gml:posList>988671.000004411 218856.899606317 79.6160999999993 988671.000004411 218856.899606317 142.539999999994 988697.598704502 218904.936583728 142.539999999994 988697.598704502 218904.936583728 79.6160999999993 988671.000004411 218856.899606317 79.6160999999993</gml:posList>
+</gml:LinearRing>
+</gml:exterior>
+</gml:Polygon>
+</gml:surfaceMember>
+</gml:MultiSurface>
+</bldg:lod2MultiSurface>
+</bldg:WallSurface>
+</bldg:boundedBy>
+<bldg:boundedBy>
+<bldg:WallSurface gml:id="gml_S9DANBWKAYLGE7FTTVZSFVF5XGU737D8SQ5L">
+<gen:stringAttribute name="BIN">
+<gen:value>1026049</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="DOITT_ID">
+<gen:value>671438</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="SOURCE_ID">
+<gen:value>12210000475</gen:value>
+</gen:stringAttribute>
+<bldg:lod2MultiSurface>
+<gml:MultiSurface srsName="EPSG:2263" srsDimension="3">
+<gml:surfaceMember>
+<gml:Polygon>
+<gml:exterior>
+<gml:LinearRing>
+<gml:posList>988693.14858216 218844.63552323 79.6160999999993 988693.14858216 218844.63552323 142.539999999994 988671.000004411 218856.899606317 142.539999999994 988671.000004411 218856.899606317 79.6160999999993 988693.14858216 218844.63552323 79.6160999999993</gml:posList>
+</gml:LinearRing>
+</gml:exterior>
+</gml:Polygon>
+</gml:surfaceMember>
+</gml:MultiSurface>
+</bldg:lod2MultiSurface>
+</bldg:WallSurface>
+</bldg:boundedBy>
+<bldg:boundedBy>
+<bldg:WallSurface gml:id="gml_G6Z2I5MAMTH72ROBMRQ63IMGQZQDVNXXB4NX">
+<gen:stringAttribute name="BIN">
+<gen:value>1026049</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="DOITT_ID">
+<gen:value>671438</gen:value>
+</gen:stringAttribute>
+<gen:stringAttribute name="SOURCE_ID">
+<gen:value>12210000475</gen:value>
+</gen:stringAttribute>
+<bldg:lod2MultiSurface>
+<gml:MultiSurface srsName="EPSG:2263" srsDimension="3">
+<gml:surfaceMember>
+<gml:Polygon>
+<gml:exterior>
+<gml:LinearRing>
+<gml:posList>988719.867032662 218892.888379484 79.6160999999993 988719.867032662 218892.888379484 142.539999999994 988693.14858216 218844.63552323 142.539999999994 988693.14858216 218844.63552323 79.6160999999993 988719.867032662 218892.888379484 79.6160999999993</gml:posList>
+</gml:LinearRing>
+</gml:exterior>
+</gml:Polygon>
+</gml:surfaceMember>
+</gml:MultiSurface>
+</bldg:lod2MultiSurface>
+</bldg:WallSurface>
+</bldg:boundedBy>
+  <gen:stringAttribute name="borough">
+        <gen:value>MN</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="block">
+        <gen:value>1048</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="lot">
+        <gen:value>19</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="cd">
+        <gen:value>104</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="ct2010">
+        <gen:value>139</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="cb2010">
+        <gen:value>7000</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="schooldist">
+        <gen:value>02</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="council">
+        <gen:value>3</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="zipcode">
+        <gen:value>10019</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="firecomp">
+        <gen:value>E040</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="policeprct">
+        <gen:value>18</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="healthcenterdistrict">
+        <gen:value>15</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="healtharea">
+        <gen:value>4600</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="sanitboro">
+        <gen:value>1</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="sanitdistrict">
+        <gen:value>04</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="sanitsub">
+        <gen:value>3A</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="address">
+        <gen:value>325 West 57 Street</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="zonedist1">
+        <gen:value>C6-4</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="spdist1">
+        <gen:value>CL</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="splitzone">
+        <gen:value>N</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="bldgclass">
+        <gen:value>S5</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="landuse">
+        <gen:value>04</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="easements">
+        <gen:value>0</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="ownername">
+        <gen:value>Leya, Llc</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="lotarea">
+        <gen:value>2510</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="bldgarea">
+        <gen:value>7554</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="comarea">
+        <gen:value>2400</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="resarea">
+        <gen:value>5154</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="officearea">
+        <gen:value>0</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="retailarea">
+        <gen:value>2400</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="garagearea">
+        <gen:value>0</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="strgearea">
+        <gen:value>0</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="factryarea">
+        <gen:value>0</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="otherarea">
+        <gen:value>0</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="areasource">
+        <gen:value>2</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="numbldgs">
+        <gen:value>1</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="numfloors">
+        <gen:value>5.0000000</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="unitsres">
+        <gen:value>5</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="unitstotal">
+        <gen:value>6</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="lotfront">
+        <gen:value>25.0000000</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="lotdepth">
+        <gen:value>100.4200000</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="bldgfront">
+        <gen:value>25.0000000</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="bldgdepth">
+        <gen:value>75.0000000</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="ext">
+        <gen:value>E</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="proxcode">
+        <gen:value>3</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="irrlotcode">
+        <gen:value>N</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="lottype">
+        <gen:value>5</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="bsmtcode">
+        <gen:value>5</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="assessland">
+        <gen:value>330750.00000</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="assesstot">
+        <gen:value>1805400.00000</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="exempttot">
+        <gen:value>0.00000</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="yearbuilt">
+        <gen:value>1930</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="yearalter1">
+        <gen:value>1989</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="yearalter2">
+        <gen:value>0</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="builtfar">
+        <gen:value>3.01000000000</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="residfar">
+        <gen:value>10.00000000000</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="commfar">
+        <gen:value>10.00000000000</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="facilfar">
+        <gen:value>10.00000000000</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="borocode">
+        <gen:value>1</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="bbl">
+        <gen:value>1010480019.00000000</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="tract2010">
+        <gen:value>0139</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="xcoord">
+        <gen:value>988699</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="ycoord">
+        <gen:value>218888</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="zonemap">
+        <gen:value>8c</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="sanborn">
+        <gen:value>106W022</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="taxmap">
+        <gen:value>10403</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="plutomapid">
+        <gen:value>1</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="version">
+        <gen:value>20v5</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="latitude">
+        <gen:value>40.7674722</gen:value>
+      </gen:stringAttribute>
+      <gen:stringAttribute name="longitude">
+        <gen:value>-73.9839386</gen:value>
+      </gen:stringAttribute>
+    </bldg:Building>
+</core:cityObjectMember>

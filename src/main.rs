@@ -3,61 +3,34 @@ mod query_engine;
 mod boyer_moore;
 mod matcher;
 mod own_linked_list;
-use std::collections::HashMap;
 use std::fs::{File, self};
-use std::io::{Read, Write, BufWriter, BufRead, BufReader, Seek, self};
+use std::io::{Read, Write, BufWriter};
 use std::os::unix::prelude::FileExt;
 use std::time::Instant;
 use std::vec;
-use grep::matcher::Matcher;
-use grep::printer::{StandardBuilder, ColorSpecs, StandardSink, SummarySink};
+use grep::printer::{StandardBuilder, ColorSpecs};
 use grep::regex::RegexMatcher;
-use grep::searcher::{SearcherBuilder, SinkMatch, SinkFinish, MmapChoice, BinaryDetection};
+use grep::searcher::{SearcherBuilder, SinkMatch, SinkFinish, BinaryDetection};
 use grep::searcher::Sink;
-use grep::searcher::sinks::UTF8;
 use grep::searcher::Searcher;
 use grep::cli;
 use termcolor::ColorChoice;
 
 use crate::boyer_moore::BoyerMoore;
-use crate::file_buffer::FileBuffer;
 
 fn main() {
     const TESTFILE_1: &str = "/home/derpadi/Documents/Work/Fraunhofer_IGD/ProgressiveIndexingRust/src/DA12_3D_Buildings_Merged.gml";
+    const TESTFILE_2: &str = "/home/derpadi/Documents/Work/Fraunhofer_IGD/ProgressiveIndexingRust/src/rawfile.txt";
 
-    //tmp();
-    //let x = query_engine::QueryEngine::new(TESTFILE_1.to_string());
-    //let mut fb = file_buffer::FileBuffer::new(TESTFILE_1, 1024*1024).unwrap();
-    //for i in 0..100{
-    //    println!("Extracted: {}", fb.get(i).unwrap() as char);
-    //}
-    //let mut fb = FileBuffer::new(
-    //    "/home/derpadi/Documents/Work/Fraunhofer_IGD/ProgressiveIndexingRust/src/DA12_3D_Buildings_Merged.gml", 
-    //    1024*1024*1024
-    //).unwrap();
-    //let bm = BoyerMoore::new("<core:cityObjectMember").unwrap();
-    //let r = bm.boyer_moore_bad_char_only(&mut fb).unwrap();
-    //let found = r.front().unwrap();
-    //for i in *found..*found+10 {
-    //    println!("Extracted: {}", fb.get(i as u64).unwrap() as char);
-    //}
-    //println!("Result: {:?}", r);
+    let mut fb = file_buffer::FileBuffer::new(TESTFILE_2, 1024*1024).unwrap();
 
-
-
-    let mut x = matcher::SimpleMatcher::new("hallo");
-
-    let text = String::from("fcasebhuschsdriuhndrsugdrchgjdhgahalhahahahallocfsbeutsrgjdhgd");
-
-    
-    for i in text.chars() {
-        println!("Kam vor: {} {}", i, x.step(&i));
-    }
-
-
+    let bm = BoyerMoore::new("<gen:stringAttribute name=\"ownername\">").unwrap();
+    let res = bm.scan_attribute_by_key(&mut fb, &vec![], 0, 100);
+    println!("Result {:?}", &res);
     println!("Program ran!");
 }
 
+#[allow(dead_code)]
 fn search(pattern: &str, filename: &str) {
     let file = File::open(filename).expect("Error opening file!");
     let matcher = RegexMatcher::new_line_matcher(&pattern).expect("Error");
@@ -90,6 +63,7 @@ fn search(pattern: &str, filename: &str) {
     println!("Time elapsed: {:?}", end);
 }
 
+#[allow(dead_code)]
 fn search_alternative(filename: &str, pattern: &str, offset: usize) {
     let mut file = File::open(filename).unwrap();
     let mut buffer = String::new();
@@ -98,6 +72,7 @@ fn search_alternative(filename: &str, pattern: &str, offset: usize) {
     file.read_to_string(&mut buffer);
 }
 
+#[allow(dead_code)]
 fn tmp(){
     const TESTFILE_1: &str = "/home/derpadi/Documents/Work/Fraunhofer_IGD/ProgressiveIndexingRust/src/DA12_3D_Buildings_Merged.gml";
     let mut f = file_buffer::FileBuffer::new(TESTFILE_1, 1024*1024).expect("Error!");
