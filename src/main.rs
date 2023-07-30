@@ -1,6 +1,8 @@
 mod file_buffer;
 mod query_engine;
 mod boyer_moore;
+mod matcher;
+mod own_linked_list;
 use std::collections::HashMap;
 use std::fs::{File, self};
 use std::io::{Read, Write, BufWriter, BufRead, BufReader, Seek, self};
@@ -29,17 +31,30 @@ fn main() {
     //for i in 0..100{
     //    println!("Extracted: {}", fb.get(i).unwrap() as char);
     //}
-    let mut fb = FileBuffer::new(
-        "/home/derpadi/Documents/Work/Fraunhofer_IGD/ProgressiveIndexingRust/src/DA12_3D_Buildings_Merged.gml", 
-        1024*1024*1024
-    ).unwrap();
-    let bm = BoyerMoore::new("<core:cityObjectMember").unwrap();
-    let r = bm.boyer_moore_bad_char_only(&mut fb).unwrap();
-    let found = r.front().unwrap();
+    //let mut fb = FileBuffer::new(
+    //    "/home/derpadi/Documents/Work/Fraunhofer_IGD/ProgressiveIndexingRust/src/DA12_3D_Buildings_Merged.gml", 
+    //    1024*1024*1024
+    //).unwrap();
+    //let bm = BoyerMoore::new("<core:cityObjectMember").unwrap();
+    //let r = bm.boyer_moore_bad_char_only(&mut fb).unwrap();
+    //let found = r.front().unwrap();
     //for i in *found..*found+10 {
     //    println!("Extracted: {}", fb.get(i as u64).unwrap() as char);
     //}
     //println!("Result: {:?}", r);
+
+
+
+    let mut x = matcher::SimpleMatcher::new("hallo");
+
+    let text = String::from("fcasebhuschsdriuhndrsugdrchgjdhgahalhahahahallocfsbeutsrgjdhgd");
+
+    
+    for i in text.chars() {
+        println!("Kam vor: {} {}", i, x.step(&i));
+    }
+
+
     println!("Program ran!");
 }
 
