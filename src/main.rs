@@ -2,6 +2,7 @@ mod file_buffer;
 mod query_engine;
 mod boyer_moore;
 mod matcher;
+mod utility;
 mod own_linked_list;
 use std::fs::{File, self};
 use std::io::{Read, Write, BufWriter};
@@ -17,16 +18,26 @@ use grep::cli;
 use termcolor::ColorChoice;
 
 use crate::boyer_moore::BoyerMoore;
+use crate::query_engine::QueryEngine;
 
 fn main() {
     const TESTFILE_1: &str = "/home/derpadi/Documents/Work/Fraunhofer_IGD/ProgressiveIndexingRust/src/DA12_3D_Buildings_Merged.gml";
     const TESTFILE_2: &str = "/home/derpadi/Documents/Work/Fraunhofer_IGD/ProgressiveIndexingRust/src/rawfile.txt";
 
-    let mut fb = file_buffer::FileBuffer::new(TESTFILE_2, 1024*1024).unwrap();
+    //let mut fb = file_buffer::FileBuffer::new(TESTFILE_2, 1024*1024).unwrap();
 
-    let bm = BoyerMoore::new("<gen:stringAttribute name=\"ownername\">").unwrap();
-    let res = bm.scan_attribute_by_key(&mut fb, &vec![], 0, 100);
-    println!("Result {:?}", &res);
+
+    let mut qe = QueryEngine::new(String::from(TESTFILE_2));
+
+    let o = String::from("ownername");
+    let res = qe.search_attribute_by_key(o, 0, 25);
+    
+    println!("Result: {:?}", res);
+    //let bm = BoyerMoore::new("<gen:stringAttribute name=\"ownername\">").unwrap();
+    //let res = bm.scan_attribute_by_key(&mut fb, &vec![], 0, 100);
+    //println!("Result {:?}", &res);
+    let mut v:Vec<(u64, u64)> = Vec::new();
+    let x = String::from("/home/derpadi/Documents/Work/Fraunhofer_IGD/ProgressiveIndexingRust/src/rawfile.txt");
     println!("Program ran!");
 }
 

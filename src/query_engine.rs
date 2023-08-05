@@ -3,6 +3,8 @@ use std::{fs::File, path::Path, io::{BufRead, BufReader}};
 use grep::{regex::RegexMatcher, searcher::{Sink, Searcher, SinkMatch, SinkFinish, SearcherBuilder}};
 use std::io::Write;
 
+use crate::{boyer_moore::BoyerMoore, file_buffer::FileBuffer};
+
 
 
 
@@ -10,6 +12,7 @@ use std::io::Write;
 pub struct QueryEngine {
     filename: String,
     file: File,
+    file_buffer: FileBuffer,
     file_format: FileFormat,
     offset_list: Vec<(u64, u64)>,
     num_rows: usize
@@ -38,17 +41,18 @@ impl QueryEngine {
             num_rows = QueryEngine::read_offset_list(&mut offset_list, &filename);
             println!("OffsetList read!");
         }
-
+        let x = filename.clone();
         QueryEngine {
             filename,
             file: file, 
+            file_buffer: FileBuffer::new(&x, 1024*1024).unwrap(),
             file_format: file_format, 
             offset_list: offset_list,
             num_rows: num_rows
         }
     }
 
-    fn read_offset_list(offset_list: &mut Vec<(u64, u64)>, filename: &String) -> usize {
+    pub fn read_offset_list(offset_list: &mut Vec<(u64, u64)>, filename: &String) -> usize {
         let offset_list_filename = filename.clone() + ".qry";
         let file = File::open(offset_list_filename).expect("Error opening offset-list file!");
         let r = BufReader::new(file);
@@ -73,9 +77,10 @@ impl QueryEngine {
         counter
     }
 
-    fn search_attribute_by_key(key: String, from: usize, to: usize) -> Vec<String> {
-        Vec::new()
-        // TODO: Probably easy implementation for this!
+    pub fn search_attribute_by_key(&mut self, key: String, from: usize, to: usize) -> Vec<String> {
+        let pattern = format!("<gen:stringAttribute name=\"{}\">", key);
+        let bm = BoyerMoore::new(pattern.as_str()).unwrap();
+        bm.scan_attribute_by_key(&mut self.file_buffer, &self.offset_list, from, to)
     }
 
     fn get_search_attribute_by_key_generator(key: String, from: u64) {
@@ -118,16 +123,17 @@ impl Sink for OffsetSink<'_> {
             self.data.push((self.first,line.absolute_byte_offset()));
         }
         *self.counter += 1;
+        println!("MATCH!");
         Ok(true)
     }
 
     fn finish(&mut self, _searcher: &Searcher, _: &SinkFinish) -> Result<(), Self::Error> {
         let mut f = File::create(&mut self.output_filename).expect("Error creating file!");
         
-        for i in (1..self.data.len()-1).step_by(2){
+        for i in (0..self.data.len()){
             write!(f, "{},{}\n", self.data[i].0, self.data[i].1).expect("Error writing offsetlist!");
         }
-        println!("Wrote data to file!");
+        println!("Wrote data to file! {:?}", self.data);
         self.print_num_results();
         *self.counter /= 2;
         Ok(())

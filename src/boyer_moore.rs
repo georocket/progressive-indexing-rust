@@ -1,6 +1,6 @@
 use std::collections::{HashMap, LinkedList};
 
-use crate::{file_buffer::FileBuffer, matcher};
+use crate::{file_buffer::FileBuffer, matcher, utility::binary_search_for_offset_range};
 
 pub struct BoyerMoore<'a> {
     bad_char_lookup_table: Vec<HashMap<char, isize>>,
@@ -74,13 +74,13 @@ impl<'a> BoyerMoore<'a> {
     pub fn scan_attribute_by_key(&self, file: &mut FileBuffer, offset_list: &Vec<(u64, u64)>, from: usize, to: usize) -> Vec<String> {
         let file_size = file.get_size();                                
         let pattern_size = self.pattern.len();
-        //let result = vec![String::from(""); to - from];
-        let mut result = vec![];
+        let mut result = vec![String::from(""); to - from];
+        //let mut result = vec![];
     
-        //let range = offset_list[from].0..offset_list[to].0;
+        let range = offset_list[from].0..offset_list[to].0;
 
         let mut i = 0;
-        while i < file_size {
+        while i < file_size && range.contains(&i) {
             if pattern_size < (file_size - 1) as usize {
                 let mut j = (pattern_size - 1) as isize;
                 while j >= 0 {
@@ -104,15 +104,15 @@ impl<'a> BoyerMoore<'a> {
                         i += pattern_size as u64;
 
                         while !matcher.step(&(file.get(i).unwrap() as char)){ i += 1 }
-                        
-                        let index = 0;
+                        i += 1;
+                        let index = binary_search_for_offset_range(i, offset_list);
                         let mut act_char = file.get(i).unwrap() as char;
-                        while(act_char != '<') {
+                        while act_char != '<' {
                             result_value.push(act_char);
                             i += 1;
                             act_char = file.get(i).unwrap() as char;
                         }
-                        result.push(result_value);
+                        result[index] = result_value;
                     }
                     j -= 1;
                 }
