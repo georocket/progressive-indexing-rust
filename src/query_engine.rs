@@ -14,7 +14,7 @@ pub struct QueryEngine {
     file: File,
     file_buffer: FileBuffer,
     file_format: FileFormat,
-    offset_list: Vec<(u64, u64)>,
+    pub offset_list: Vec<(u64, u64)>,
     pub num_rows: usize
 }
 

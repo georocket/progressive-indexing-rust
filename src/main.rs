@@ -19,7 +19,8 @@ use grep::searcher::Searcher;
 use grep::cli;
 use termcolor::ColorChoice;
 
-use crate::boyer_moore::BoyerMoore;
+use crate::boyer_moore::{BoyerMoore, BoyerMooreBasicIterator, BoyerMooreAttributeByKeyIterator};
+use crate::file_buffer::FileBuffer;
 use crate::query_engine::QueryEngine;
 
 fn main() {
@@ -36,20 +37,30 @@ fn main() {
     //println!("Result: {:?}", res);
     //let mut v:Vec<(u64, u64)> = Vec::new();
     //let x = String::from("/home/derpadi/Documents/Work/Fraunhofer_IGD/ProgressiveIndexingRust/src/rawfile.txt");
+    let mut fb = FileBuffer::new(TESTFILE_2, 1024*1024).expect("Test");
     
-    let t = Instant::now();
+    //let mut bmi = BoyerMooreBasicIterator::new("cityObjectMember>", &mut fb);
 
-    while t.elapsed() < Duration::new(0, 5) {}
-
-    println!("Time elapsed: {:?}", t.elapsed());
-
-    let mut number_sequence = NumberSequence::new(0);
+    let qe = QueryEngine::new(TESTFILE_2.to_string());
+    let mut bmoo = BoyerMooreAttributeByKeyIterator::new("<gen:stringAttribute name=\"ownername\">", &mut fb, &qe.offset_list);
     
-    while t.elapsed() < Duration::new(3, 0)
+    let mut found_pos:Vec<String> = vec![];
+
+
+    let mut has_next = true;
+    while has_next 
     {
-        println!("Element: {:?}", number_sequence.next());
+        match bmoo.next() {
+            Some(val) => {found_pos.push(val)},
+            None => {has_next = false},
+        }  
     }
 
+    for offset in found_pos
+    {
+        println!("Found: {}", offset);
+    }
+    
     println!("Program ran!");
 }
 

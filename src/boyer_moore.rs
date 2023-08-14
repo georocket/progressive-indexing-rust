@@ -152,17 +152,20 @@ pub struct BoyerMooreBasicIterator<'a>
 {
     boyer_moore: BoyerMoore<'a>,
     file: &'a mut FileBuffer,
-    start_offset: usize
+    start_offset: usize,
+    act_pos: u64
 }
 
-impl BoyerMooreBasicIterator<'static>
+impl<'a> BoyerMooreBasicIterator<'a>
 {
-    pub fn new(pattern: &'static str, file: &'static mut FileBuffer) -> Self
+    pub fn new(pattern: &'a str, file: &'a mut FileBuffer) -> Self
     {
-        Self { 
+        Self 
+        {
             boyer_moore: BoyerMoore::new(pattern).unwrap(),
             file,
-            start_offset: 0
+            start_offset: 0,
+            act_pos: 0
         }
     }
 }
@@ -178,13 +181,12 @@ impl Iterator for BoyerMooreBasicIterator<'_>
         let pattern_size = self.boyer_moore.pattern.len();
         let mut result:LinkedList<isize> = LinkedList::new();
         let mut num_skipped = 0;
-        let mut i:u64 = 0;
 
-        while i < file_size {
-            if pattern_size <= (file_size - i) as usize {
+        while self.act_pos < file_size {
+            if pattern_size <= (file_size - self.act_pos) as usize {
                 let mut j = (pattern_size - 1) as isize;
                 while j >= 0 {
-                    let t = self.file.get(i+j as u64).unwrap() as char;
+                    let t = self.file.get(self.act_pos+j as u64).unwrap() as char;
                     let p = self.boyer_moore.pattern.as_bytes()[j as usize] as char;
 
                     if t != p {
@@ -194,22 +196,108 @@ impl Iterator for BoyerMooreBasicIterator<'_>
                         } else {
                             self.boyer_moore.bad_char_lookup_table[j as usize][&t]
                         };
-                        i += (skips-1) as u64;
+                        self.act_pos += (skips-1) as u64;
                         j-= 1;
                         num_skipped += skips;
                         break;
                     }
                     if j == 0 {
-                        result.push_back(i as isize);
-                        Some(i);
-                        i += (pattern_size-1) as u64;
+                        result.push_back(self.act_pos as isize);
+                        let pos = self.act_pos;
+                        self.act_pos += (pattern_size-1) as u64;
+                        return Some(pos)
                     }
                     j-= 1;
                 }
             }
-            i += 1;
+            self.act_pos += 1;
         }
         println!("output: {}", num_skipped);
-        Some(file_size as u64)
+        return Some(file_size as u64)
     }
 }
+
+
+pub struct BoyerMooreAttributeByKeyIterator<'a>
+{
+    boyer_moore: BoyerMoore<'a>,
+    file: &'a mut FileBuffer,
+    offset_list: &'a Vec<(u64, u64)>,
+    start_offset: usize,
+    act_pos: u64,
+}
+
+impl<'a> BoyerMooreAttributeByKeyIterator<'a>
+{
+    pub fn new(pattern: &'a str, file: &'a mut FileBuffer, offset_list: &'a Vec<(u64, u64)>) -> Self
+    {
+        Self 
+        {
+            boyer_moore: BoyerMoore::new(pattern).unwrap(),
+            file,
+            offset_list,
+            start_offset: 0,
+            act_pos: 0
+        }
+    }
+}
+
+impl<'a> Iterator for BoyerMooreAttributeByKeyIterator<'a>
+{
+    type Item = String;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        let file_size = self.file.get_size();                                
+        let pattern_size = self.boyer_moore.pattern.len();
+        let mut result = vec![];
+        //let mut result = vec![];
+        let from = 0;
+        let to = self.offset_list.len()-1;
+
+        let range = self.offset_list[from].0..self.offset_list[to].1;
+
+        while self.act_pos < file_size && range.contains(&self.act_pos) {
+            if pattern_size < (file_size - 1) as usize {
+                let mut j = (pattern_size - 1) as isize;
+                while j >= 0 {
+                    let t = self.file.get(self.act_pos+j as u64).unwrap() as char;
+                    let p = self.boyer_moore.pattern.as_bytes()[j as usize] as char;
+
+                    if t != p {
+                        let contains = &self.boyer_moore.bad_char_lookup_table[j as usize].contains_key(&t);
+                        let skips = if !contains {
+                            (j+1) as usize
+                        } else {
+                            self.boyer_moore.bad_char_lookup_table[j as usize][&t] as usize
+                        };
+                        self.act_pos += (skips-1) as u64;
+                        j -= 1;
+                        break;
+                    }
+                    if j == 0 {
+                        let mut matcher = matcher::SimpleMatcher::new("<gen:value>");
+                        let mut result_value = String::from("");
+                        self.act_pos += pattern_size as u64;
+
+                        while !matcher.step(&(self.file.get(self.act_pos).unwrap() as char)){ self.act_pos += 1 }
+                        self.act_pos += 1;
+                        let _index = binary_search_for_offset_range(self.act_pos, self.offset_list);
+                        let mut act_char = self.file.get(self.act_pos).unwrap() as char;
+                        while act_char != '<' {
+                            result_value.push(act_char);
+                            self.act_pos += 1;
+                            act_char = self.file.get(self.act_pos).unwrap() as char;
+                        }
+                        result.push(result_value.clone());
+                        return Some(result_value.clone());
+                    }
+                    j -= 1;
+                }
+            }
+            self.act_pos += 1;
+        }
+        None
+    }
+}
+
+

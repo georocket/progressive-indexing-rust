@@ -22,9 +22,9 @@ pub fn binary_search_for_offset_range(offset: u64, offset_list: &Vec<(u64, u64)>
         if offset >= actUpper {
             lower += (upper - lower) / 2;
         }
-        println!("Position: {}", act_pos);
-        println!("L: {}, U: {}", actLower, actUpper);
-        println!("Val = {}", offset);
+        //println!("Position: {}", act_pos);
+        //println!("L: {}, U: {}", actLower, actUpper);
+        //println!("Val = {}", offset);
     }
     act_pos
 }
