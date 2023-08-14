@@ -53,7 +53,7 @@ impl FileBuffer {
     }
 
     #[allow(dead_code)]
-    pub fn get_size(&mut self) -> u64{
+    pub fn get_size(&self) -> u64{
         self.file.metadata().unwrap().len()
     }
 

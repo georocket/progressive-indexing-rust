@@ -2,23 +2,27 @@ use std::collections::{HashMap, LinkedList};
 
 use crate::{file_buffer::FileBuffer, matcher, utility::binary_search_for_offset_range};
 
-pub struct BoyerMoore<'a> {
+pub struct BoyerMoore<'a> 
+{
     bad_char_lookup_table: Vec<HashMap<char, isize>>,
     pattern: &'a str
 }
 
 
-impl<'a> BoyerMoore<'a> {
+impl<'a> BoyerMoore<'a> 
+{
 
 
-    pub fn new(pattern: &'a str) -> Result<Self, std::io::Error> {
+    pub fn new(pattern: &'a str) -> Result<Self, std::io::Error> 
+    {
         Ok(Self { 
             bad_char_lookup_table: BoyerMoore::bad_char_lookup_table(pattern),
             pattern
         })
     }
 
-    pub fn bad_char_lookup_table(pattern: &str) -> Vec<HashMap<char, isize>> {
+    pub fn bad_char_lookup_table(pattern: &str) -> Vec<HashMap<char, isize>> 
+    {
         let mut char_map: HashMap<char, isize> = HashMap::new();
         let mut result = vec![HashMap::new(); pattern.len()];
 
@@ -33,7 +37,8 @@ impl<'a> BoyerMoore<'a> {
         result
     }
 
-    pub fn boyer_moore_bad_char_only(&self, file: &mut FileBuffer) -> Result<LinkedList<isize>, std::io::Error>{
+    pub fn boyer_moore_bad_char_only(&self, file: &mut FileBuffer) -> Result<LinkedList<isize>, std::io::Error>
+    {
         let file_size = file.get_size();
         let pattern_size = self.pattern.len();
         let mut result:LinkedList<isize> = LinkedList::new();
@@ -58,7 +63,7 @@ impl<'a> BoyerMoore<'a> {
                         num_skipped += skips;
                         break;
                     }
-                    if(j == 0) {
+                    if j == 0 {
                         result.push_back(i as isize);
                         i += (pattern_size-1) as u64;
                     }
@@ -71,7 +76,15 @@ impl<'a> BoyerMoore<'a> {
         Ok(result)
     }
 
-    pub fn scan_attribute_by_key(&self, file: &mut FileBuffer, offset_list: &Vec<(u64, u64)>, from: usize, to: usize) -> Vec<String> {
+    pub fn scan_attribute_by_key
+    (
+        &self, 
+        file: &mut FileBuffer, 
+        offset_list: &Vec<(u64, u64)>, 
+        from: usize, 
+        to: usize
+    ) -> Vec<String> 
+    {
         let file_size = file.get_size();                                
         let pattern_size = self.pattern.len();
         let mut result = vec![String::from(""); to - from];
@@ -120,5 +133,83 @@ impl<'a> BoyerMoore<'a> {
             i += 1;
         }
         result
+    }
+
+    pub fn scan_attribute_by_key_iterator
+    (
+        &self, 
+        file: &mut FileBuffer, 
+        offset_list: &Vec<(u64, u64)>, 
+        from: usize, 
+        to: usize
+    )
+    {
+
+    }
+}
+
+pub struct BoyerMooreBasicIterator<'a>
+{
+    boyer_moore: BoyerMoore<'a>,
+    file: &'a mut FileBuffer,
+    start_offset: usize
+}
+
+impl BoyerMooreBasicIterator<'static>
+{
+    pub fn new(pattern: &'static str, file: &'static mut FileBuffer) -> Self
+    {
+        Self { 
+            boyer_moore: BoyerMoore::new(pattern).unwrap(),
+            file,
+            start_offset: 0
+        }
+    }
+}
+
+impl Iterator for BoyerMooreBasicIterator<'_>
+{
+    type Item = u64;
+    
+    fn next(&mut self) -> Option<Self::Item>
+    {
+        //let file_size = self.file.get_size();
+        let file_size = self.file.get_size();
+        let pattern_size = self.boyer_moore.pattern.len();
+        let mut result:LinkedList<isize> = LinkedList::new();
+        let mut num_skipped = 0;
+        let mut i:u64 = 0;
+
+        while i < file_size {
+            if pattern_size <= (file_size - i) as usize {
+                let mut j = (pattern_size - 1) as isize;
+                while j >= 0 {
+                    let t = self.file.get(i+j as u64).unwrap() as char;
+                    let p = self.boyer_moore.pattern.as_bytes()[j as usize] as char;
+
+                    if t != p {
+                        let contains = &self.boyer_moore.bad_char_lookup_table[j as usize].contains_key(&t);
+                        let skips = if !contains {
+                            j+1 as isize
+                        } else {
+                            self.boyer_moore.bad_char_lookup_table[j as usize][&t]
+                        };
+                        i += (skips-1) as u64;
+                        j-= 1;
+                        num_skipped += skips;
+                        break;
+                    }
+                    if j == 0 {
+                        result.push_back(i as isize);
+                        Some(i);
+                        i += (pattern_size-1) as u64;
+                    }
+                    j-= 1;
+                }
+            }
+            i += 1;
+        }
+        println!("output: {}", num_skipped);
+        Some(file_size as u64)
     }
 }

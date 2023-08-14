@@ -9,9 +9,9 @@ pub struct QsNode
     pub sorted: bool,
     start: i64,
     end: i64,
-    curr_start: i64,
-    curr_end: i64,
-    pivot: String,
+    pub curr_start: i64,
+    pub curr_end: i64,
+    pub pivot: String,
     pub left: Option<i64>,
     pub right: Option<i64>,
     min: String,
@@ -48,8 +48,8 @@ impl QsNode
 
     pub fn split(&mut self, index: Vec<String>, pos: i64, parent: i64) -> (QsNode, QsNode)
     {
-        self.left = pos;
-        self.right = pos + 1;
+        self.left = Some(pos);
+        self.right = Some(pos + 1);
 
         let mut left = QsNode::new(pos, parent);
         left.start = self.start;

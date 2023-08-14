@@ -9,7 +9,7 @@ mod qs_index;
 use std::fs::{File, self};
 use std::io::{Read, Write, BufWriter};
 use std::os::unix::prelude::FileExt;
-use std::time::Instant;
+use std::time::{Instant, Duration};
 use std::vec;
 use grep::printer::{StandardBuilder, ColorSpecs};
 use grep::regex::RegexMatcher;
@@ -36,14 +36,57 @@ fn main() {
     //println!("Result: {:?}", res);
     //let mut v:Vec<(u64, u64)> = Vec::new();
     //let x = String::from("/home/derpadi/Documents/Work/Fraunhofer_IGD/ProgressiveIndexingRust/src/rawfile.txt");
-    println!("Program ran!");
+    
+    let t = Instant::now();
 
-    for i in 0..40
+    while t.elapsed() < Duration::new(0, 5) {}
+
+    println!("Time elapsed: {:?}", t.elapsed());
+
+    let mut number_sequence = NumberSequence::new(0);
+    
+    while t.elapsed() < Duration::new(3, 0)
     {
-        println!("Fibonacci-Sequence [{}]: {}", i, progressive_quicksort_time::fibonacci(i));
+        println!("Element: {:?}", number_sequence.next());
     }
 
+    println!("Program ran!");
 }
+
+
+struct NumberSequence 
+{
+    index: i64
+}
+
+impl NumberSequence
+{
+    fn new(start: i64) -> NumberSequence
+    {
+        NumberSequence 
+        { 
+            index: start,
+        }
+    }
+}
+
+impl Iterator for NumberSequence
+{
+    type Item = i64;
+
+    fn next(&mut self) -> Option<Self::Item>
+    {
+        if self.index < 50000
+        {
+            self.index += 1;
+            return Some(self.index)
+        } else {
+            None 
+        }
+    }
+}
+
+
 
 #[allow(dead_code)]
 fn search(pattern: &str, filename: &str) {
