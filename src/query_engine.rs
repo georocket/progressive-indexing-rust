@@ -3,7 +3,7 @@ use std::{fs::File, path::Path, io::{BufRead, BufReader}};
 use grep::{regex::RegexMatcher, searcher::{Sink, Searcher, SinkMatch, SinkFinish, SearcherBuilder}};
 use std::io::Write;
 
-use crate::{boyer_moore::BoyerMoore, file_buffer::FileBuffer};
+use crate::{boyer_moore::{BoyerMoore, BoyerMooreAttributeByKeyIterator}, file_buffer::FileBuffer};
 
 
 
@@ -12,7 +12,7 @@ use crate::{boyer_moore::BoyerMoore, file_buffer::FileBuffer};
 pub struct QueryEngine {
     filename: String,
     file: File,
-    file_buffer: FileBuffer,
+    pub file_buffer: FileBuffer,
     file_format: FileFormat,
     pub offset_list: Vec<(u64, u64)>,
     pub num_rows: usize
@@ -83,10 +83,14 @@ impl QueryEngine {
         bm.scan_attribute_by_key(&mut self.file_buffer, &self.offset_list, from, to)
     }
 
-    fn get_search_attribute_by_key_generator(key: String, from: u64) {
+    //fn get_search_attribute_by_key_generator(&mut self, key: String, from: u64) -> Box<dyn Iterator<Item = String>> {
+    //    let pattern = format!("<gen:stringAttribute name=\"{}\">", key);
+    //    let x = Box::new(BoyerMooreAttributeByKeyIterator::new(pattern.clone().as_str(), &mut self.file_buffer, &self.offset_list));
+        
+    //    x
         // TODO: Implement this by using an iterator?
         // https://stackoverflow.com/questions/45882329/read-large-files-line-by-line-in-rust
-    }
+    //}
 }
 
 struct OffsetSink<'a>{
@@ -130,7 +134,7 @@ impl Sink for OffsetSink<'_> {
     fn finish(&mut self, _searcher: &Searcher, _: &SinkFinish) -> Result<(), Self::Error> {
         let mut f = File::create(&mut self.output_filename).expect("Error creating file!");
         
-        for i in (0..self.data.len()){
+        for i in 0..self.data.len() {
             write!(f, "{},{}\n", self.data[i].0, self.data[i].1).expect("Error writing offsetlist!");
         }
         println!("Wrote data to file! {:?}", self.data);

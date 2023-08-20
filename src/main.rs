@@ -44,7 +44,7 @@ fn main() {
     let qe = QueryEngine::new(TESTFILE_2.to_string());
     let mut bmoo = BoyerMooreAttributeByKeyIterator::new("<gen:stringAttribute name=\"ownername\">", &mut fb, &qe.offset_list);
     
-    let mut found_pos:Vec<String> = vec![];
+    let mut found_pos:Vec<(String, usize)> = vec![];
 
 
     let mut has_next = true;
@@ -58,7 +58,7 @@ fn main() {
 
     for offset in found_pos
     {
-        println!("Found: {}", offset);
+        println!("Found: {:?}", offset);
     }
     
     println!("Program ran!");

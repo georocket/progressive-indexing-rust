@@ -237,14 +237,14 @@ impl<'a> BoyerMooreAttributeByKeyIterator<'a>
             file,
             offset_list,
             start_offset: 0,
-            act_pos: 0
+            act_pos: 0,
         }
     }
 }
 
 impl<'a> Iterator for BoyerMooreAttributeByKeyIterator<'a>
 {
-    type Item = String;
+    type Item = (String, usize);
 
     fn next(&mut self) -> Option<Self::Item> {
         let file_size = self.file.get_size();                                
@@ -281,7 +281,7 @@ impl<'a> Iterator for BoyerMooreAttributeByKeyIterator<'a>
 
                         while !matcher.step(&(self.file.get(self.act_pos).unwrap() as char)){ self.act_pos += 1 }
                         self.act_pos += 1;
-                        let _index = binary_search_for_offset_range(self.act_pos, self.offset_list);
+                        let index = binary_search_for_offset_range(self.act_pos, self.offset_list);
                         let mut act_char = self.file.get(self.act_pos).unwrap() as char;
                         while act_char != '<' {
                             result_value.push(act_char);
@@ -289,7 +289,7 @@ impl<'a> Iterator for BoyerMooreAttributeByKeyIterator<'a>
                             act_char = self.file.get(self.act_pos).unwrap() as char;
                         }
                         result.push(result_value.clone());
-                        return Some(result_value.clone());
+                        return Some((result_value.clone(), index));
                     }
                     j -= 1;
                 }

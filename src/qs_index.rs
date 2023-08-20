@@ -81,9 +81,9 @@ pub struct IncrQsIndex
     pub root: Box<Option<QsNode>>,
     pub index: Option<Vec<usize>>,
     pub data: Option<Vec<String>>,
-    curr_pos: usize,
-    curr_pivot: usize,
-    first_run: bool
+    pub curr_pos: usize,
+    pub curr_pivot: usize,
+    pub first_run: bool
 }
 
 impl IncrQsIndex
