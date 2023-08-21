@@ -18,7 +18,7 @@ pub fn range_query_incremental_quicksort_recursive_time(key: String, qs_index: I
 
 }
 
-pub fn range_query_incremetal_quicksort_time(key: &str, low: &str, high: &str, qs_index: &mut IncrQsIndex, budget: i64, mut query: QueryEngine, time_budget: u32)
+pub fn range_query_incremetal_quicksort_time(key: &str, low: &str, high: &str, qs_index: &mut IncrQsIndex, mut query: QueryEngine, time_budget: u32) -> Vec<(String, i64)>
 {
     let mut result:Vec<(String,i64)> = Vec::new();
     let mut index_data = qs_index.data.as_mut().unwrap();
@@ -37,8 +37,8 @@ pub fn range_query_incremetal_quicksort_time(key: &str, low: &str, high: &str, q
 
     let initial_run = match qs_index.root.as_ref().as_ref().unwrap().left 
     {
-        Some(_) => { true },
-        None => { false },
+        Some(_) => { false },
+        None => { true },
     };
 
     if initial_run 
@@ -85,6 +85,7 @@ pub fn range_query_incremetal_quicksort_time(key: &str, low: &str, high: &str, q
 
         // Time limited loop ()
         let mut has_next = true;
+        let mut ctr = 0;
         while timer.elapsed() < max_time
         {
             let next_val = match rows.next() {
@@ -115,9 +116,50 @@ pub fn range_query_incremetal_quicksort_time(key: &str, low: &str, high: &str, q
             }
 
             qs_index.curr_pos = std::cmp::max(qs_index.curr_pos + 1, 0 + 1);
-
-            println!("Fill index loop!");
-
+            ctr += 1;
         }
+        println!("Elements added to index: {}", ctr);
+
+        if qs_index.curr_pos == query.num_rows || !has_next
+        {
+            if node.curr_start < node.curr_end || node.curr_end < 0
+            {
+                if index_data.get(node.curr_start as usize).unwrap().as_str() < node.pivot.as_str()
+                {
+                    node.curr_start = node.curr_end;
+                } else 
+                {
+                    node.curr_end = node.curr_start;    
+                }
+            }
+            let (left, right) = node.split((&index_data).to_vec(), 0, -1);
+            qs_index.nodes.push(left);
+            qs_index.nodes.push(right);
+            qs_index.curr_pivot = 0;
+        } else 
+        {
+            let to_scan = query.search_attribute_by_key(String::from(key), qs_index.curr_pos, query.num_rows-1);
+            for (idx, val) in to_scan.iter().enumerate()
+            {
+                if (low..high).contains(&val.as_str())
+                {
+                    result.push((String::from(val), (qs_index.curr_pos + idx) as i64));
+                }
+            }
+        }
+    } else 
+    {
+        println!("Recursive call!");
+        //range_query_incremental_quicksort_recursive_time(key, qs_index, node, low, high, result)
     }
+
+    
+    while (timer.elapsed() < max_time) && qs_index.curr_pivot < qs_index.nodes.len()
+    {
+        println!("There was time left for refinement!");
+    }
+
+    println!("While... unspecific refinement here!");
+    println!("Size {}", result.len());
+    return result;
 }

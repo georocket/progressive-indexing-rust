@@ -21,22 +21,33 @@ use termcolor::ColorChoice;
 
 use crate::boyer_moore::{BoyerMoore, BoyerMooreBasicIterator, BoyerMooreAttributeByKeyIterator};
 use crate::file_buffer::FileBuffer;
+use crate::progressive_quicksort_time::range_query_incremetal_quicksort_time;
+use crate::qs_index::IncrQsIndex;
 use crate::query_engine::QueryEngine;
+
+const MS_TO_NS: u32 = 1000000;
 
 fn main() {
     const TESTFILE_1: &str = "/home/derpadi/Documents/Work/Fraunhofer_IGD/ProgressiveIndexingRust/src/DA12_3D_Buildings_Merged.gml";
     const TESTFILE_2: &str = "/home/derpadi/Documents/Work/Fraunhofer_IGD/ProgressiveIndexingRust/src/rawfile.txt";
 
-    //let mut fb = file_buffer::FileBuffer::new(TESTFILE_2, 1024*1024).unwrap();
+    let key = "ownername";
+    let low = "C";
+    let high = "D";
+    let mut index = IncrQsIndex::new();
+    let qe = QueryEngine::new(TESTFILE_2.to_owned());
+    index.init_index(qe.num_rows);
+
+    let r = range_query_incremetal_quicksort_time(key, low, high, &mut index, qe, 100 * MS_TO_NS);
+    for v in r
+    {
+        println!("{:?}", v);
+    }
+}
 
 
-    //let mut qe = QueryEngine::new(String::from(TESTFILE_2));
-
-    //let o = String::from("ownername");
-    //let res = qe.search_attribute_by_key(o, 0, 25);
-    //println!("Result: {:?}", res);
-    //let mut v:Vec<(u64, u64)> = Vec::new();
-    //let x = String::from("/home/derpadi/Documents/Work/Fraunhofer_IGD/ProgressiveIndexingRust/src/rawfile.txt");
+pub fn testing_boyer_moore_iterator(TESTFILE_2: &str)
+{
     let mut fb = FileBuffer::new(TESTFILE_2, 1024*1024).expect("Test");
     
     //let mut bmi = BoyerMooreBasicIterator::new("cityObjectMember>", &mut fb);
@@ -60,8 +71,6 @@ fn main() {
     {
         println!("Found: {:?}", offset);
     }
-    
-    println!("Program ran!");
 }
 
 
