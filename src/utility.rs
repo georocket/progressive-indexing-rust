@@ -1,4 +1,5 @@
-
+#![allow(dead_code)]
+#![allow(unused_variables)]
 
 pub fn binary_search_for_offset_range(offset: u64, offset_list: &Vec<(u64, u64)>) -> usize
 {
@@ -10,16 +11,16 @@ pub fn binary_search_for_offset_range(offset: u64, offset_list: &Vec<(u64, u64)>
     let mut upper = size;
     while !found {
         act_pos = lower + (upper - lower)/2;
-        let actLower = offset_list[act_pos].0;
-        let actUpper = if act_pos < (size-1) {offset_list[act_pos+1].0} else {offset_list[size-1].1};
-        if offset >= actLower && offset < actUpper {
+        let act_lower = offset_list[act_pos].0;
+        let act_upper = if act_pos < (size-1) {offset_list[act_pos+1].0} else {offset_list[size-1].1};
+        if offset >= act_lower && offset < act_upper {
             found = true;
             continue;
         }
-        if offset < actLower {
+        if offset < act_lower {
             upper -= (upper - lower) / 2;
         }
-        if offset >= actUpper {
+        if offset >= act_upper {
             lower += (upper - lower) / 2;
         }
         //println!("Position: {}", act_pos);

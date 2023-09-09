@@ -1,3 +1,6 @@
+#![allow(dead_code)]
+#![allow(unused_variables)]
+
 use std::collections::{HashMap, LinkedList};
 
 use crate::{file_buffer::FileBuffer, matcher, utility::binary_search_for_offset_range};

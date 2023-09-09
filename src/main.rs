@@ -1,3 +1,7 @@
+#![allow(dead_code)]
+#![allow(unused_variables)]
+#![allow(unused_imports)]
+
 mod file_buffer;
 mod query_engine;
 mod boyer_moore;
@@ -24,6 +28,7 @@ use crate::progressive_quicksort_time::range_query_incremetal_quicksort_time;
 use crate::qs_index::{IncrQsIndex, QsNode};
 use crate::query_engine::QueryEngine;
 
+
 const MS_TO_NS: u32 = 1000000;
 
 
@@ -44,12 +49,12 @@ impl Node<i64>
 }
 
 #[derive(Debug)]
-struct binary_tree<T>
+struct BinaryTree<T>
 {
     root: Option<Box<Node<T>>>,
 }
 
-impl binary_tree<i64>
+impl BinaryTree<i64>
 {
     pub fn new() -> Self
     {
@@ -65,7 +70,7 @@ impl binary_tree<i64>
             },
             Some(node) => 
             {
-                binary_tree::insert_recursive_helper(node, value);
+                BinaryTree::insert_recursive_helper(node, value);
             }
         }   
     }
@@ -79,7 +84,7 @@ impl binary_tree<i64>
                     node.right = Some(Box::new(Node::new(value))); 
                 },
                 Some(right) => { 
-                    binary_tree::insert_recursive_helper(right, value); 
+                    BinaryTree::insert_recursive_helper(right, value); 
                 }
             }
         } else {
@@ -88,7 +93,7 @@ impl binary_tree<i64>
                     node.left = Some(Box::new(Node::new(value))); 
                 },
                 Some(left) => { 
-                    binary_tree::insert_recursive_helper(left, value); 
+                    BinaryTree::insert_recursive_helper(left, value); 
                 }
             }
         }
@@ -101,7 +106,7 @@ impl binary_tree<i64>
         {
             None => { println!("Tree is empty!"); },
             Some(node) => { 
-                binary_tree::trav_rec_helper(node, mode); 
+                BinaryTree::trav_rec_helper(node, mode); 
             }
         }
         println!("\n");
@@ -114,7 +119,7 @@ impl binary_tree<i64>
         {
             None => {},
             Some(left) => { 
-                binary_tree::trav_rec_helper(left, mode); 
+                BinaryTree::trav_rec_helper(left, mode); 
             }
         }
         if mode == 1 { print!("{}, ", node.value) };
@@ -122,7 +127,7 @@ impl binary_tree<i64>
         {
             None => {},
             Some(right) => { 
-                binary_tree::trav_rec_helper(right, mode); 
+                BinaryTree::trav_rec_helper(right, mode); 
             }
         }
         if mode == 2 { print!("{}, ", node.value) };
