@@ -1,9 +1,10 @@
 use std::{fs::File, path::Path, io::{BufRead, BufReader}};
 
-use grep::{regex::RegexMatcher, searcher::{Sink, Searcher, SinkMatch, SinkFinish, SearcherBuilder}};
 use std::io::Write;
 
-use crate::{boyer_moore::{BoyerMoore, BoyerMooreAttributeByKeyIterator}, file_buffer::FileBuffer};
+use grep::{regex::RegexMatcher, searcher::{SearcherBuilder, Searcher, SinkMatch, Sink, SinkFinish}};
+
+use super::{file_buffer::FileBuffer, boyer_moore::BoyerMoore};
 
 
 

@@ -1,3 +1,4 @@
+
 pub struct SimpleMatcher {
     pattern: String,
     act_pos: usize,

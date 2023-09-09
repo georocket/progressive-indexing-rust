@@ -2,9 +2,9 @@
 #![allow(unused_variables)]
 //#![allow(unused_imports)]
 
-mod fileaccess;
 use crate::fileaccess::query_engine::QueryEngine;
 
+mod fileaccess;
 
 const MS_TO_NS: u32 = 1000000;
 
@@ -241,8 +241,6 @@ fn main() {
         idx.add(b);
         idx.curr_pos +=1;
     }
-
-    let qe = QueryEngine::new();
 
     println!("{:?}", idx.nodes);
 

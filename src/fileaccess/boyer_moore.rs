@@ -3,7 +3,8 @@
 
 use std::collections::{HashMap, LinkedList};
 
-use crate::{file_buffer::FileBuffer, matcher, utility::binary_search_for_offset_range};
+use super::{file_buffer::FileBuffer, utility::binary_search_for_offset_range, matcher};
+
 
 pub struct BoyerMoore<'a> 
 {
