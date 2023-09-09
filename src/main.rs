@@ -1,32 +1,9 @@
 #![allow(dead_code)]
 #![allow(unused_variables)]
-#![allow(unused_imports)]
+//#![allow(unused_imports)]
 
-mod file_buffer;
-mod query_engine;
-mod boyer_moore;
-mod matcher;
-mod utility;
-mod own_linked_list;
-mod progressive_quicksort_time;
-mod qs_index;
-use std::fs::{File, self};
-use std::io::{Read, Write, BufWriter};
-use std::os::unix::prelude::FileExt;
-use std::time::{Instant, Duration};
-use std::vec;
-use grep::printer::{StandardBuilder, ColorSpecs};
-use grep::regex::RegexMatcher;
-use grep::searcher::{SearcherBuilder, SinkMatch, SinkFinish, BinaryDetection};
-use grep::searcher::Sink;
-use grep::searcher::Searcher;
-use grep::cli;
-use termcolor::ColorChoice;
-use crate::boyer_moore::{BoyerMoore, BoyerMooreBasicIterator, BoyerMooreAttributeByKeyIterator};
-use crate::file_buffer::FileBuffer;
-use crate::progressive_quicksort_time::range_query_incremetal_quicksort_time;
-use crate::qs_index::{IncrQsIndex, QsNode};
-use crate::query_engine::QueryEngine;
+mod fileaccess;
+use crate::fileaccess::query_engine::QueryEngine;
 
 
 const MS_TO_NS: u32 = 1000000;
@@ -264,6 +241,8 @@ fn main() {
         idx.add(b);
         idx.curr_pos +=1;
     }
+
+    let qe = QueryEngine::new();
 
     println!("{:?}", idx.nodes);
 
