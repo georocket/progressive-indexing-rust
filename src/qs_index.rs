@@ -1,21 +1,22 @@
 use core::num;
-use std::os::unix::process::parent_id;
+use std::{os::unix::process::parent_id, borrow::BorrowMut};
 
 
+#[derive(Debug)]
 pub struct QsNode 
 {
-    position: i64,
-    parent: i64,
+    pub position: i64,
+    pub parent: i64,
     pub sorted: bool,
-    start: i64,
-    end: i64,
+    pub start: i64,
+    pub end: i64,
     pub curr_start: i64,
     pub curr_end: i64,
     pub pivot: String,
     pub left: Option<i64>,
     pub right: Option<i64>,
-    min: String,
-    max: String,
+    pub min: String,
+    pub max: String,
     already_rebalanced: bool
 }
 
@@ -46,7 +47,7 @@ impl QsNode
         self.curr_end = self.end - 1;
     }
 
-    pub fn split(&mut self, index: Vec<String>, pos: i64, parent: i64) -> (QsNode, QsNode)
+    pub fn split(&mut self, index: &Vec<String>, pos: i64, parent: i64) -> (QsNode, QsNode)
     {
         self.left = Some(pos);
         self.right = Some(pos + 1);
@@ -77,7 +78,7 @@ impl QsNode
 
 pub struct IncrQsIndex
 {
-    pub nodes: Vec<QsNode>,
+    pub nodes: Vec<QsNode>,             // Maybe put nodes inside boxes? 
     pub root: Box<Option<QsNode>>,
     pub index: Option<Vec<usize>>,
     pub data: Option<Vec<String>>,
@@ -122,6 +123,17 @@ impl IncrQsIndex
             None => {},
         }
         self.curr_pos = 0;
+    }
+
+    pub fn get_nodes_length(&self) -> usize
+    {
+        //let le = self.nodes.len();
+        return 10;
+    }
+
+    pub fn get_current_node(&mut self) -> &mut QsNode
+    {
+        return self.nodes.get_mut(self.curr_pivot).unwrap();
     }
 
     pub fn print_index(&self)

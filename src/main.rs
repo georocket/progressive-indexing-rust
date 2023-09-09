@@ -18,255 +18,250 @@ use grep::searcher::Sink;
 use grep::searcher::Searcher;
 use grep::cli;
 use termcolor::ColorChoice;
-
 use crate::boyer_moore::{BoyerMoore, BoyerMooreBasicIterator, BoyerMooreAttributeByKeyIterator};
 use crate::file_buffer::FileBuffer;
 use crate::progressive_quicksort_time::range_query_incremetal_quicksort_time;
-use crate::qs_index::IncrQsIndex;
+use crate::qs_index::{IncrQsIndex, QsNode};
 use crate::query_engine::QueryEngine;
 
 const MS_TO_NS: u32 = 1000000;
 
-fn main() {
-    const TESTFILE_1: &str = "/home/derpadi/Documents/Work/Fraunhofer_IGD/ProgressiveIndexingRust/src/DA12_3D_Buildings_Merged.gml";
-    const TESTFILE_2: &str = "/home/derpadi/Documents/Work/Fraunhofer_IGD/ProgressiveIndexingRust/src/rawfile.txt";
 
-    let key = "ownername";
-    let low = "C";
-    let high = "D";
-    let mut index = IncrQsIndex::new();
-    let qe = QueryEngine::new(TESTFILE_2.to_owned());
-    index.init_index(qe.num_rows);
+#[derive(Debug)]
+struct Node<T>
+{
+    value: T,
+    left: Option<Box<Node<T>>>,
+    right: Option<Box<Node<T>>>,
+}
 
-    let r = range_query_incremetal_quicksort_time(key, low, high, &mut index, qe, 100 * MS_TO_NS);
-    for v in r
+impl Node<i64>
+{
+    pub fn new(value: i64) -> Self
     {
-        println!("{:?}", v);
+        Self { value, left: None, right: None }
     }
 }
 
-
-pub fn testing_boyer_moore_iterator(TESTFILE_2: &str)
+#[derive(Debug)]
+struct binary_tree<T>
 {
-    let mut fb = FileBuffer::new(TESTFILE_2, 1024*1024).expect("Test");
-    
-    //let mut bmi = BoyerMooreBasicIterator::new("cityObjectMember>", &mut fb);
-
-    let qe = QueryEngine::new(TESTFILE_2.to_string());
-    let mut bmoo = BoyerMooreAttributeByKeyIterator::new("<gen:stringAttribute name=\"ownername\">", &mut fb, &qe.offset_list);
-    
-    let mut found_pos:Vec<(String, usize)> = vec![];
-
-
-    let mut has_next = true;
-    while has_next 
-    {
-        match bmoo.next() {
-            Some(val) => {found_pos.push(val)},
-            None => {has_next = false},
-        }  
-    }
-
-    for offset in found_pos
-    {
-        println!("Found: {:?}", offset);
-    }
+    root: Option<Box<Node<T>>>,
 }
 
-
-struct NumberSequence 
+impl binary_tree<i64>
 {
-    index: i64
-}
-
-impl NumberSequence
-{
-    fn new(start: i64) -> NumberSequence
+    pub fn new() -> Self
     {
-        NumberSequence 
-        { 
-            index: start,
-        }
+        Self { root: None }
     }
-}
 
-impl Iterator for NumberSequence
-{
-    type Item = i64;
-
-    fn next(&mut self) -> Option<Self::Item>
+    pub fn insert(&mut self, value: i64)
     {
-        if self.index < 50000
+        match &mut self.root
         {
-            self.index += 1;
-            return Some(self.index)
+            None => { 
+                self.root = Some(Box::new(Node::new(value))); 
+            },
+            Some(node) => 
+            {
+                binary_tree::insert_recursive_helper(node, value);
+            }
+        }   
+    }
+
+    fn insert_recursive_helper(node: &mut Box<Node<i64>>, value: i64)
+    {
+        if value > node.value
+        {
+            match &mut node.right {
+                None => { 
+                    node.right = Some(Box::new(Node::new(value))); 
+                },
+                Some(right) => { 
+                    binary_tree::insert_recursive_helper(right, value); 
+                }
+            }
         } else {
-            None 
+            match &mut node.left {
+                None => { 
+                    node.left = Some(Box::new(Node::new(value))); 
+                },
+                Some(left) => { 
+                    binary_tree::insert_recursive_helper(left, value); 
+                }
+            }
+        }
+    }
+
+    pub fn traverse_tree(&self, mode: i32)
+    {
+        print!("\n\nTree: ");
+        match &self.root
+        {
+            None => { println!("Tree is empty!"); },
+            Some(node) => { 
+                binary_tree::trav_rec_helper(node, mode); 
+            }
+        }
+        println!("\n");
+    }
+
+    fn trav_rec_helper(node: &Box<Node<i64>>, mode: i32)
+    {
+        if mode == 0 { print!("{}, ", node.value) };
+        match &node.left
+        {
+            None => {},
+            Some(left) => { 
+                binary_tree::trav_rec_helper(left, mode); 
+            }
+        }
+        if mode == 1 { print!("{}, ", node.value) };
+        match &node.right
+        {
+            None => {},
+            Some(right) => { 
+                binary_tree::trav_rec_helper(right, mode); 
+            }
+        }
+        if mode == 2 { print!("{}, ", node.value) };
+    }
+}
+
+
+#[derive(Debug)]
+struct IndexNode
+{
+    value: i32,
+    parent: i32,
+    left: Option<i32>,
+    right: Option<i32>,
+    sorted: bool
+}
+
+impl IndexNode
+{
+    pub fn new(value: i32, parent: i32) -> Self
+    {
+        Self { 
+            value,
+            parent,
+            left: None, 
+            right: None,
+            sorted: false
+        }
+    }
+
+    pub fn split(&mut self, pos: i32, parent: i32) -> (IndexNode, IndexNode)
+    {
+        self.left = Some(pos);
+        self.right = Some(pos + 1);
+        let left = IndexNode::new(self.value/2, parent);
+        let right = IndexNode::new((self.value/2) + self.value, parent);
+
+        (left, right)
+    }
+}
+
+#[derive(Debug)]
+struct Index
+{
+    nodes: Vec<Box<IndexNode>>,
+    curr_pos: usize
+}
+
+impl Index
+{
+    pub fn new() -> Self
+    {
+        Self { nodes: vec![Box::new(IndexNode::new(50, -1))], curr_pos: 0 }
+    }
+
+    pub fn get_act_node(&mut self) -> (&mut Box<IndexNode>, i32)
+    {
+        return (&mut self.nodes[self.curr_pos], self.curr_pos as i32);
+    }
+
+    pub fn add(&mut self, node: IndexNode)
+    {
+        self.nodes.push(Box::new(node));
+    }
+
+    fn sorted_check(&mut self, node_idx: usize)
+    {   
+        let n = self.nodes[node_idx].left;
+        let r = self.nodes[node_idx].right;
+
+        let left_sorted =  match n {
+            Some(id) => {
+                let left = &mut self.nodes[id as usize];
+                left.sorted
+            },
+            None => {
+                true
+            },
+        };
+
+        let right_sorted = match r {
+            Some(id) => {
+                let right = &mut self.nodes[id as usize];
+                right.sorted
+            },
+            None => {
+                true
+            },
+        };
+
+        if right_sorted && left_sorted
+        {
+            let node = &mut self.nodes[node_idx];
+            node.sorted = true;
+            node.left = None;
+            node.right = None;
+
+            if node.parent >= 0
+            {
+                let parent = node.parent as usize;
+                self.sorted_check(parent);
+            }
         }
     }
 }
 
 
+fn main() {
+    let mut idx = Index::new();
 
-#[allow(dead_code)]
-fn search(pattern: &str, filename: &str) {
-    let file = File::open(filename).expect("Error opening file!");
-    let matcher = RegexMatcher::new_line_matcher(&pattern).expect("Error");
-    let mut searcher = SearcherBuilder::new()
-        .binary_detection(BinaryDetection::quit(b'\x00'))
-        .line_number(false)
-        .build();
-
-    //let mut printer = StandardBuilder::new()
-    //    .color_specs(ColorSpecs::default_with_color())
-    //    .build(cli::stdout(if cli::is_tty_stdout() {
-    //        ColorChoice::Auto
-    //    } else {
-    //        ColorChoice::Never
-    //    }));
-
-    
-    let mut printer = StandardBuilder::new()
-        .color_specs(ColorSpecs::default_with_color())
-        .build(cli::stdout(if cli::is_tty_stdout() {
-            ColorChoice::Auto
-        } else {
-            ColorChoice::Never
-        }));
-
-        
-    let start = Instant::now();
-    let res = searcher.search_file(&matcher, &file, printer.sink(&matcher));
-    let end = start.elapsed();
-    println!("Time elapsed: {:?}", end);
-}
-
-#[allow(dead_code)]
-fn search_alternative(filename: &str, pattern: &str, offset: usize) {
-    let mut file = File::open(filename).unwrap();
-    let mut buffer = String::new();
-
-    //file.seek(io::SeekFrom::Start(offset as u64))?;
-    file.read_to_string(&mut buffer);
-}
-
-#[allow(dead_code)]
-fn tmp(){
-    const TESTFILE_1: &str = "/home/derpadi/Documents/Work/Fraunhofer_IGD/ProgressiveIndexingRust/src/DA12_3D_Buildings_Merged.gml";
-    let mut f = file_buffer::FileBuffer::new(TESTFILE_1, 1024*1024).expect("Error!");
-    for i in 0..5{
-        let s = Instant::now();
-        create_offset_list(TESTFILE_1, "offsetList.txt");
-        let d = s.elapsed();
-        println!("Runtime: {:?}", d);
-    }
-    let mut load_data = vec![];
-    read_into_vec64("offset.bin", &mut load_data);
-
-    //println!("{:?}", load_data);
-}
-
-
-fn create_offset_list(filename: &str, output: &str) {
-    let pattern = "cityObjectMember>";
-    let matcher = RegexMatcher::new_line_matcher(pattern).unwrap();
-    let file = File::open(filename).expect("Error opening file!");
-    //let bufReader = BufReader::new(file);
-    
-    let mut sink = CustomSink{output_filename: "OffsetList.txt".to_string(), counter: 0, data: vec![]};
-
-    
-    let mut searcher = SearcherBuilder::new()
-    .line_number(true)
-    .multi_line(true)
-    .build();
-
-    let start = Instant::now();
-    searcher.search_file(&matcher, &file, &mut sink).expect("Something went wrong!");
-    println!("Time for wrtiing: {:?}", start.elapsed());
-    sink.write_data_to_file("offset.bin");
-}
-
-struct CustomSink{
-    output_filename: String,
-    counter: u64,
-    data: Vec<u64>
-}
-
-fn read_into_vec64(filename: &str, vec: &mut Vec<u64>) {
-    let f = File::open(filename).expect("Error opening file!");
-    let size = fs::metadata(filename).expect("Error").len();
-    for i in (0..size).step_by(8){
-        let mut buff = [0u8; 8];
-        f.read_exact_at(&mut buff, i).expect("Error reading!");
-        vec.push(u64::from_be_bytes(buff));
-    }
-}
-
-impl CustomSink{
-    fn print_num_results(&self){
-        println!("{}", self.counter/2);
+    {
+        let p = idx.nodes.len() as i32;
+        let (n, n2) = idx.get_act_node();
+        let (a,b) = n.split(p, n2);
+        idx.add(a);
+        idx.add(b);
+        idx.curr_pos +=1;
     }
 
-    fn write_data_to_file(&self, file_name: &str) -> &Vec<u64>{
-        let f = File::create("offset.bin").expect("Error creating file!");
-        let mut w = BufWriter::new(f);
-        let mut buffer:Vec<u8> = vec![];
-        for &d in &self.data{
-            buffer.extend_from_slice(&d.to_be_bytes());
-        }
-        w.write_all(&buffer).expect("Error writing!");
-        return &self.data;
-    }
-}
-
-impl Sink for CustomSink {
-    type Error = std::io::Error;
-
-    fn matched(&mut self, _: &Searcher, line: &SinkMatch) -> Result<bool, Self::Error> {
-        self.counter += 1;
-        self.data.push(line.absolute_byte_offset());
-        Ok(true)
+    {
+        let p = idx.nodes.len() as i32;
+        let (n, n2) = idx.get_act_node();
+        let (a,b) = n.split(p, n2);
+        idx.add(a);
+        idx.add(b);
+        idx.curr_pos +=1;
     }
 
-    fn finish(&mut self, _searcher: &Searcher, _: &SinkFinish) -> Result<(), Self::Error> {
-        let mut f = File::create(&mut self.output_filename).expect("Error creating file!");
-        
-        for i in (1..self.data.len()-1).step_by(2){
-            write!(f, "{},{}\n", self.data[i], self.data[i+1]).expect("Error writing to file!");
-        }
-        println!("Wrote data to file!");
-        self.print_num_results();
-        Ok(())
+    {
+        let p = idx.nodes.len() as i32;
+        let (n, n2) = idx.get_act_node();
+        let (a,b) = n.split(p, n2);
+        idx.add(a);
+        idx.add(b);
+        idx.curr_pos +=1;
     }
 
-}
+    println!("{:?}", idx.nodes);
 
+    println!("Hello World!")
 
-
-
-
-
-
-
-// First test implementation
-#[allow(dead_code)]
-struct MyFileReader{
-    file: File,
-}
-
-impl MyFileReader {
-    #[allow(dead_code)]
-    fn new(file_path: &str) -> MyFileReader {
-        let file = File::open(file_path).expect("Works not!");
-        Self { file }
-    }
-    #[allow(dead_code)]
-    fn read_byte_by_byte(&mut self){
-        let mut buffer: Vec<u8> = vec![0u8; 20];
-        self.file.read_exact(&mut buffer).expect("Nothing works!");
-        let str = String::from_utf8_lossy(&buffer);
-        println!("{:?}", buffer);
-        println!("{}", str);
-    }
 }

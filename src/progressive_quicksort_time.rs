@@ -1,4 +1,4 @@
-use std::{time::{Instant, Duration, SystemTime}, alloc::System};
+use std::{time::{Instant, Duration, SystemTime}, alloc::System, ops::Deref};
 
 use crate::{qs_index::{self, IncrQsIndex, QsNode}, query_engine::QueryEngine, boyer_moore::BoyerMooreAttributeByKeyIterator, file_buffer};
 
@@ -21,8 +21,6 @@ pub fn range_query_incremental_quicksort_recursive_time(key: String, qs_index: I
 pub fn range_query_incremetal_quicksort_time(key: &str, low: &str, high: &str, qs_index: &mut IncrQsIndex, mut query: QueryEngine, time_budget: u32) -> Vec<(String, i64)>
 {
     let mut result:Vec<(String,i64)> = Vec::new();
-    let mut index_data = qs_index.data.as_mut().unwrap();
-    let mut pointers = qs_index.index.as_mut().unwrap();
 
     let timer = Instant::now();
     let max_time = Duration::new(0, time_budget);
@@ -43,7 +41,10 @@ pub fn range_query_incremetal_quicksort_time(key: &str, low: &str, high: &str, q
 
     if initial_run 
     {
-        let node = qs_index.root.as_mut().as_mut().unwrap();
+        let index_data = qs_index.data.as_mut().unwrap();
+        let pointers = qs_index.index.as_mut().unwrap();
+
+        let node = qs_index.root.as_mut().as_mut().unwrap(); // Borrow
 
         let piv = node.pivot.as_str();
         if low < piv 
@@ -84,7 +85,7 @@ pub fn range_query_incremetal_quicksort_time(key: &str, low: &str, high: &str, q
         }
 
         // Time limited loop ()
-        let mut has_next = true;
+        let has_next = true;
         let mut ctr = 0;
         while timer.elapsed() < max_time
         {
@@ -132,7 +133,7 @@ pub fn range_query_incremetal_quicksort_time(key: &str, low: &str, high: &str, q
                     node.curr_end = node.curr_start;    
                 }
             }
-            let (left, right) = node.split((&index_data).to_vec(), 0, -1);
+            let (left, right) = node.split(&index_data, 0, -1);
             qs_index.nodes.push(left);
             qs_index.nodes.push(right);
             qs_index.curr_pivot = 0;
@@ -153,13 +154,65 @@ pub fn range_query_incremetal_quicksort_time(key: &str, low: &str, high: &str, q
         //range_query_incremental_quicksort_recursive_time(key, qs_index, node, low, high, result)
     }
 
-    
-    while (timer.elapsed() < max_time) && qs_index.curr_pivot < qs_index.nodes.len()
+    while (timer.elapsed() < max_time) && qs_index.curr_pivot < qs_index.get_nodes_length()
     {
         println!("There was time left for refinement!");
+        let node = qs_index.nodes.get_mut(qs_index.curr_pivot).unwrap(); // Get current node
+
+        if node.sorted || node.left == None
+        {
+            qs_index.curr_pivot += 1;
+            continue;
+        }
+
+        if node.min == node.max
+        {
+            node.sorted = true;
+            println!("Perform sorted check!");
+            qs_index.curr_pivot += 1;
+        }
+        else 
+        {
+            println!("Do node budget sort!");
+
+            if node.curr_start >= node.curr_end
+            {
+                if node.start == node.end -1
+                {
+                    node.sorted = true;
+                    println!("Perform sorted-check!");
+                    qs_index.curr_pivot += 1;
+                    continue;
+                }
+
+                println!("Check for bad balance!");
+                let pos = node.position;
+                let (left, right) = node.split(&qs_index.data.as_mut().unwrap(), 0 as i64, pos);
+            }    
+        }
     }
 
     println!("While... unspecific refinement here!");
     println!("Size {}", result.len());
     return result;
+}
+
+fn sorted_check(qs_index: &IncrQsIndex, node: &mut QsNode)
+{
+    if qs_index.nodes[node.left.unwrap() as usize].sorted && qs_index.nodes[node.right.unwrap() as usize].sorted
+    {
+        node.sorted = true;
+        node.left = None;
+        node.right = None;
+
+        if node.position >= 0
+        {
+            if node.parent >= 0
+            {
+                //let x = &mut qs_index.nodes[node.parent as usize];
+                //sorted_check(&qs_index, &mut qs_index.nodes[node.parent as usize]);
+            }
+        }
+
+    }
 }
