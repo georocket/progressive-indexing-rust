@@ -4,7 +4,9 @@
 
 use std::fmt::Display;
 
-use crate::qsindex::qs_index::IncrQsIndex;
+use rand::Rng;
+
+use crate::utility::{binary_search_gte, binary_search_lte, test_function};
 
 mod fileaccess;
 mod qsindex;
@@ -221,50 +223,70 @@ impl Index
 fn main() {
     let mut idx = Index::new();
 
-    {
-        let p = idx.nodes.len() as i32;
-        let (n, n2) = idx.get_act_node();
-        let (a,b) = n.split(p, n2);
-        idx.add(a);
-        idx.add(b);
-        idx.curr_pos +=1;
-    }
+    // {
+    //     let p = idx.nodes.len() as i32;
+    //     let (n, n2) = idx.get_act_node();
+    //     let (a,b) = n.split(p, n2);
+    //     idx.add(a);
+    //     idx.add(b);
+    //     idx.curr_pos +=1;
+    // }
 
-    {
-        let p = idx.nodes.len() as i32;
-        let (n, n2) = idx.get_act_node();
-        let (a,b) = n.split(p, n2);
-        idx.add(a);
-        idx.add(b);
-        idx.curr_pos +=1;
-    }
+    // {
+    //     let p = idx.nodes.len() as i32;
+    //     let (n, n2) = idx.get_act_node();
+    //     let (a,b) = n.split(p, n2);
+    //     idx.add(a);
+    //     idx.add(b);
+    //     idx.curr_pos +=1;
+    // }
 
-    {
-        let p = idx.nodes.len() as i32;
-        let (n, n2) = idx.get_act_node();
-        let (a,b) = n.split(p, n2);
-        idx.add(a);
-        idx.add(b);
-        idx.curr_pos +=1;
-    }
+    // {
+    //     let p = idx.nodes.len() as i32;
+    //     let (n, n2) = idx.get_act_node();
+    //     let (a,b) = n.split(p, n2);
+    //     idx.add(a);
+    //     idx.add(b);
+    //     idx.curr_pos +=1;
+    // }
 
     //println!("{:?}", idx.nodes);
 
-    // Some testing with generics
-    let a = String::from("B");
-    let b = String::from("A");
-    let a2 = "A";
-    let b2 = "B";
+    // Testing the binary_search functions
+    //binary_search();
 
-    let x = a2 < b2;
+        let test_vector = vec![9, 9, 9, 9, 18, 19, 19, 20, 20, 20, 20, 20, 28, 28, 28, 28, 57, 57, 57, 57, 74, 74, 74, 74, 82, 82, 82, 82, 82, 84, 84, 84, 84, 84, 92];
+                                //  vec![0,1,2 ,3 ,4, 5, 6, 7 , 8, 9,10,11,12]
 
-    println!("Result of {} < {} = {}", a, b, some_coparison(&a, &b));
+        let mut test = Vec::<i32>::new();
+        fill_test_array_rnd(&mut test, 10);
+        //println!("Result: {:?}", test_vector);
+        
 
+        println!("Vector: {:?}", test_vector);
 
-    some_generic_function("Peter");
+        let res = test_function(&test_vector, 30, 70);
+
+        println!("Result: {:?}", res);
 
     println!("Hello World!")
 
+}
+
+pub fn fill_test_array_rnd(array: &mut Vec<i32>, num_elements: i32)
+{
+    let mut rng = rand::thread_rng();
+    for _ in 0..num_elements
+    {
+        let random_value: i32 = rng.gen_range(0..100);
+        let duplicates: i32 = rng.gen_range(1..6);
+
+        for _ in 0..duplicates
+        {
+            array.push(random_value);
+        }
+    }
+    array.sort();
 }
 
 

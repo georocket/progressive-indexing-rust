@@ -8,3 +8,4 @@ edition = "2021"
 [dependencies]
 termcolor = "1.2.0"
 grep = "0.2.12"
+rand = "0.8"
