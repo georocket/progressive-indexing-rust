@@ -2,9 +2,15 @@
 #![allow(unused_variables)]
 //#![allow(unused_imports)]
 
-use crate::fileaccess::query_engine::QueryEngine;
+use std::fmt::Display;
+
+use crate::qsindex::qs_index::IncrQsIndex;
 
 mod fileaccess;
+mod qsindex;
+mod progressive_quicksort_time;
+mod utility;
+
 
 const MS_TO_NS: u32 = 1000000;
 
@@ -242,8 +248,32 @@ fn main() {
         idx.curr_pos +=1;
     }
 
-    println!("{:?}", idx.nodes);
+    //println!("{:?}", idx.nodes);
+
+    // Some testing with generics
+    let a = String::from("B");
+    let b = String::from("A");
+    let a2 = "A";
+    let b2 = "B";
+
+    let x = a2 < b2;
+
+    println!("Result of {} < {} = {}", a, b, some_coparison(&a, &b));
+
+
+    some_generic_function("Peter");
 
     println!("Hello World!")
 
+}
+
+
+pub fn some_coparison<T: Ord>(a: &T, b: &T) -> bool
+{
+    a < b
+}
+
+pub fn some_generic_function<T : Display>(t: T)
+{
+    println!("Something: {}", t);
 }

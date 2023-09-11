@@ -3,7 +3,8 @@
 
 use std::time::{Instant, Duration};
 
-use crate::{qs_index::{IncrQsIndex, QsNode}, query_engine::QueryEngine, boyer_moore::BoyerMooreAttributeByKeyIterator};
+use crate::{qsindex::{qs_index::IncrQsIndex, qs_node::QsNode}, fileaccess::{query_engine::QueryEngine, boyer_moore::BoyerMooreAttributeByKeyIterator}};
+
 
 
 
@@ -16,9 +17,21 @@ pub fn fibonacci(n: i64) -> i64
     }
 }
 
-pub fn range_query_incremental_quicksort_recursive_time(key: String, qs_index: IncrQsIndex, node: QsNode, low: &str, high: &str, result: Vec<(String, usize)>)
+pub fn range_query_incremental_quicksort_recursive_time(key: String, qs_index: IncrQsIndex, node: QsNode<String>, low: &str, high: &str, result: &mut Vec<(String, usize)>)
 {
-
+    if node.sorted
+    {
+        if String::from(low) <= node.min && String::from(high) >= node.max
+        {
+            for i in node.start..node.end
+            {
+                result.push((qs_index.data.as_ref().unwrap()[i as usize].clone(), qs_index.index.as_ref().unwrap()[i as usize]));
+            }
+        } else 
+        {
+                
+        }
+    }
 }
 
 pub fn range_query_incremetal_quicksort_time(key: &str, low: &str, high: &str, qs_index: &mut IncrQsIndex, mut query: QueryEngine, time_budget: u32) -> Vec<(String, i64)>
@@ -160,6 +173,7 @@ pub fn range_query_incremetal_quicksort_time(key: &str, low: &str, high: &str, q
     while (timer.elapsed() < max_time) && qs_index.curr_pivot < qs_index.get_nodes_length()
     {
         println!("There was time left for refinement!");
+        let nodes_len = qs_index.nodes.len();
         let node = qs_index.nodes.get_mut(qs_index.curr_pivot).unwrap(); // Get current node
 
         if node.sorted || node.left == None
@@ -177,20 +191,35 @@ pub fn range_query_incremetal_quicksort_time(key: &str, low: &str, high: &str, q
         else 
         {
             println!("Do node budget sort!");
+            let index_data = qs_index.data.as_mut().unwrap();
+            let pointers = qs_index.index.as_mut().unwrap();
+
+            node.do_budget_sorting(index_data, pointers, 10);
 
             if node.curr_start >= node.curr_end
             {
                 if node.start == node.end -1
                 {
                     node.sorted = true;
-                    println!("Perform sorted-check!");
+                    let parent = node.parent;
+                    qs_index.sorted_check(match parent {
+                        Some(p) => {
+                            p as usize
+                        },
+                        None => {
+                            0
+                        },
+                    }); 
                     qs_index.curr_pivot += 1;
                     continue;
                 }
 
                 println!("Check for bad balance!");
                 let pos = node.position;
-                let (left, right) = node.split(&qs_index.data.as_mut().unwrap(), 0 as i64, pos);
+                let (left, right) = node.split(&qs_index.data.as_mut().unwrap(), nodes_len as i64, pos);
+                qs_index.nodes.push(left);
+                qs_index.nodes.push(right);
+                qs_index.curr_pivot += 1;
             }    
         }
     }
@@ -198,24 +227,4 @@ pub fn range_query_incremetal_quicksort_time(key: &str, low: &str, high: &str, q
     println!("While... unspecific refinement here!");
     println!("Size {}", result.len());
     return result;
-}
-
-fn sorted_check(qs_index: &IncrQsIndex, node: &mut QsNode)
-{
-    if qs_index.nodes[node.left.unwrap() as usize].sorted && qs_index.nodes[node.right.unwrap() as usize].sorted
-    {
-        node.sorted = true;
-        node.left = None;
-        node.right = None;
-
-        if node.position >= 0
-        {
-            if node.parent >= 0
-            {
-                //let x = &mut qs_index.nodes[node.parent as usize];
-                //sorted_check(&qs_index, &mut qs_index.nodes[node.parent as usize]);
-            }
-        }
-
-    }
 }
