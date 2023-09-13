@@ -6,7 +6,7 @@ use std::fmt::Display;
 
 use rand::Rng;
 
-use crate::utility::{binary_search_gte, binary_search_lte, test_function};
+use crate::utility::{binary_search_gte, binary_search_lte, test_function, linear_check};
 
 mod fileaccess;
 mod qsindex;
@@ -255,22 +255,48 @@ fn main() {
     // Testing the binary_search functions
     //binary_search();
 
-        let test_vector = vec![9, 9, 9, 9, 18, 19, 19, 20, 20, 20, 20, 20, 28, 28, 28, 28, 57, 57, 57, 57, 74, 74, 74, 74, 82, 82, 82, 82, 82, 84, 84, 84, 84, 84, 92];
-                                //  vec![0,1,2 ,3 ,4, 5, 6, 7 , 8, 9,10,11,12]
+    //let v = vec![7, 40, 40, 40, 68, 68, 69, 69, 77];
+    //single_test(&v);
+    mass_test();
 
-        let mut test = Vec::<i32>::new();
-        fill_test_array_rnd(&mut test, 10);
-        //println!("Result: {:?}", test_vector);
-        
+}
 
-        println!("Vector: {:?}", test_vector);
+pub fn single_test(vec: &Vec<i32>)
+{
+    println!("TestArray: {:?}", vec);
+    let res_test = test_function(vec, 40, 60);
+    let res_val = linear_check(vec, 40, 60);
 
-        let res = test_function(&test_vector, 30, 70);
+    if res_test.len() != res_val.len()
+    {
+        println!("Test: {:?}", res_test);
+        println!("Vali: {:?}", res_val);
+    }
+}
 
-        println!("Result: {:?}", res);
+pub fn mass_test()
+{
+    let mut test_array: Vec<i32> = vec![];
+
+    for i in 0..10000
+    {
+        test_array.clear();
+        fill_test_array_rnd(&mut test_array, 5);
+        let res_test = test_function(&test_array, 40, 60);
+        let res_val = linear_check(&test_array, 40, 60);
+        //assert!(res_test.len() == res_val.len(), "Lengths do not match!");
+        if res_test.len() != res_val.len()
+        {
+            println!("_________________________________________________________________________________________");
+            println!("TestArray: {:?}", test_array);
+            println!("Iteration: {}", i);
+            //println!("TestArray: {:?}", test_array);
+            println!("Test: {:?}", res_test);
+            println!("Vali: {:?}", res_val);
+        }
+    }
 
     println!("Hello World!")
-
 }
 
 pub fn fill_test_array_rnd(array: &mut Vec<i32>, num_elements: i32)
