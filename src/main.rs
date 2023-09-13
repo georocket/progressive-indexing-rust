@@ -227,14 +227,14 @@ pub struct SomeTestStruct
 
 pub fn some_rec_function(s: &mut SomeTestStruct)
 {
-    let a = &mut s.value;
-    if s.value[0] == 0
-    {
-        return
-    } else {
-        a[0] -= 1;
-        return some_rec_function(s);
-    }
+    //let a = &mut s.value;
+    //if s.value[0] == 0
+    //{
+    //    return
+    //} else {
+    //    a[0] -= 1;
+    //    return some_rec_function(s);
+    //}
 }
 
 
