@@ -3,7 +3,7 @@
 
 use std::time::{Instant, Duration};
 
-use crate::{qsindex::{qs_index::IncrQsIndex, qs_node::QsNode}, fileaccess::{query_engine::QueryEngine, boyer_moore::BoyerMooreAttributeByKeyIterator}};
+use crate::{qsindex::{qs_index::IncrQsIndex, qs_node::QsNode}, fileaccess::{query_engine::QueryEngine, boyer_moore::BoyerMooreAttributeByKeyIterator}, utility::range_query_sorted_subsequent_value};
 
 
 
@@ -17,20 +17,51 @@ pub fn fibonacci(n: i64) -> i64
     }
 }
 
-pub fn range_query_incremental_quicksort_recursive_time(key: String, qs_index: IncrQsIndex, node: QsNode<String>, low: &str, high: &str, result: &mut Vec<(String, usize)>)
+pub fn range_query_incremental_quicksort_recursive_time(key: String, qs_index: &mut IncrQsIndex, node: usize, low: &str, high: &str, result: &mut Vec<(String, usize)>)
 {
-    if node.sorted
-    {
-        if String::from(low) <= node.min && String::from(high) >= node.max
-        {
-            for i in node.start..node.end
+    //let node = qs_index.nodes.get(node).unwrap();
+
+    match qs_index.nodes.get(node) {
+        Some(node) => {
+            if node.sorted
             {
-                result.push((qs_index.data.as_ref().unwrap()[i as usize].clone(), qs_index.index.as_ref().unwrap()[i as usize]));
+                if String::from(low) <= node.min && String::from(high) >= node.max
+                {
+                    for i in node.start..node.end
+                    {
+                        result.push((qs_index.data.as_ref().unwrap()[i as usize].clone(), qs_index.index.as_ref().unwrap()[i as usize]));
+                    }
+                } else 
+                {
+                    range_query_sorted_subsequent_value(&qs_index.data.as_ref().unwrap(), &qs_index.index.as_ref().unwrap(), String::from(low), String::from(high), result, node.start as usize, node.end as usize);  
+                }
+                return;
             }
-        } else 
-        {
-                
-        }
+        },
+        None => {},
+    }
+
+    match qs_index.nodes.get(node).unwrap().left {
+        Some(left) => {
+            //let node = qs_index.nodes.get(node).unwrap();
+            let pivot = qs_index.nodes.get(node).unwrap().pivot.clone();
+            let right = qs_index.nodes.get(node).unwrap().right.unwrap();
+            if low < pivot.as_str()
+            {
+                range_query_incremental_quicksort_recursive_time(key.clone(), qs_index, left as usize, low, high, result);
+            }
+
+            if high >= pivot.as_str()
+            {
+                range_query_incremental_quicksort_recursive_time(key.clone(), qs_index, right as usize, low, high, result);
+            }
+        },
+        None => {
+            let node = qs_index.nodes.get_mut(node).unwrap();
+            if node.min == node.max {
+                node.sorted = true;
+            }
+        },
     }
 }
 

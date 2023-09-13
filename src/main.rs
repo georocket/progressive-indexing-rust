@@ -220,8 +220,33 @@ impl Index
 }
 
 
+pub struct SomeTestStruct
+{
+    value: Vec<i32>
+}
+
+pub fn some_rec_function(s: &mut SomeTestStruct)
+{
+    let a = &mut s.value;
+    if s.value[0] == 0
+    {
+        return
+    } else {
+        a[0] -= 1;
+        return some_rec_function(s);
+    }
+}
+
+
 fn main() {
-    let mut idx = Index::new();
+
+
+
+
+
+
+
+    // let mut idx = Index::new();
 
     // {
     //     let p = idx.nodes.len() as i32;
@@ -257,9 +282,16 @@ fn main() {
 
     //let v = vec![7, 40, 40, 40, 68, 68, 69, 69, 77];
     //single_test(&v);
-    mass_test();
+    //mass_test();
 
 }
+
+
+
+
+
+
+
 
 pub fn single_test(vec: &Vec<i32>)
 {

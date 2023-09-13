@@ -1,4 +1,4 @@
-use std::{cmp::{min,max}, fmt::Display};
+use std::fmt::Display;
 
 // Finding lower bound
 pub fn binary_search_gte<T: Ord + Display>(data: &[T], value: &T, start: usize, end: usize) -> usize {
@@ -50,7 +50,6 @@ pub fn binary_search_lte<T:Ord + Display>(data: &[T], value: &T, start: usize, e
         },
         // Case: Value not found
         Err(index) => {
-            //index = max(index, end);
             index
         },
     };
@@ -60,9 +59,6 @@ pub fn range_query_sorted_subsequent_value<T: Ord + Clone + Display>(index: &[T]
 {
     let lower_bound = binary_search_gte(index, &low, start, end);
     let upper_bound = binary_search_lte(index, &high, start, end);
-
-    //println!("Lower bound: {}", lower_bound);
-    //println!("Upper bound: {}", upper_bound);
 
     for i in lower_bound..upper_bound {
         results.push((index[i].clone(), pointers[i]));
