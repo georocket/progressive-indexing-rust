@@ -21,7 +21,7 @@ pub fn range_query_incremental_quicksort_recursive_time(key: String, qs_index: &
 {
     //let node = qs_index.nodes.get(node).unwrap();
 
-    match qs_index.nodes.get(node_idx) {
+    match qs_index.nodes.get_mut(node_idx) {
         Some(node) => {
             if node.sorted
             {
@@ -33,35 +33,135 @@ pub fn range_query_incremental_quicksort_recursive_time(key: String, qs_index: &
                     }
                 } else 
                 {
-                    range_query_sorted_subsequent_value(&qs_index.data.as_ref().unwrap(), &qs_index.index.as_ref().unwrap(), String::from(low), String::from(high), result, node.start as usize, node.end as usize);  
+                    range_query_sorted_subsequent_value(
+                        &qs_index.data.as_ref().unwrap(), 
+                        &qs_index.index.as_ref().unwrap(), 
+                        String::from(low), 
+                        String::from(high), 
+                        result, 
+                        node.start as usize, 
+                        node.end as usize
+                    );  
                 }
                 return;
             }
-
-            match node.left {
-                Some(left) => {
-                    let pivot = node.pivot.clone();
-                    let right = node.right.unwrap();
-
-                    if low < pivot.as_str()
-                    {
-                        range_query_incremental_quicksort_recursive_time(key.clone(), qs_index, left as usize, low, high, result);
-                    }
-        
-                    if high >= pivot.as_str()
-                    {
-                        range_query_incremental_quicksort_recursive_time(key.clone(), qs_index, right as usize, low, high, result);
-                    }
-                },
-                None => {
-                    let node = qs_index.nodes.get_mut(node_idx).unwrap();
-                    if node.min == node.max {
-                        node.sorted = true;
-                    }
-                },
-            }
         },
         None => {},
+    }
+
+    match qs_index.nodes.get(node_idx).unwrap().left {
+        // Case: Descend tree structure!
+        Some(left) => {
+            let pivot = qs_index.nodes.get(node_idx).unwrap().pivot.clone();
+            let right = qs_index.nodes.get(node_idx).unwrap().right.unwrap();
+
+            if low < pivot.as_str()
+            {
+                range_query_incremental_quicksort_recursive_time(key.clone(), qs_index, left as usize, low, high, result);
+            }
+
+            if high >= pivot.as_str()
+            {
+                range_query_incremental_quicksort_recursive_time(key.clone(), qs_index, right as usize, low, high, result);
+            }
+        },
+        // Case: Further refinement
+        None => {
+            //let node = qs_index.nodes.get_mut(node_idx).unwrap();
+            if qs_index.nodes.get(node_idx).unwrap().min == qs_index.nodes.get(node_idx).unwrap().max {
+                let node = qs_index.nodes.get_mut(node_idx).unwrap();
+                node.sorted = true;
+                let parent = node.parent;
+
+                let node_start = node.start;
+                let node_end = node.end;
+                {
+                    qs_index.sorted_check(match parent {
+                        Some(p) => {
+                            p as usize
+                        },
+                        None => {
+                            0
+                        },
+                    });
+                }
+                range_query_sorted_subsequent_value(
+                    &qs_index.data.as_ref().unwrap(), 
+                    &qs_index.index.as_ref().unwrap(), 
+                    String::from(low), 
+                    String::from(high), 
+                    result, 
+                    node_start as usize,
+                    node_end as usize
+                );
+            } else {
+                // Irrelevant case
+            }
+
+            if low < qs_index.nodes.get(node_idx).unwrap().pivot.as_str()
+            {
+                for i in qs_index.nodes.get(node_idx).unwrap().start..qs_index.nodes.get(node_idx).unwrap().end
+                {
+                    if (low..high).contains(&qs_index.data.as_ref().unwrap()[i as usize].as_str())
+                    {
+                        result.push((qs_index.data.as_ref().unwrap()[i as usize].clone(), qs_index.index.as_ref().unwrap()[i as usize]));
+                    }
+                }
+            }
+
+            if high >= qs_index.nodes.get(node_idx).unwrap().pivot.as_str()
+            {
+                for i in qs_index.nodes.get(node_idx).unwrap().start..qs_index.nodes.get(node_idx).unwrap().end
+                {
+                    if (low..high).contains(&qs_index.data.as_ref().unwrap()[i as usize].as_str())
+                    {
+                        result.push((qs_index.data.as_ref().unwrap()[i as usize].clone(), qs_index.index.as_ref().unwrap()[i as usize]));
+                    }
+                }
+            }
+
+
+            let node = qs_index.nodes.get_mut(node_idx).unwrap();
+            let old_start = node.curr_start;
+            let old_end = node.curr_end;
+
+            let index_data = qs_index.data.as_mut().unwrap();
+            let pointers = qs_index.index.as_mut().unwrap();
+
+            node.do_budget_sorting(index_data, pointers, 10);
+
+            for i in old_start..old_end
+            {
+                if (low..high).contains(&qs_index.data.as_ref().unwrap()[i as usize].as_str())
+                {
+                    result.push((qs_index.data.as_ref().unwrap()[i as usize].clone(), qs_index.index.as_ref().unwrap()[i as usize]));
+                }
+            }
+
+            if node.curr_end >= node.curr_end
+            {
+                if node.start == node.end -1
+                {
+                    node.sorted = true;
+                    let parent = node.parent;
+                    qs_index.sorted_check(match parent {
+                        Some(p) => {
+                            p as usize
+                        },
+                        None => {
+                            0
+                        },
+                    });
+                    return;
+                }
+
+                println!("Check for bad balance!");
+
+                let (left, right) = node.split(&qs_index.data.as_mut().unwrap(), node_idx as i64, node.position);
+                qs_index.nodes.push(left);
+                qs_index.nodes.push(right);
+            }
+        },
     }
 }
 
