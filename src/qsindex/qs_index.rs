@@ -19,7 +19,7 @@ impl IncrQsIndex
     {
         Self { 
             nodes: vec![], 
-            root: Box::new(Some(QsNode::new(-1, None))), 
+            root: Box::new(Some(QsNode::new(0, None))), 
             index: None, 
             data: None, 
             curr_pos: 0, 
@@ -53,8 +53,7 @@ impl IncrQsIndex
 
     pub fn get_nodes_length(&self) -> usize
     {
-        //let le = self.nodes.len();
-        return 10;
+        return self.nodes.len();
     }
 
     pub fn get_current_node(&mut self) -> &mut QsNode<String>
@@ -95,6 +94,11 @@ impl IncrQsIndex
 
             match node.parent {
                 Some(parent) => {
+                    if parent == 0
+                    {
+                        println!("{:?}", self.nodes);
+                        println!("Not good!");
+                    }
                     self.sorted_check(parent as usize);
                 },
                 None => {},

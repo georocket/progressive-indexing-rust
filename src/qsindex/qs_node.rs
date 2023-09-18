@@ -1,3 +1,5 @@
+use crate::qsindex::qs_index::IncrQsIndex;
+
 #[derive(Debug)]
 pub struct QsNode<T: Ord>
 {
@@ -13,7 +15,8 @@ pub struct QsNode<T: Ord>
     pub right: Option<i64>,
     pub min: T,
     pub max: T,
-    already_rebalanced: bool
+    already_rebalanced: bool,
+    pub single_value_node: bool,
 }
 
 impl QsNode<String>
@@ -33,7 +36,8 @@ impl QsNode<String>
             right: None, 
             min: String::from("MIN"), 
             max: String::from("MAX"), 
-            already_rebalanced: false 
+            already_rebalanced: false,
+            single_value_node: false
         }
     }
 
@@ -108,5 +112,37 @@ impl QsNode<String>
                 }    
             }
         }
+    }
+
+    pub fn check_for_bad_balance(&mut self, index: &Vec<String>) -> bool
+    {
+        // Node has not a bad balance
+        if !(self.curr_start == self.start || self.curr_end == self.end -1)
+        {
+            return false;
+        }
+
+        let current_pivot = self.pivot.clone();
+        println!("Node has bad balance!");
+        let mut single_value_node = true;
+
+        for i in self.start..self.end
+        {
+            if index[i as usize] != current_pivot
+            {
+                single_value_node = false;
+                self.pivot = index[i as usize].clone();
+                self.reset_curr_pointers();
+                break;
+            }
+        }
+
+        if single_value_node
+        {
+            self.sorted = true;
+            self.single_value_node = true;
+            return false;
+        }
+        return true;
     }
 }

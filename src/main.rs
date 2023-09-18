@@ -3,10 +3,14 @@
 //#![allow(unused_imports)]
 
 use std::fmt::Display;
+use std::ptr::null;
 
+use fileaccess::query_engine::QueryEngine;
+use progressive_quicksort_time::range_query_incremetal_quicksort_time;
 use rand::Rng;
 
 use crate::utility::{binary_search_gte, binary_search_lte, test_function, linear_check};
+use crate::qsindex::qs_index::IncrQsIndex;
 
 mod fileaccess;
 mod qsindex;
@@ -225,27 +229,9 @@ pub struct SomeTestStruct
     value: Vec<i32>
 }
 
-pub fn some_rec_function(s: &mut SomeTestStruct)
-{
-    //let a = &mut s.value;
-    //if s.value[0] == 0
-    //{
-    //    return
-    //} else {
-    //    a[0] -= 1;
-    //    return some_rec_function(s);
-    //}
-}
-
 
 fn main() {
-
-
-
-
-
-
-
+    const TESTFILE_2: &str = "/home/derpadi/Documents/Work/Fraunhofer_IGD/Rust2/ProgressiveIndexingRust/src/rawfile.txt";
     // let mut idx = Index::new();
 
     // {
@@ -284,6 +270,17 @@ fn main() {
     //single_test(&v);
     //mass_test();
 
+    // qs_index: &mut IncrQsIndex, mut query: QueryEngine, time_budget: u32
+
+    let mut idx = IncrQsIndex::new();
+    let mut qry = QueryEngine::new(TESTFILE_2.to_string());
+
+    println!("Rows: {}", qry.num_rows);
+    idx.init_index(qry.num_rows);
+
+    range_query_incremetal_quicksort_time("ownername", "A", "D", &mut idx, &mut qry, 300 * MS_TO_NS);
+    println!("Data: {:?}", idx.data);
+    println!("Index: {:?}", idx.index);
 }
 
 

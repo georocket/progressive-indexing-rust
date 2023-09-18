@@ -3,7 +3,7 @@
 
 use std::time::{Instant, Duration};
 
-use crate::{qsindex::{qs_index::IncrQsIndex, qs_node::QsNode}, fileaccess::{query_engine::QueryEngine, boyer_moore::BoyerMooreAttributeByKeyIterator}, utility::range_query_sorted_subsequent_value};
+use crate::{qsindex::qs_index::IncrQsIndex, fileaccess::{query_engine::QueryEngine, boyer_moore::BoyerMooreAttributeByKeyIterator}, utility::range_query_sorted_subsequent_value};
 
 
 
@@ -165,12 +165,12 @@ pub fn range_query_incremental_quicksort_recursive_time(key: String, qs_index: &
     }
 }
 
-pub fn range_query_incremetal_quicksort_time(key: &str, low: &str, high: &str, qs_index: &mut IncrQsIndex, mut query: QueryEngine, time_budget: u32) -> Vec<(String, i64)>
+pub fn range_query_incremetal_quicksort_time(key: &str, low: &str, high: &str, qs_index: &mut IncrQsIndex, query: &mut QueryEngine, time_budget: u32) -> Vec<(String, i64)>
 {
     let mut result:Vec<(String,i64)> = Vec::new();
 
     let timer = Instant::now();
-    let max_time = Duration::new(0, time_budget);
+    let max_time = Duration::new(1000, time_budget);
 
     if qs_index.root.as_ref().as_ref().unwrap().sorted
     {
@@ -232,13 +232,19 @@ pub fn range_query_incremetal_quicksort_time(key: &str, low: &str, high: &str, q
         }
 
         // Time limited loop ()
-        let has_next = true;
+        let mut has_next = true;
         let mut ctr = 0;
+        println!("Elapsed: {:?} vs. max_time: {:?}", timer.elapsed(), max_time);
         while timer.elapsed() < max_time
         {
             let next_val = match rows.next() {
-                Some(val) => {val},
-                None => {break},
+                Some(val) => {
+                    val
+                },
+                None => {
+                    has_next = false;
+                    break
+                },
             };
 
             if (low..high).contains(&next_val.0.as_str())
@@ -305,10 +311,12 @@ pub fn range_query_incremetal_quicksort_time(key: &str, low: &str, high: &str, q
     {
         println!("There was time left for refinement!");
         let nodes_len = qs_index.nodes.len();
+        println!("Nodes length: {}", nodes_len);
         let node = qs_index.nodes.get_mut(qs_index.curr_pivot).unwrap(); // Get current node
 
-        if node.sorted || node.left == None
+        if node.sorted || node.left != None
         {
+            println!("Sorted node!");
             qs_index.curr_pivot += 1;
             continue;
         }
@@ -329,6 +337,7 @@ pub fn range_query_incremetal_quicksort_time(key: &str, low: &str, high: &str, q
 
             if node.curr_start >= node.curr_end
             {
+                // Probably >= (but node.start == node.end is illegal case)
                 if node.start == node.end -1
                 {
                     node.sorted = true;
@@ -345,9 +354,18 @@ pub fn range_query_incremetal_quicksort_time(key: &str, low: &str, high: &str, q
                     continue;
                 }
 
-                println!("Check for bad balance!");
+                let bad_balance = node.check_for_bad_balance(index_data);
+
+                if bad_balance || node.single_value_node
+                {
+                    continue;
+                }
+
                 let pos = node.position;
-                let (left, right) = node.split(&qs_index.data.as_mut().unwrap(), nodes_len as i64, pos);
+                let (left, right) = node.split(&qs_index.data.as_mut().unwrap(), (nodes_len-1) as i64, pos);
+                println!("Node: [{},{}]", node.start, node.end);
+                println!("Left: [{},{}]", left.start, left.end);
+                println!("Right: [{},{}]", right.start, right.end);
                 qs_index.nodes.push(left);
                 qs_index.nodes.push(right);
                 qs_index.curr_pivot += 1;
