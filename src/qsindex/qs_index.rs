@@ -4,8 +4,7 @@ use super::qs_node::QsNode;
 
 pub struct IncrQsIndex
 {
-    pub nodes: Vec<QsNode<String>>,             // Maybe put nodes inside boxes? 
-    pub root: Option<QsNode<String>>,
+    pub nodes: Vec<QsNode<String>>,             // Maybe put nodes inside boxes?
     pub index: Option<Vec<usize>>,
     pub data: Option<Vec<String>>,
     pub curr_pos: usize,
@@ -19,7 +18,6 @@ impl IncrQsIndex
     {
         Self { 
             nodes: vec![QsNode::new(0, None)], 
-            root: Some(QsNode::new(0, None)), 
             index: None, 
             data: None, 
             curr_pos: 0, 
@@ -37,17 +35,12 @@ impl IncrQsIndex
     {
         self.index = Some(vec![0; num_rows]);
         self.data = Some(vec![String::from(""); num_rows]);
-        let x = self.root.as_mut();
-        match x {
-            Some(a) => 
-            {
-                a.start = 0;
-                a.end = num_rows as i64;
-                a.curr_start = 0;
-                a.curr_end = a.end - 1; 
-            },
-            None => {},
-        }
+        let a = &mut self.nodes[0];
+
+        a.start = 0;
+        a.end = num_rows as i64;
+        a.curr_start = 0;
+        a.curr_end = a.end - 1; 
         self.curr_pos = 0;
     }
 

@@ -172,7 +172,7 @@ pub fn range_query_incremetal_quicksort_time(key: &str, low: &str, high: &str, q
     let timer = Instant::now();
     let max_time = Duration::new(1000, time_budget);
 
-    if qs_index.root.as_ref().as_ref().unwrap().sorted
+    if qs_index.nodes[0].sorted
     {
         // Perform range query on index
         qs_index.nodes.clear();
@@ -180,7 +180,7 @@ pub fn range_query_incremetal_quicksort_time(key: &str, low: &str, high: &str, q
         // Filter result (Z-Order curve needs it)
     }
 
-    let initial_run = match qs_index.root.as_ref().as_ref().unwrap().left 
+    let initial_run = match qs_index.nodes[0].left
     {
         Some(_) => { false },
         None => { true },
@@ -191,7 +191,7 @@ pub fn range_query_incremetal_quicksort_time(key: &str, low: &str, high: &str, q
         let index_data = qs_index.data.as_mut().unwrap();
         let pointers = qs_index.index.as_mut().unwrap();
 
-        let node = qs_index.root.as_mut().unwrap(); // Borrow
+        let node = &mut qs_index.nodes[0]; // Borrow
 
         let piv = node.pivot.as_str();
         if low < piv 
