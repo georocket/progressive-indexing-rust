@@ -191,7 +191,7 @@ pub fn range_query_incremetal_quicksort_time(key: &str, low: &str, high: &str, q
         let index_data = qs_index.data.as_mut().unwrap();
         let pointers = qs_index.index.as_mut().unwrap();
 
-        let node = qs_index.root.as_mut().as_mut().unwrap(); // Borrow
+        let node = qs_index.root.as_mut().unwrap(); // Borrow
 
         let piv = node.pivot.as_str();
         if low < piv 
@@ -286,8 +286,8 @@ pub fn range_query_incremetal_quicksort_time(key: &str, low: &str, high: &str, q
                     node.curr_end = node.curr_start;    
                 }
             }
-            // Fist Split
-            let (left, right) = node.split(&index_data, 0, -1);
+
+            let (left, right) = node.split(&index_data, 1, 0);
             qs_index.nodes.push(left);
             qs_index.nodes.push(right);
             qs_index.curr_pivot = 0;
