@@ -145,4 +145,12 @@ impl QsNode<String>
         }
         return true;
     }
+
+    pub fn print_node(&self)
+    {
+        println!("Parent[{:?}]", self.parent);
+        println!("Node[{}]:", self.position);
+        println!("L[{:?}]; R[{:?}]", self.left, self.right);
+        println!("##############################################");
+    }
 }

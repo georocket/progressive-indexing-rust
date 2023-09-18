@@ -94,8 +94,8 @@ impl IncrQsIndex
 
             match node.parent {
                 Some(parent) => {
-                    if parent == 0
-                    {
+                    if parent < 0
+                    { 
                         println!("{:?}", self.nodes);
                         println!("Not good!");
                     }
@@ -111,6 +111,14 @@ impl IncrQsIndex
         match &self.data {
             Some(data) => println!("Index: {:?}", data),
             None => println!("Index empty!"),
+        }
+    }
+
+    pub fn print_nodes(&self)
+    {
+        for n in &self.nodes
+        {
+            n.print_node();   
         }
     }
 

@@ -286,6 +286,7 @@ pub fn range_query_incremetal_quicksort_time(key: &str, low: &str, high: &str, q
                     node.curr_end = node.curr_start;    
                 }
             }
+            // Fist Split
             let (left, right) = node.split(&index_data, 0, -1);
             qs_index.nodes.push(left);
             qs_index.nodes.push(right);
@@ -362,7 +363,7 @@ pub fn range_query_incremetal_quicksort_time(key: &str, low: &str, high: &str, q
                 }
 
                 let pos = node.position;
-                let (left, right) = node.split(&qs_index.data.as_mut().unwrap(), (nodes_len-1) as i64, pos);
+                let (left, right) = node.split(&qs_index.data.as_mut().unwrap(), nodes_len as i64, pos);
                 println!("Node: [{},{}]", node.start, node.end);
                 println!("Left: [{},{}]", left.start, left.end);
                 println!("Right: [{},{}]", right.start, right.end);

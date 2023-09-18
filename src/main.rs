@@ -279,6 +279,7 @@ fn main() {
     idx.init_index(qry.num_rows);
 
     range_query_incremetal_quicksort_time("ownername", "A", "D", &mut idx, &mut qry, 300 * MS_TO_NS);
+    idx.print_nodes();
     println!("Data: {:?}", idx.data);
     println!("Index: {:?}", idx.index);
 }
