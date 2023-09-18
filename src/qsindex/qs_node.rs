@@ -1,5 +1,3 @@
-use crate::qsindex::qs_index::IncrQsIndex;
-
 #[derive(Debug)]
 pub struct QsNode<T: Ord>
 {
@@ -123,7 +121,6 @@ impl QsNode<String>
         }
 
         let current_pivot = self.pivot.clone();
-        println!("Node has bad balance!");
         let mut single_value_node = true;
 
         for i in self.start..self.end

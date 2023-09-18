@@ -1,6 +1,6 @@
 #![allow(dead_code)]
 #![allow(unused_variables)]
-//#![allow(unused_imports)]
+#![allow(unused_imports)]
 
 use std::fmt::Display;
 use std::ptr::null;
@@ -280,8 +280,8 @@ fn main() {
 
     range_query_incremetal_quicksort_time("ownername", "A", "D", &mut idx, &mut qry, 300 * MS_TO_NS);
     idx.print_nodes();
-    println!("Data: {:?}", idx.data);
-    println!("Index: {:?}", idx.index);
+    println!("Data: {:#?}", idx.data);
+    println!("Index: {:#?}", idx.index);
 }
 
 

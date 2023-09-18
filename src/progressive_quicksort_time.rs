@@ -234,7 +234,7 @@ pub fn range_query_incremetal_quicksort_time(key: &str, low: &str, high: &str, q
         // Time limited loop ()
         let mut has_next = true;
         let mut ctr = 0;
-        println!("Elapsed: {:?} vs. max_time: {:?}", timer.elapsed(), max_time);
+        //println!("Elapsed: {:?} vs. max_time: {:?}", timer.elapsed(), max_time);
         while timer.elapsed() < max_time
         {
             let next_val = match rows.next() {
@@ -257,14 +257,16 @@ pub fn range_query_incremetal_quicksort_time(key: &str, low: &str, high: &str, q
             if add_to_index
             {
                 //index_data = next_val;
-                index_data.insert(node.curr_end as usize, next_val.0);
-                pointers.insert(node.curr_end as usize, next_val.1);
+                println!("Inserted {} at {}", next_val.0, node.curr_end);
+                index_data[node.curr_end as usize] = next_val.0;
+                pointers[node.curr_end as usize] = next_val.1;
 
                 node.curr_end -= 1;
             } else
             {
-                index_data.insert(node.curr_start as usize, next_val.0);
-                pointers.insert(node.curr_start as usize, next_val.1);
+                println!("Inserted {} at {}", next_val.0, node.curr_start);
+                index_data[node.curr_start as usize] = next_val.0;
+                pointers[node.curr_start as usize] = next_val.1;
 
                 node.curr_start += 1;
             }
@@ -272,7 +274,7 @@ pub fn range_query_incremetal_quicksort_time(key: &str, low: &str, high: &str, q
             qs_index.curr_pos = std::cmp::max(qs_index.curr_pos + 1, 0 + 1);
             ctr += 1;
         }
-        println!("Elements added to index: {}", ctr);
+        //println!("Elements added to index: {}", ctr);
 
         if qs_index.curr_pos == query.num_rows || !has_next
         {
@@ -310,14 +312,11 @@ pub fn range_query_incremetal_quicksort_time(key: &str, low: &str, high: &str, q
 
     while (timer.elapsed() < max_time) && qs_index.curr_pivot < qs_index.get_nodes_length()
     {
-        println!("There was time left for refinement!");
         let nodes_len = qs_index.nodes.len();
-        println!("Nodes length: {}", nodes_len);
         let node = qs_index.nodes.get_mut(qs_index.curr_pivot).unwrap(); // Get current node
 
         if node.sorted || node.left != None
         {
-            println!("Sorted node!");
             qs_index.curr_pivot += 1;
             continue;
         }
@@ -330,7 +329,6 @@ pub fn range_query_incremetal_quicksort_time(key: &str, low: &str, high: &str, q
         }
         else 
         {
-            println!("Do node budget sort!");
             let index_data = qs_index.data.as_mut().unwrap();
             let pointers = qs_index.index.as_mut().unwrap();
 
@@ -364,9 +362,9 @@ pub fn range_query_incremetal_quicksort_time(key: &str, low: &str, high: &str, q
 
                 let pos = node.position;
                 let (left, right) = node.split(&qs_index.data.as_mut().unwrap(), nodes_len as i64, pos);
-                println!("Node: [{},{}]", node.start, node.end);
-                println!("Left: [{},{}]", left.start, left.end);
-                println!("Right: [{},{}]", right.start, right.end);
+                //println!("Node: [{},{}]", node.start, node.end);
+                //println!("Left: [{},{}]", left.start, left.end);
+                //println!("Right: [{},{}]", right.start, right.end);
                 qs_index.nodes.push(left);
                 qs_index.nodes.push(right);
                 qs_index.curr_pivot += 1;
