@@ -275,11 +275,25 @@ fn main() {
     let mut idx = IncrQsIndex::new();
     let mut qry = QueryEngine::new(TESTFILE_2.to_string());
 
-    println!("Rows: {}", qry.num_rows);
     idx.init_index(qry.num_rows);
 
-    range_query_incremetal_quicksort_time("ownername", "A", "D", &mut idx, &mut qry, 300 * MS_TO_NS);
-    idx.print_nodes();
+    range_query_incremetal_quicksort_time(
+        "ownername", 
+        "A", 
+        "D", 
+        &mut idx, 
+        &mut qry, 
+        20
+    );
+    range_query_incremetal_quicksort_time(
+        "ownername", 
+        "A", 
+        "D", 
+        &mut idx, 
+        &mut qry, 
+        20
+    );
+    //idx.print_nodes();
     println!("Data: {:#?}", idx.data);
     println!("Index: {:#?}", idx.index);
 }

@@ -40,7 +40,7 @@ impl QueryEngine {
             println!("OffsetList created! ({})", num_rows);
         } else {
             num_rows = QueryEngine::read_offset_list(&mut offset_list, &filename);
-            println!("OffsetList read!");
+            println!("Loading Offset-List...");
         }
         let x = filename.clone();
         QueryEngine {

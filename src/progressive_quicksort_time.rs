@@ -165,12 +165,12 @@ pub fn range_query_incremental_quicksort_recursive_time(key: String, qs_index: &
     }
 }
 
-pub fn range_query_incremetal_quicksort_time(key: &str, low: &str, high: &str, qs_index: &mut IncrQsIndex, query: &mut QueryEngine, time_budget: u32) -> Vec<(String, i64)>
+pub fn range_query_incremetal_quicksort_time(key: &str, low: &str, high: &str, qs_index: &mut IncrQsIndex, query: &mut QueryEngine, time_budget: u64) -> Vec<(String, i64)>
 {
     let mut result:Vec<(String,i64)> = Vec::new();
 
     let timer = Instant::now();
-    let max_time = Duration::new(1000, time_budget);
+    let max_time = Duration::from_millis(time_budget);
 
     if qs_index.nodes[0].sorted
     {
@@ -223,7 +223,7 @@ pub fn range_query_incremetal_quicksort_time(key: &str, low: &str, high: &str, q
         let start_idx = qs_index.curr_pos;
 
         let pattern = format!("<gen:stringAttribute name=\"{}\">", key);
-        let mut rows = BoyerMooreAttributeByKeyIterator::new(&pattern, &mut query.file_buffer, &query.offset_list);
+        let mut rows = BoyerMooreAttributeByKeyIterator::new(&pattern, &mut query.file_buffer, &query.offset_list, qs_index.curr_pos);
 
         if qs_index.first_run
         {
@@ -235,6 +235,7 @@ pub fn range_query_incremetal_quicksort_time(key: &str, low: &str, high: &str, q
         let mut has_next = true;
         let mut ctr = 0;
         //println!("Elapsed: {:?} vs. max_time: {:?}", timer.elapsed(), max_time);
+        let timer2 = Instant::now();
         while timer.elapsed() < max_time
         {
             let next_val = match rows.next() {
@@ -243,6 +244,7 @@ pub fn range_query_incremetal_quicksort_time(key: &str, low: &str, high: &str, q
                 },
                 None => {
                     has_next = false;
+                    // TODO: Something wronge here (Generator starting from last pos)
                     break
                 },
             };
@@ -256,15 +258,12 @@ pub fn range_query_incremetal_quicksort_time(key: &str, low: &str, high: &str, q
 
             if add_to_index
             {
-                //index_data = next_val;
-                println!("Inserted {} at {}", next_val.0, node.curr_end);
                 index_data[node.curr_end as usize] = next_val.0;
                 pointers[node.curr_end as usize] = next_val.1;
 
                 node.curr_end -= 1;
             } else
             {
-                println!("Inserted {} at {}", next_val.0, node.curr_start);
                 index_data[node.curr_start as usize] = next_val.0;
                 pointers[node.curr_start as usize] = next_val.1;
 
@@ -274,6 +273,8 @@ pub fn range_query_incremetal_quicksort_time(key: &str, low: &str, high: &str, q
             qs_index.curr_pos = std::cmp::max(qs_index.curr_pos + 1, 0 + 1);
             ctr += 1;
         }
+        println!("Time required: {:?}", timer2.elapsed());
+        println!("Curr Pos: {}", qs_index.curr_pos);
         //println!("Elements added to index: {}", ctr);
 
         if qs_index.curr_pos == query.num_rows || !has_next
@@ -371,8 +372,5 @@ pub fn range_query_incremetal_quicksort_time(key: &str, low: &str, high: &str, q
             }    
         }
     }
-
-    println!("While... unspecific refinement here!");
-    println!("Size {}", result.len());
     return result;
 }

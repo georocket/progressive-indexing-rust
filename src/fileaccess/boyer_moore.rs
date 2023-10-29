@@ -229,11 +229,12 @@ pub struct BoyerMooreAttributeByKeyIterator<'a>
     offset_list: &'a Vec<(u64, u64)>,
     start_offset: usize,
     act_pos: u64,
+    from: usize
 }
 
 impl<'a> BoyerMooreAttributeByKeyIterator<'a>
 {
-    pub fn new(pattern: &'a str, file: &'a mut FileBuffer, offset_list: &'a Vec<(u64, u64)>) -> Self
+    pub fn new(pattern: &'a str, file: &'a mut FileBuffer, offset_list: &'a Vec<(u64, u64)>, from: usize) -> Self
     {
         Self 
         {
@@ -242,6 +243,7 @@ impl<'a> BoyerMooreAttributeByKeyIterator<'a>
             offset_list,
             start_offset: 0,
             act_pos: 0,
+            from
         }
     }
 }
@@ -255,10 +257,9 @@ impl<'a> Iterator for BoyerMooreAttributeByKeyIterator<'a>
         let pattern_size = self.boyer_moore.pattern.len();
         let mut result = vec![];
         //let mut result = vec![];
-        let from = 0;
         let to = self.offset_list.len()-1;
 
-        let range = self.offset_list[from].0..self.offset_list[to].1;
+        let range = self.offset_list[self.from].0..self.offset_list[to].1;
 
         while self.act_pos < file_size && range.contains(&self.act_pos) {
             if pattern_size < (file_size - 1) as usize {
