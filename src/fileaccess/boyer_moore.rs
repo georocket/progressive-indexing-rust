@@ -46,6 +46,10 @@ impl<'a> BoyerMoore<'a>
         result
     }
 
+    ///
+    /// Performs a Boyer-Moore-Search using only the Bad-Character-Heuristic on a given file
+    /// 
+    /// * `file` - The file to search in (as FileBuffer)
     pub fn boyer_moore_bad_char_only(&self, file: &mut FileBuffer) -> Result<LinkedList<isize>, std::io::Error>
     {
         let file_size = file.get_size();
@@ -85,6 +89,8 @@ impl<'a> BoyerMoore<'a>
         Ok(result)
     }
 
+    /// 
+    /// Expects a CityGML-File as input and returns a list of all offsets where the values of matching keys are located
     pub fn scan_attribute_by_key
     (
         &self, 
@@ -179,6 +185,8 @@ impl<'a> BoyerMooreBasicIterator<'a>
     }
 }
 
+///
+/// Iterator implementation for Boyer-Moore-Algorithm (Struct mimicking the Generator-Implementation in Kotlin)
 impl Iterator for BoyerMooreBasicIterator<'_>
 {
     type Item = u64;
@@ -237,8 +245,15 @@ pub struct BoyerMooreAttributeByKeyIterator<'a>
     from: usize
 }
 
+///
+/// Iterator implementation for Boyer-Moore-Algorithm (Struct mimicking the Generator-Implementation in Kotlin)
 impl<'a> BoyerMooreAttributeByKeyIterator<'a>
 {
+    ///
+    /// * `pattern` - The pattern to search for
+    /// * `file` - The file to search in (as FileBuffer)
+    /// * `offset_list` - The offset list with respect to the given file
+    /// * `from` - The index of the first offset (in offset_list) to start searching from
     pub fn new(pattern: &'a str, file: &'a mut FileBuffer, offset_list: &'a Vec<(u64, u64)>, from: usize) -> Self
     {
         Self 
@@ -253,6 +268,9 @@ impl<'a> BoyerMooreAttributeByKeyIterator<'a>
     }
 }
 
+///
+/// Iterator implementation for Boyer-Moore-Algorithm (Struct mimicking the Generator-Implementation in Kotlin)
+/// Version for searching for attributes by key (only keys, no bounding boxes)
 impl<'a> Iterator for BoyerMooreAttributeByKeyIterator<'a>
 {
     type Item = (String, usize);
