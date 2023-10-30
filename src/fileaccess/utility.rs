@@ -1,6 +1,12 @@
 #![allow(dead_code)]
 #![allow(unused_variables)]
 
+///
+/// Function performing binary search on the offset list (adapted to the structure of the offset list).
+/// We provide a found offset and the function outputs the position in the offset list where to find the object boundries.
+/// 
+/// * `offset` - Offset to search for
+/// * `offset_list` - Offset list to search in
 pub fn binary_search_for_offset_range(offset: u64, offset_list: &Vec<(u64, u64)>) -> usize
 {
     let size = offset_list.len();

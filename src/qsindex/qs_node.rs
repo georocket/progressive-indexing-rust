@@ -1,4 +1,7 @@
 #[derive(Debug)]
+
+/// 
+/// Struct representing a node (part of the index) and its state regarding the sortedness
 pub struct QsNode<T: Ord>
 {
     pub position: i64,
@@ -19,6 +22,9 @@ pub struct QsNode<T: Ord>
 
 impl QsNode<String>
 {
+    ///
+    /// * `pos` - Position of the node (index of node in list)
+    /// * `parent` - Index of parent node
     pub fn new(pos: i64, parent: Option<i64>) -> Self
     {
         Self {
@@ -39,12 +45,20 @@ impl QsNode<String>
         }
     }
 
+    ///
+    /// Resetting pointers representing progress of quicksort algorithm within node
     pub fn reset_curr_pointers(&mut self)
     {
         self.curr_start = self.start;
         self.curr_end = self.end - 1;
     }
 
+    ///
+    /// Splitting a node into two nodes (subarrays) following the quicksort algorithm
+    /// 
+    /// * `index` - Data-Vector of index
+    /// * `pos` - Position of the node to be split
+    /// * `parent` - Index of the parent node
     pub fn split(&mut self, index: &Vec<String>, pos: i64, parent: i64) -> (QsNode<String>, QsNode<String>)
     {
         self.left = Some(pos);
@@ -72,6 +86,12 @@ impl QsNode<String>
         (left, right)
     }
 
+    ///
+    /// Method for performing quicksort steps (according to a budget)
+    /// 
+    /// * `index` - Data-Vector of index
+    /// * `pointers` - Pointer-Vector (Referring to objects within the raw file) of index
+    /// * `max_time` - Maximum time budget for sorting
     pub fn do_budget_sorting(&mut self, index: &mut Vec<String>, pointers: &mut Vec<usize>, max_time: i64)
     {
         let time_constraint = true; // Place-holder for time measurement
@@ -112,6 +132,10 @@ impl QsNode<String>
         }
     }
 
+    ///
+    /// Checking if a node is badly balanced (one subarray is empty)
+    /// 
+    /// * `index` - Data-Vector of index
     pub fn check_for_bad_balance(&mut self, index: &Vec<String>) -> bool
     {
         // Node has not a bad balance

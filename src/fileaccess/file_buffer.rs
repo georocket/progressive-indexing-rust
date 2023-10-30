@@ -11,8 +11,16 @@ pub struct FileBuffer {
     chunk_size: usize
 }
 
+///
+/// Filebuffer implementation ported from https://github.com/igd-geo/adhoc-queries-building-models/blob/main/src/main/kotlin/FileBuffer.kt
+/// 
+/// Works for ASCII-Encoded files only
 impl FileBuffer {
 
+    /// Creates a new FileBuffer
+    /// 
+    /// * `path` - Path to the file
+    /// * `chunk_size` - Size of the chunk to load into memory
     pub fn new(path: &str, chunk_size: usize) -> Result<Self, std::io::Error> {
         let file = File::open(Path::new(path))?;
         let buffer = vec![0u8; chunk_size];
@@ -27,7 +35,8 @@ impl FileBuffer {
         })
     }
 
-    // Read bytes in a rush till buffer is full!
+    ///
+    /// Reads bytes from the file into the buffer
     #[allow(dead_code)]
     pub fn read_bytes(&mut self, buf: &mut [u8], start: u64) {
         self.file.read_exact_at(buf, start).expect("Error reading bytes!");
@@ -46,6 +55,9 @@ impl FileBuffer {
         Some(self.buffer[(i - self.pos) as usize])
     }
 
+    ///
+    /// Method for debugging purposes
+    /// (Printing Buffer content)
     #[allow(dead_code)]
     pub fn print_buffer_content(&mut self) {
         let cont = String::from_utf8_lossy(&self.buffer);

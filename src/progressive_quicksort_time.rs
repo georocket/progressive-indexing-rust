@@ -5,18 +5,8 @@ use std::time::{Instant, Duration};
 
 use crate::{qsindex::qs_index::IncrQsIndex, fileaccess::{query_engine::QueryEngine, boyer_moore::BoyerMooreAttributeByKeyIterator}, utility::range_query_sorted_subsequent_value};
 
-
-
-
-pub fn fibonacci(n: i64) -> i64 
-{
-    if n == 0 || n == 1 {
-        n
-    } else {
-        fibonacci(n-1) + fibonacci(n-2)
-    }
-}
-
+///
+/// Recursive helper only performing refinement steps on nodes within the search-range
 pub fn range_query_incremental_quicksort_recursive_time(key: String, qs_index: &mut IncrQsIndex, node_idx: usize, low: &str, high: &str, result: &mut Vec<(String, usize)>)
 {
     //let node = qs_index.nodes.get(node).unwrap();
@@ -165,6 +155,17 @@ pub fn range_query_incremental_quicksort_recursive_time(key: String, qs_index: &
     }
 }
 
+///
+/// Method perfomring the range query on rawfile and managing (creating/refining) the index in parallel
+/// (Only for strings at the moment)
+/// This method performes unspecific refinement (calls recursive helper for query-specific refinement)
+/// 
+/// * `key` - Attribute name
+/// * `low` - Lower bound
+/// * `high` - Upper bound
+/// * `qs_index` - Index structure
+/// * `query` - Instance of query engine for file to be searched
+/// * `time_budget` - Time budget for the query
 pub fn range_query_incremetal_quicksort_time(key: &str, low: &str, high: &str, qs_index: &mut IncrQsIndex, query: &mut QueryEngine, time_budget: u64) -> Vec<(String, i64)>
 {
     let mut result:Vec<(String,i64)> = Vec::new();

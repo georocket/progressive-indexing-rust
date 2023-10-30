@@ -12,11 +12,14 @@ pub struct BoyerMoore<'a>
     pattern: &'a str
 }
 
-
+/// 
+/// Struct implementation for Boyer-Moore-Algorithm
+/// Using only Bad-Character-Heuristic
 impl<'a> BoyerMoore<'a> 
 {
 
-
+    ///
+    /// * `pattern` - The pattern to search for
     pub fn new(pattern: &'a str) -> Result<Self, std::io::Error> 
     {
         Ok(Self { 
@@ -25,6 +28,8 @@ impl<'a> BoyerMoore<'a>
         })
     }
 
+    ///
+    /// * `pattern` - The pattern to search for
     pub fn bad_char_lookup_table(pattern: &str) -> Vec<HashMap<char, isize>> 
     {
         let mut char_map: HashMap<char, isize> = HashMap::new();

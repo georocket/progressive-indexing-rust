@@ -304,7 +304,10 @@ fn main() {
 
 
 
-
+///
+/// Method testing the binary search range query
+/// 
+/// * `index` - Sorted vector for testing
 pub fn single_test(vec: &Vec<i32>)
 {
     println!("TestArray: {:?}", vec);
@@ -318,6 +321,8 @@ pub fn single_test(vec: &Vec<i32>)
     }
 }
 
+///
+/// Testing the binary range search with many random arrays
 pub fn mass_test()
 {
     let mut test_array: Vec<i32> = vec![];
@@ -343,6 +348,11 @@ pub fn mass_test()
     println!("Hello World!")
 }
 
+///
+/// Filling array with random elemnts (explicitly including duplicates)
+/// 
+/// * `array` - Array to be filled
+/// * `num_elements` - Number of elements to be inserted
 pub fn fill_test_array_rnd(array: &mut Vec<i32>, num_elements: i32)
 {
     let mut rng = rand::thread_rng();

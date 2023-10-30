@@ -19,8 +19,13 @@ pub struct QueryEngine {
     pub num_rows: usize
 }
 
+/// 
+/// Struct for managing access to a raw-file. Keeps track of the file-format and the offset-list (used to accelerate fileaccess)
 #[allow(dead_code)]
 impl QueryEngine {
+
+    ///
+    /// * `filename` - Path to the file
     pub fn new(filename: String) -> QueryEngine {
         let file = File::open(&filename).expect("Error opening file!");
         let file_format = FileFormat::CityGML; // At the moment hard coded
@@ -53,6 +58,11 @@ impl QueryEngine {
         }
     }
 
+    ///
+    /// Reads the offset-list (naming convention: <filename>.qry)
+    /// 
+    /// * `offset_list` - Vector to store the offset-list
+    /// * `filename` - Path to the file
     pub fn read_offset_list(offset_list: &mut Vec<(u64, u64)>, filename: &String) -> usize {
         let offset_list_filename = filename.clone() + ".qry";
         let file = File::open(offset_list_filename).expect("Error opening offset-list file!");
@@ -78,6 +88,12 @@ impl QueryEngine {
         counter
     }
 
+    ///
+    /// Wrapper-Method for Boyer-Moore Search for a given key in the file ( Starting tag in CityGML-File: <gen:stringAttribute name="key")
+    /// 
+    /// * `key` - Key to search for
+    /// * `from` - Start-Index
+    /// * `to` - End-Index
     pub fn search_attribute_by_key(&mut self, key: String, from: usize, to: usize) -> Vec<String> {
         let pattern = format!("<gen:stringAttribute name=\"{}\">", key);
         let bm = BoyerMoore::new(pattern.as_str()).unwrap();

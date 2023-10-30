@@ -6,6 +6,10 @@ pub struct SimpleMatcher {
     found: bool
 }
 
+///
+/// Implementation of a simple matcher for ASCII-Encoded files
+/// Using principle of finite state machines
+/// Main purpose is to search a pattern near a found key (start/end-tags of values)
 #[allow(dead_code)]
 impl SimpleMatcher {
     pub fn new(pattern: &str) -> Self {

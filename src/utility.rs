@@ -1,6 +1,12 @@
 use std::fmt::Display;
 
-// Finding lower bound
+///
+/// Binary search for finding lower bound
+/// 
+/// * `data` - Data to search in
+/// * `value` - Value to search for
+/// * `start` - Start index of the search (0 for full search)
+/// * `end` - End index of the search (data.len() for full search)
 pub fn binary_search_gte<T: Ord + Display>(data: &[T], value: &T, start: usize, end: usize) -> usize {
     return match data[start..end].binary_search(value) {
         // Case: Value found
@@ -29,7 +35,13 @@ pub fn binary_search_gte<T: Ord + Display>(data: &[T], value: &T, start: usize, 
     };
 }
 
-// Finding upper bound
+///
+/// Binary search for finding upper bound
+/// 
+/// * `data` - Data to search in
+/// * `value` - Value to search for
+/// * `start` - Start index of the search (0 for full search)
+/// * `end` - End index of the search (data.len() for full search)
 pub fn binary_search_lte<T:Ord + Display>(data: &[T], value: &T, start: usize, end: usize) -> usize
 {
     return match data[start..end].binary_search(value) {
@@ -55,6 +67,16 @@ pub fn binary_search_lte<T:Ord + Display>(data: &[T], value: &T, start: usize, e
     };
 }
 
+///
+/// Method extracting all values within a given range from an sorted array
+/// 
+/// * `index` - Sorted array to search in
+/// * `pointers` - Pointers/reference to the original data (in raw file)
+/// * `low` - Lower bound of the range
+/// * `high` - Upper bound of the range
+/// * `results` - Vector for storing the results
+/// * `start` - Start index of the search (0 for full search)
+/// * `end` - End index of the search (data.len() for full search)
 pub fn range_query_sorted_subsequent_value<T: Ord + Clone + Display>(index: &[T], pointers: &[usize], low: T, high: T, results: &mut Vec<(T,usize)>, start: usize, end: usize)
 {
     let lower_bound = binary_search_gte(index, &low, start, end);
